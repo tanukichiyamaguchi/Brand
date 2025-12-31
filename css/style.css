@@ -89,6 +89,7 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
 }
 
 body {
@@ -103,9 +104,10 @@ body {
     word-break: keep-all;
     overflow-wrap: break-word;
     line-break: strict;
-    /* 横スクロール防止 - bodyのみで制御 */
+    /* 横スクロール防止 */
     overflow-x: hidden;
-    overflow-y: auto;
+    width: 100%;
+    min-width: 320px;
 }
 
 body.no-scroll {
@@ -1697,22 +1699,17 @@ ul, ol {
 
 /* =====================================================
    Animations (AOS-like)
+   横方向のtransformは使用しない（オーバーフローの原因になるため）
    ===================================================== */
 [data-aos] {
     opacity: 0;
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-[data-aos="fade-up"] {
-    transform: translateY(40px);
-}
-
-[data-aos="fade-right"] {
-    transform: translateX(-40px);
-}
-
+[data-aos="fade-up"],
+[data-aos="fade-right"],
 [data-aos="fade-left"] {
-    transform: translateX(40px);
+    transform: translateY(30px);
 }
 
 [data-aos="fade"] {
@@ -1721,7 +1718,7 @@ ul, ol {
 
 [data-aos].aos-animate {
     opacity: 1;
-    transform: translate(0);
+    transform: translateY(0);
 }
 
 /* =====================================================
@@ -1765,20 +1762,8 @@ ul, ol {
         font-size: 15px;
     }
 
-    /* AOSアニメーションの横移動を無効化 */
-    [data-aos="fade-left"],
-    [data-aos="fade-right"] {
-        transform: translateY(40px) !important;
-    }
-
-    [data-aos="fade-left"].aos-animate,
-    [data-aos="fade-right"].aos-animate {
-        transform: translateY(0) !important;
-    }
-
     .container {
         padding: 0 var(--space-md);
-        width: 100%;
     }
 
     .exclusive-banner {
