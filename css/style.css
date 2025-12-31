@@ -1617,13 +1617,14 @@ ul, ol {
     bottom: var(--space-xl);
     right: var(--space-xl);
     z-index: var(--z-fixed);
-    background: linear-gradient(180deg, #00C800 0%, #00A000 100%);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md) var(--space-3xl);
+    background: linear-gradient(180deg, #00D000 0%, #00B000 50%, #009000 100%);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-2xl);
     box-shadow:
-        0 5px 0 #007700,
-        0 8px 20px rgba(0, 185, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        0 6px 0 #006600,
+        0 10px 25px rgba(0, 150, 0, 0.5),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
     animation: pulse 2s ease-in-out infinite;
     max-width: calc(100% - 2rem);
@@ -1632,19 +1633,21 @@ ul, ol {
 }
 
 .fixed-line-btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     box-shadow:
-        0 7px 0 #007700,
-        0 12px 28px rgba(0, 185, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        0 10px 0 #006600,
+        0 16px 35px rgba(0, 150, 0, 0.6),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .fixed-line-btn:active {
-    transform: translateY(2px);
+    transform: translateY(3px);
     box-shadow:
-        0 2px 0 #007700,
-        0 4px 12px rgba(0, 185, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        0 2px 0 #006600,
+        0 4px 10px rgba(0, 150, 0, 0.4),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .fixed-line-btn-inner {
@@ -1684,10 +1687,10 @@ ul, ol {
 
 @keyframes pulse {
     0%, 100% {
-        box-shadow: 0 5px 0 #007700, 0 8px 20px rgba(0, 185, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        box-shadow: 0 6px 0 #006600, 0 10px 25px rgba(0, 150, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.4), inset 0 -2px 0 rgba(0, 0, 0, 0.1);
     }
     50% {
-        box-shadow: 0 5px 0 #007700, 0 10px 28px rgba(0, 185, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        box-shadow: 0 6px 0 #006600, 0 14px 35px rgba(0, 150, 0, 0.7), inset 0 2px 0 rgba(255, 255, 255, 0.4), inset 0 -2px 0 rgba(0, 0, 0, 0.1);
     }
 }
 
@@ -1980,24 +1983,11 @@ ul, ol {
     .fixed-line-btn {
         bottom: var(--space-md);
         right: var(--space-md);
-        left: var(--space-md);
         padding: var(--space-sm) var(--space-lg);
-        border-radius: var(--radius-md);
-    }
-
-    .fixed-line-btn-inner {
-        justify-content: center;
-        width: 100%;
     }
 
     .fixed-line-text {
-        display: block;
         font-size: 0.9rem;
-    }
-
-    .fixed-line-badge {
-        top: -8px;
-        right: var(--space-md);
     }
 }
 
@@ -2087,9 +2077,7 @@ ul, ol {
     .fixed-line-btn {
         bottom: var(--space-sm);
         right: var(--space-sm);
-        left: var(--space-sm);
         padding: var(--space-sm) var(--space-md);
-        border-radius: var(--radius-md);
     }
 
     .fixed-line-icon {
@@ -2098,14 +2086,7 @@ ul, ol {
     }
 
     .fixed-line-text {
-        font-size: 0.85rem;
-    }
-
-    .fixed-line-badge {
-        top: -8px;
-        right: var(--space-sm);
-        font-size: 0.65rem;
-        padding: 3px 8px;
+        font-size: 0.8rem;
     }
 
     /* アクセスセクション */
