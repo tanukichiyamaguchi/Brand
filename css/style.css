@@ -625,10 +625,15 @@ ul, ol {
     line-height: 1.3;
     color: var(--color-white);
     margin-bottom: var(--space-xl);
+    /* 禁則処理 */
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    line-break: strict;
 }
 
 .hero-title-line {
     display: block;
+    white-space: nowrap;
 }
 
 .hero-description {
@@ -1797,7 +1802,25 @@ ul, ol {
     }
 
     .hero-title {
-        font-size: clamp(2rem, 10vw, 3.5rem);
+        font-size: clamp(1.8rem, 8vw, 3rem);
+    }
+
+    .hero-title-line {
+        white-space: normal;
+        word-break: keep-all;
+        line-break: strict;
+    }
+
+    .hero-tagline {
+        font-size: 0.75rem;
+    }
+
+    .hero-description {
+        font-size: 0.9rem;
+    }
+
+    .partner-logo {
+        padding: var(--space-md);
     }
 
     .concept-images {
@@ -1865,14 +1888,35 @@ ul, ol {
         padding: 0 var(--space-md);
     }
 
+    .hero-title {
+        font-size: clamp(1.5rem, 7vw, 2.5rem);
+    }
+
     .hero-cta .btn {
         width: 100%;
         padding: var(--space-md) var(--space-lg);
+        font-size: 0.9rem;
     }
 
     .btn-xl {
         padding: var(--space-md) var(--space-xl);
         font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+
+    .menu-category-title {
+        font-size: 1.1rem;
+    }
+
+    .menu-item-title {
+        font-size: 1rem;
+    }
+
+    .menu-item-price {
+        font-size: 1.1rem;
     }
 
     .menu-cta {
@@ -1885,6 +1929,28 @@ ul, ol {
 
     .final-cta-content {
         padding: 0 var(--space-md);
+    }
+
+    .final-cta-title {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+
+    .fixed-line-btn {
+        bottom: var(--space-md);
+        right: var(--space-md);
+        padding: var(--space-md) var(--space-lg);
+    }
+
+    .fixed-line-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .fixed-line-badge {
+        top: -10px;
+        right: -10px;
+        font-size: 0.7rem;
+        padding: 3px 10px;
     }
 }
 
