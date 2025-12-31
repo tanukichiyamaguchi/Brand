@@ -1047,7 +1047,6 @@ ul, ol {
     padding: var(--space-xl);
     box-shadow: var(--shadow-sm);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
-    overflow: hidden;
     word-break: break-word;
     overflow-wrap: break-word;
 }
@@ -1102,20 +1101,27 @@ ul, ol {
 
 .menu-item-badge {
     position: absolute;
-    top: -8px;
+    top: -12px;
     right: var(--space-lg);
     font-size: 0.625rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     color: var(--color-white);
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    padding: 4px 12px;
+    padding: 6px 14px;
     border-radius: var(--radius-full);
+    box-shadow:
+        0 3px 0 var(--color-primary-darker),
+        0 4px 12px rgba(58, 34, 138, 0.4);
+    z-index: 10;
 }
 
 .menu-item-badge-gold {
     background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
     color: var(--color-white);
+    box-shadow:
+        0 3px 0 #8B7329,
+        0 4px 12px rgba(212, 175, 55, 0.4);
 }
 
 /* Menu CTA */
@@ -1611,23 +1617,34 @@ ul, ol {
     bottom: var(--space-xl);
     right: var(--space-xl);
     z-index: var(--z-fixed);
-    background: #00B900;
-    border-radius: var(--radius-full);
-    padding: var(--space-lg) var(--space-2xl);
+    background: linear-gradient(180deg, #00C800 0%, #00A000 100%);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md) var(--space-3xl);
     box-shadow:
-        0 6px 0 #009900,
-        0 12px 32px rgba(0, 185, 0, 0.5);
+        0 5px 0 #007700,
+        0 8px 20px rgba(0, 185, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
     animation: pulse 2s ease-in-out infinite;
     max-width: calc(100% - 2rem);
     box-sizing: border-box;
+    border: none;
 }
 
 .fixed-line-btn:hover {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     box-shadow:
-        0 8px 0 #009900,
-        0 12px 32px rgba(0, 185, 0, 0.5);
+        0 7px 0 #007700,
+        0 12px 28px rgba(0, 185, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.fixed-line-btn:active {
+    transform: translateY(2px);
+    box-shadow:
+        0 2px 0 #007700,
+        0 4px 12px rgba(0, 185, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .fixed-line-btn-inner {
@@ -1638,32 +1655,40 @@ ul, ol {
 
 .fixed-line-badge {
     position: absolute;
-    top: -12px;
-    right: -12px;
-    font-size: 0.75rem;
+    top: -10px;
+    right: -8px;
+    font-size: 0.7rem;
     font-weight: 700;
     color: var(--color-white);
-    background: var(--color-primary);
-    padding: 4px 12px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    padding: 5px 10px;
     border-radius: var(--radius-full);
     animation: badgePop 0.6s ease;
+    box-shadow:
+        0 2px 0 var(--color-primary-darker),
+        0 3px 8px rgba(58, 34, 138, 0.4);
 }
 
 .fixed-line-icon {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     color: var(--color-white);
 }
 
 .fixed-line-text {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--color-white);
+    letter-spacing: 0.05em;
 }
 
 @keyframes pulse {
-    0%, 100% { box-shadow: 0 4px 0 #009900, 0 8px 24px rgba(0, 185, 0, 0.4); }
-    50% { box-shadow: 0 4px 0 #009900, 0 8px 32px rgba(0, 185, 0, 0.6); }
+    0%, 100% {
+        box-shadow: 0 5px 0 #007700, 0 8px 20px rgba(0, 185, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 5px 0 #007700, 0 10px 28px rgba(0, 185, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
 }
 
 @keyframes badgePop {
@@ -1955,11 +1980,24 @@ ul, ol {
     .fixed-line-btn {
         bottom: var(--space-md);
         right: var(--space-md);
-        padding: var(--space-sm) var(--space-md);
+        left: var(--space-md);
+        padding: var(--space-sm) var(--space-lg);
+        border-radius: var(--radius-md);
+    }
+
+    .fixed-line-btn-inner {
+        justify-content: center;
+        width: 100%;
     }
 
     .fixed-line-text {
-        display: none;
+        display: block;
+        font-size: 0.9rem;
+    }
+
+    .fixed-line-badge {
+        top: -8px;
+        right: var(--space-md);
     }
 }
 
@@ -2047,21 +2085,27 @@ ul, ol {
     }
 
     .fixed-line-btn {
-        bottom: var(--space-md);
-        right: var(--space-md);
-        padding: var(--space-md) var(--space-lg);
+        bottom: var(--space-sm);
+        right: var(--space-sm);
+        left: var(--space-sm);
+        padding: var(--space-sm) var(--space-md);
+        border-radius: var(--radius-md);
     }
 
     .fixed-line-icon {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .fixed-line-text {
+        font-size: 0.85rem;
     }
 
     .fixed-line-badge {
-        top: -10px;
-        right: -10px;
-        font-size: 0.7rem;
-        padding: 3px 10px;
+        top: -8px;
+        right: var(--space-sm);
+        font-size: 0.65rem;
+        padding: 3px 8px;
     }
 
     /* アクセスセクション */
