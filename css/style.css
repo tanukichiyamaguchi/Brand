@@ -911,8 +911,9 @@ ul, ol {
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
     gap: var(--space-xl);
+    width: 100%;
 }
 
 .feature-card {
@@ -923,6 +924,9 @@ ul, ol {
     padding: var(--space-2xl);
     text-align: center;
     transition: transform var(--transition-base), box-shadow var(--transition-base);
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .feature-card:hover {
@@ -1786,12 +1790,23 @@ ul, ol {
         overflow-x: hidden !important;
         width: 100% !important;
         font-size: 15px;
+        -webkit-overflow-scrolling: touch;
     }
 
     body {
         overflow-x: hidden !important;
+        overflow-y: auto !important;
         width: 100% !important;
         position: relative;
+        touch-action: pan-y;
+        overscroll-behavior: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .page-wrapper {
+        overflow-x: hidden !important;
+        overflow-y: visible;
+        touch-action: pan-y;
     }
 
     /* AOSアニメーションの横移動を無効化 */
@@ -1956,6 +1971,22 @@ ul, ol {
     /* Features section */
     .features-grid {
         grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .feature-card {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: var(--space-xl);
+    }
+
+    .feature-card:hover {
+        transform: none;
+    }
+
+    .feature-text {
+        word-break: break-word;
     }
 
     /* Visual break section */
