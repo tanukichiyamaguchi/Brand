@@ -90,11 +90,13 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     overflow-x: hidden;
+    width: 100%;
 }
 
 html, body {
-    max-width: 100vw;
+    max-width: 100%;
     overflow-x: hidden;
+    position: relative;
 }
 
 body {
@@ -104,6 +106,7 @@ body {
     color: var(--color-gray-600);
     background-color: var(--color-white);
     overflow-x: hidden;
+    width: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     /* 禁則処理 */
@@ -116,6 +119,14 @@ body.no-scroll {
     overflow: hidden;
 }
 
+/* Page Wrapper - 横スクロール完全防止 */
+.page-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
+
 img, video, iframe {
     max-width: 100%;
     height: auto;
@@ -123,9 +134,10 @@ img, video, iframe {
 }
 
 /* Prevent horizontal overflow */
-section, .container, .hero, .concept, .features, .menu, .gallery, .access, .final-cta {
-    max-width: 100vw;
+section, .container, .hero, .concept, .features, .menu, .gallery, .access, .final-cta, .testimonials, .visual-break, .footer {
+    max-width: 100%;
     overflow-x: hidden;
+    overflow-y: visible;
 }
 
 a {
@@ -1605,6 +1617,8 @@ ul, ol {
         0 12px 32px rgba(0, 185, 0, 0.5);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
     animation: pulse 2s ease-in-out infinite;
+    max-width: calc(100% - 2rem);
+    box-sizing: border-box;
 }
 
 .fixed-line-btn:hover {
@@ -1765,20 +1779,54 @@ ul, ol {
 }
 
 @media (max-width: 768px) {
-    /* 横スクロール防止 */
-    html, body {
-        overflow-x: hidden;
-        width: 100%;
-        max-width: 100vw;
+    /* ========================================
+       横スクロール完全防止（最重要）
+       ======================================== */
+    html {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        font-size: 15px;
     }
 
-    html {
-        font-size: 15px;
+    body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        position: relative;
+    }
+
+    /* AOSアニメーションの横移動を無効化 */
+    [data-aos="fade-left"],
+    [data-aos="fade-right"] {
+        transform: none !important;
+    }
+
+    [data-aos="fade-left"].aos-animate,
+    [data-aos="fade-right"].aos-animate {
+        transform: none !important;
+    }
+
+    /* 全セクションにオーバーフロー制限 */
+    section,
+    .container,
+    .hero,
+    .concept,
+    .features,
+    .menu,
+    .gallery,
+    .access,
+    .final-cta,
+    .testimonials,
+    .visual-break,
+    .footer,
+    .header {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
     }
 
     .container {
         padding: 0 var(--space-md);
-        max-width: 100%;
+        width: 100%;
     }
 
     .exclusive-banner {
@@ -1787,6 +1835,8 @@ ul, ol {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .exclusive-banner span {
@@ -1796,6 +1846,53 @@ ul, ol {
     .exclusive-banner .icon-diamond {
         width: 10px;
         height: 10px;
+    }
+
+    /* hero section */
+    .hero {
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    .hero-video-wrapper {
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
+
+    .hero-content {
+        width: 100%;
+        padding: 0 var(--space-md);
+        box-sizing: border-box;
+    }
+
+    .hero-text-wrapper {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .hero-title {
+        font-size: clamp(1.8rem, 8vw, 3rem);
+    }
+
+    .hero-title-line {
+        white-space: normal;
+        word-break: keep-all;
+        line-break: strict;
+    }
+
+    .hero-tagline {
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+    }
+
+    .hero-description {
+        font-size: 0.9rem;
+    }
+
+    .partner-logo {
+        padding: var(--space-md);
+        flex-wrap: wrap;
     }
 
     .nav {
@@ -1837,32 +1934,7 @@ ul, ol {
         background: var(--color-white);
     }
 
-    .hero {
-        min-height: 100vh;
-    }
-
-    .hero-title {
-        font-size: clamp(1.8rem, 8vw, 3rem);
-    }
-
-    .hero-title-line {
-        white-space: normal;
-        word-break: keep-all;
-        line-break: strict;
-    }
-
-    .hero-tagline {
-        font-size: 0.75rem;
-    }
-
-    .hero-description {
-        font-size: 0.9rem;
-    }
-
-    .partner-logo {
-        padding: var(--space-md);
-    }
-
+    /* Concept section */
     .concept-images {
         height: 300px;
     }
@@ -1877,10 +1949,16 @@ ul, ol {
         height: 50%;
     }
 
+    .concept-grid {
+        overflow: hidden;
+    }
+
+    /* Features section */
     .features-grid {
         grid-template-columns: 1fr;
     }
 
+    /* Visual break section */
     .visual-break {
         padding: var(--space-3xl) 0;
     }
@@ -1901,20 +1979,24 @@ ul, ol {
         font-size: 1.25rem;
     }
 
+    /* Menu section */
     .menu-item-header {
         flex-direction: column;
         gap: var(--space-sm);
     }
 
+    /* Gallery section */
     .gallery-grid {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(6, 200px);
     }
 
+    /* Testimonials section */
     .testimonials-slider {
         grid-template-columns: 1fr;
     }
 
+    /* Footer */
     .footer-main {
         flex-direction: column;
         gap: var(--space-2xl);
@@ -1925,6 +2007,7 @@ ul, ol {
         gap: var(--space-xl);
     }
 
+    /* Fixed LINE button */
     .fixed-line-btn {
         bottom: var(--space-md);
         right: var(--space-md);
@@ -1938,8 +2021,9 @@ ul, ol {
 
 @media (max-width: 480px) {
     /* 横スクロール完全防止 */
-    * {
-        max-width: 100vw;
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
     }
 
     .container {
