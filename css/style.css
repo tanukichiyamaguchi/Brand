@@ -184,6 +184,8 @@ ul, ol {
 .section-header {
     text-align: center;
     margin-bottom: var(--space-4xl);
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 /* =====================================================
@@ -707,6 +709,10 @@ ul, ol {
     gap: var(--space-sm);
     position: relative;
     z-index: 1;
+    text-align: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    word-break: keep-all;
 }
 
 .btn-icon {
@@ -904,6 +910,9 @@ ul, ol {
     padding: var(--space-2xl);
     text-align: center;
     transition: transform var(--transition-base), box-shadow var(--transition-base);
+    overflow: hidden;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .feature-card:hover {
@@ -1038,6 +1047,9 @@ ul, ol {
     padding: var(--space-xl);
     box-shadow: var(--shadow-sm);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
+    overflow: hidden;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .menu-item:hover {
@@ -1064,6 +1076,8 @@ ul, ol {
     font-size: 1.125rem;
     font-weight: 500;
     color: var(--color-gray-600);
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .menu-item-price {
@@ -1127,6 +1141,8 @@ ul, ol {
 .menu-cta-content {
     position: relative;
     z-index: 1;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .menu-cta-badge {
@@ -1267,7 +1283,7 @@ ul, ol {
 
 .testimonials-slider {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
     gap: var(--space-xl);
 }
 
@@ -1277,6 +1293,9 @@ ul, ol {
     padding: var(--space-2xl);
     box-shadow: var(--shadow-md);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
+    overflow: hidden;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .testimonial-card:hover {
@@ -1452,6 +1471,8 @@ ul, ol {
     max-width: 700px;
     margin: 0 auto;
     padding: 0 var(--space-xl);
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .final-cta-title {
@@ -1966,6 +1987,20 @@ ul, ol {
 
     .hero-tagline {
         font-size: 0.65rem;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* カード・テキストはみ出し防止 */
+    .feature-card,
+    .menu-item,
+    .testimonial-card {
+        padding: var(--space-lg);
+    }
+
+    .menu-category-title {
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 
     .hero-cta .btn {
