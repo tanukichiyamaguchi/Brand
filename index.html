@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KATE stage LASH 蒲田西口店 - 眉毛・まつ毛の専門サロン。ロイヤルパープルの洗練された空間で、一人ひとりに向き合うマンツーマン施術をご提供。">
+    <meta name="keywords" content="眉毛サロン, まつ毛パーマ, パリジェンヌラッシュリフト, ハリウッドブロウリフト, 蒲田, アイブロウ">
+    <title>KATE stage LASH 蒲田西口店 | 眉毛・まつ毛専門サロン</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@100;300;400;500;700&family=Noto+Serif+JP:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👁</text></svg>">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-logo">KATE stage LASH</div>
+            <div class="preloader-bar"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a href="#" class="logo">
+                <span class="logo-main">KATE stage LASH</span>
+                <span class="logo-sub">蒲田西口店</span>
+            </a>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="#concept" class="nav-link">Concept</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#menu" class="nav-link">Menu</a></li>
+                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="#access" class="nav-link">Access</a></li>
+                </ul>
+                <a href="https://lin.ee/lqKClP4" class="nav-cta" target="_blank" rel="noopener">
+                    <span class="cta-badge">初回70%OFF</span>
+                    LINE予約
+                </a>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section with Video Background -->
+    <section class="hero" id="hero">
+        <div class="hero-video-wrapper">
+            <video class="hero-video" autoplay muted loop playsinline poster="images/hero-poster.jpg">
+                <source src="assets/hero-video.mp4" type="video/mp4">
+            </video>
+            <div class="hero-video-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text-wrapper">
+                <p class="hero-tagline" data-aos="fade-up">Brow & Lash Luxury Salon</p>
+                <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">
+                    <span class="hero-title-line">素顔を、</span>
+                    <span class="hero-title-line">もっと美しく。</span>
+                </h1>
+                <p class="hero-description" data-aos="fade-up" data-aos-delay="400">
+                    眉とまつ毛の黄金比で叶える<br>
+                    あなただけの"すっぴん美人"
+                </p>
+                <div class="hero-cta" data-aos="fade-up" data-aos-delay="600">
+                    <a href="https://lin.ee/lqKClP4" class="btn btn-primary btn-3d" target="_blank" rel="noopener">
+                        <span class="btn-inner">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.105.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                            </svg>
+                            初回限定 70%OFF で予約する
+                        </span>
+                        <span class="btn-shine"></span>
+                    </a>
+                    <p class="hero-cta-note">※ LINE友だち追加で特別クーポンをプレゼント</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="hero-scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Concept Section -->
+    <section class="concept" id="concept">
+        <div class="container">
+            <div class="concept-grid">
+                <div class="concept-images" data-aos="fade-right">
+                    <div class="concept-image concept-image-1">
+                        <div class="image-placeholder" data-text="施術イメージ 1">
+                            <!-- <img src="images/concept-1.jpg" alt="施術イメージ"> -->
+                        </div>
+                    </div>
+                    <div class="concept-image concept-image-2">
+                        <div class="image-placeholder" data-text="施術イメージ 2">
+                            <!-- <img src="images/concept-2.jpg" alt="サロン空間"> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="concept-content" data-aos="fade-left">
+                    <span class="section-label">Concept</span>
+                    <h2 class="section-title">
+                        一瞬で変わる、<br>
+                        一生モノの美しさ。
+                    </h2>
+                    <div class="concept-text">
+                        <p>
+                            眉毛とまつ毛は、お顔の印象を決める最も重要なパーツ。
+                            わずか数ミリの違いで、あなたの魅力は劇的に変わります。
+                        </p>
+                        <p>
+                            KATE stage LASHは、眉毛・まつ毛に特化した
+                            プロフェッショナルサロンとして、
+                            お一人おひとりの骨格・筋肉・なりたいイメージを
+                            丁寧にカウンセリング。
+                        </p>
+                        <p>
+                            「自分史上最高の目元」を、ここで見つけてください。
+                        </p>
+                    </div>
+                    <div class="concept-signature">
+                        <span class="signature-line"></span>
+                        <span class="signature-text">Beauty starts with your eyes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-bg"></div>
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Why Choose Us</span>
+                <h2 class="section-title section-title-light">
+                    選ばれる、5つの理由
+                </h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-number">01</div>
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="32" cy="32" r="28"/>
+                            <path d="M32 18v14l10 6"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">マンツーマン施術</h3>
+                    <p class="feature-text">
+                        半個室の落ち着いた空間で、施術者があなただけに向き合います。
+                        周りを気にせず、リラックスしてお過ごしください。
+                    </p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-number">02</div>
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M32 8l6 18h18l-14 11 5 19-15-12-15 12 5-19L8 26h18z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">眉×まつ毛の黄金比</h3>
+                    <p class="feature-text">
+                        眉毛とまつ毛をトータルでデザイン。
+                        バランスの取れた目元で、メイク時間を大幅カット。
+                    </p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-number">03</div>
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M32 56c13.255 0 24-10.745 24-24S45.255 8 32 8 8 18.745 8 32s10.745 24 24 24z"/>
+                            <path d="M22 32c0-5.523 4.477-10 10-10s10 4.477 10 10"/>
+                            <circle cx="26" cy="28" r="2" fill="currentColor"/>
+                            <circle cx="38" cy="28" r="2" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">すっぴんでも自信</h3>
+                    <p class="feature-text">
+                        メイクなしでも整った目元を実現。
+                        急なお出かけも、ジムの後も、いつでも美しいあなたに。
+                    </p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-number">04</div>
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="10" y="10" width="44" height="44" rx="8"/>
+                            <path d="M24 32l6 6 12-12"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">再現性へのこだわり</h3>
+                    <p class="feature-text">
+                        ご自宅でも再現できるメイク方法をレクチャー。
+                        「自分でも描けるようになった！」と好評です。
+                    </p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-number">05</div>
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M32 8c-13.255 0-24 10.745-24 24 0 9.941 6.043 18.476 14.644 22.106"/>
+                            <path d="M32 8c13.255 0 24 10.745 24 24 0 9.941-6.043 18.476-14.644 22.106"/>
+                            <circle cx="32" cy="32" r="8"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">豊富なデザイン</h3>
+                    <p class="feature-text">
+                        メーテルロッド・パンダロッドなど多数取り扱い。
+                        なりたいイメージに合わせて最適なデザインをご提案。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Break Section -->
+    <section class="visual-break">
+        <div class="visual-break-inner">
+            <div class="visual-break-image" data-aos="fade">
+                <div class="image-placeholder image-placeholder-wide" data-text="ビジュアルイメージ（横長）">
+                    <!-- <img src="images/visual-break.jpg" alt="サロンイメージ"> -->
+                </div>
+            </div>
+            <div class="visual-break-text" data-aos="fade-up">
+                <p class="visual-break-quote">
+                    "目元が変わると、<br>人生が変わる。"
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Menu</span>
+                <h2 class="section-title">施術メニュー</h2>
+                <p class="section-subtitle">
+                    あなたの"なりたい"を叶える、厳選メニュー
+                </p>
+            </div>
+
+            <!-- Menu Category: まつ毛パーマ -->
+            <div class="menu-category" data-aos="fade-up">
+                <h3 class="menu-category-title">
+                    <span class="menu-category-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </span>
+                    まつ毛パーマ
+                </h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4 class="menu-item-title">パリジェンヌラッシュリフト</h4>
+                            <div class="menu-item-price">¥8,800<span class="tax">（税込）</span></div>
+                        </div>
+                        <p class="menu-item-description">
+                            自まつ毛を根元から80度に立ち上げ、目元をぱっちりと魅せる人気メニュー。
+                            ビューラー要らずで、まぶたのリフトアップ効果も◎
+                            自まつ毛を最大限に活かしたナチュラルな立ち上りで、横顔まで美しく魅せる次世代まつげパーマです。
+                        </p>
+                        <span class="menu-item-badge">人気No.1</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4 class="menu-item-title">選べるまつ毛パーマ</h4>
+                            <div class="menu-item-price">¥8,800<span class="tax">（税込）</span></div>
+                        </div>
+                        <p class="menu-item-description">
+                            人気のメーテルロッド・パンダロッド多数取り扱いあり。
+                            まぶたの形やまつ毛の長さに合わせてロッドを選定し、
+                            ナチュラル～くるんと華やかカールまで自在にデザインできます。
+                        </p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4 class="menu-item-title">上下まつげパーマ（パリジェンヌラッシュリフト）</h4>
+                            <div class="menu-item-price">¥10,800<span class="tax">（税込）</span></div>
+                        </div>
+                        <p class="menu-item-description">
+                            上まつ毛と下まつ毛を同時にパーマ。360度どこから見ても美しい目元を実現します。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu Category: 眉毛アイブロウ -->
+            <div class="menu-category" data-aos="fade-up">
+                <h3 class="menu-category-title">
+                    <span class="menu-category-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M3 10c3-6 15-6 18 0"/>
+                            <path d="M3 14c3 6 15 6 18 0"/>
+                        </svg>
+                    </span>
+                    眉毛アイブロウ
+                </h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4 class="menu-item-title">眉毛アイブロウデザインWAX＋メイク仕上げ</h4>
+                            <div class="menu-item-price">¥7,800<span class="tax">（税込）</span></div>
+                        </div>
+                        <p class="menu-item-description">
+                            「似合う形がわからない」「左右のバランスが悪い」と眉毛メイクが苦手な方でも速垢抜けを実現。
+                            骨格や筋肉、眉毛の生え方、なりたい雰囲気をカウンセリングで確認し、肌に優しいWAX脱毛で無駄な毛を除去していきます。
+                            仕上げにはアイブロウメイクを施し、ご自宅で再現できる書き方のポイントもお伝えします。
+                            「自分でも描けるようになった！」と好評の人気メニューです。
+                        </p>
+                        <span class="menu-item-badge">おすすめ</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4 class="menu-item-title">ハリウッドブロウリフト眉毛（眉毛WAX込み）</h4>
+                            <div class="menu-item-price">¥10,600<span class="tax">（税込）</span></div>
+                        </div>
+                        <p class="menu-item-description">
+                            毛流れを自由自在に整える眉パーマ「ハリウッドブロウリフト」。
+                            立体感のある眉毛で、トレンド感のある垢抜けた印象に。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu Category: セットメニュー -->
+            <div class="menu-category" data-aos="fade-up">
+                <h3 class="menu-category-title">
+                    <span class="menu-category-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </span>
+                    セットメニュー
+                </h3>
+                <div class="menu-items">
+                    <div class="menu-item menu-item-featured">
+                        <div class="menu-item-header">
+                            <h4 class="menu-item-title">パリジェンヌラッシュリフト＋眉毛WAX</h4>
+                            <div class="menu-item-price">¥13,800<span class="tax">（税込）</span></div>
+                        </div>
+                        <p class="menu-item-description">
+                            骨格に合わせた似合わせ眉毛スタイリングと、根本から引き上げるパリジェンヌラッシュリフトで即垢抜けを実現！
+                        </p>
+                        <span class="menu-item-badge menu-item-badge-gold">人気セット</span>
+                    </div>
+                    <div class="menu-item menu-item-featured">
+                        <div class="menu-item-header">
+                            <h4 class="menu-item-title">パリジェンヌラッシュリフト×ハリウッドブロウリフト×眉毛WAX</h4>
+                            <div class="menu-item-price">¥15,800<span class="tax">（税込）</span></div>
+                        </div>
+                        <p class="menu-item-description">
+                            毛流れを自由自在に整える眉パーマ「ハリウッドブロウリフト」と根本から引き上げるパリジェンヌラッシュリフトで「すっぴんでもかわいい」お顔へ。
+                        </p>
+                        <span class="menu-item-badge menu-item-badge-gold">最強セット</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu Category: メンズメニュー -->
+            <div class="menu-category" data-aos="fade-up">
+                <h3 class="menu-category-title">
+                    <span class="menu-category-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="7" r="4"/>
+                            <path d="M4 21v-2a4 4 0 014-4h8a4 4 0 014 4v2"/>
+                        </svg>
+                    </span>
+                    メンズメニュー
+                </h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4 class="menu-item-title">メンズ：眉毛パーマ（ハリウッドブロウリフト）＋眉毛WAX</h4>
+                            <div class="menu-item-price">¥11,900<span class="tax">（税込）</span></div>
+                        </div>
+                        <p class="menu-item-description">
+                            清潔感のある整った眉毛で、第一印象をアップ。ビジネスシーンでも好印象を与えます。
+                        </p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4 class="menu-item-title">メンズ：眉毛WAX</h4>
+                            <div class="menu-item-price">¥8,900<span class="tax">（税込）</span></div>
+                        </div>
+                        <p class="menu-item-description">
+                            骨格に合わせた眉毛デザインで、知的で洗練された印象に。初めての方にもおすすめ。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LINE CTA -->
+            <div class="menu-cta" data-aos="fade-up">
+                <div class="menu-cta-content">
+                    <div class="menu-cta-badge">
+                        <span class="badge-text">LINE限定</span>
+                        <span class="badge-discount">初回 70%OFF</span>
+                    </div>
+                    <p class="menu-cta-text">
+                        LINEからのご予約で、初回施術が<strong>70%OFF</strong>に！<br>
+                        お気軽にご相談ください。
+                    </p>
+                    <a href="https://lin.ee/lqKClP4" class="btn btn-primary btn-3d btn-lg" target="_blank" rel="noopener">
+                        <span class="btn-inner">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.105.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                            </svg>
+                            LINEで予約する
+                        </span>
+                        <span class="btn-shine"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Gallery</span>
+                <h2 class="section-title">施術事例</h2>
+                <p class="section-subtitle">
+                    お客様のBeforeAfterをご紹介
+                </p>
+            </div>
+            <div class="gallery-grid" data-aos="fade-up">
+                <div class="gallery-item gallery-item-large">
+                    <div class="image-placeholder" data-text="施術事例 1">
+                        <!-- <img src="images/gallery-1.jpg" alt="施術事例"> -->
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-tag">パリジェンヌラッシュリフト</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-placeholder" data-text="施術事例 2">
+                        <!-- <img src="images/gallery-2.jpg" alt="施術事例"> -->
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-tag">眉毛WAX</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-placeholder" data-text="施術事例 3">
+                        <!-- <img src="images/gallery-3.jpg" alt="施術事例"> -->
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-tag">ハリウッドブロウリフト</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-placeholder" data-text="施術事例 4">
+                        <!-- <img src="images/gallery-4.jpg" alt="施術事例"> -->
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-tag">セットメニュー</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="image-placeholder" data-text="施術事例 5">
+                        <!-- <img src="images/gallery-5.jpg" alt="施術事例"> -->
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-tag">メンズ眉毛</span>
+                    </div>
+                </div>
+                <div class="gallery-item gallery-item-video">
+                    <div class="image-placeholder" data-text="施術動画">
+                        <!-- <video src="assets/gallery-video.mp4"></video> -->
+                    </div>
+                    <div class="gallery-play-btn">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Voice</span>
+                <h2 class="section-title">お客様の声</h2>
+            </div>
+            <div class="testimonials-slider" data-aos="fade-up">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        「朝のメイク時間が半分になりました！毎日ビューラーしなくていいのが本当に楽。
+                        パリジェンヌラッシュリフト、もっと早くやればよかったです。」
+                    </p>
+                    <div class="testimonial-author">
+                        <span class="author-initial">M</span>
+                        <div class="author-info">
+                            <span class="author-name">M.K様</span>
+                            <span class="author-menu">パリジェンヌラッシュリフト</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        「眉毛の形で悩んでいたのですが、カウンセリングで似合う形を提案してもらえて感動。
+                        自分で描けるようになるコツまで教えてもらえました！」
+                    </p>
+                    <div class="testimonial-author">
+                        <span class="author-initial">A</span>
+                        <div class="author-info">
+                            <span class="author-name">A.S様</span>
+                            <span class="author-menu">眉毛WAX＋メイク仕上げ</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        「彼女に勧められて初めて眉サロンへ。想像以上に印象が変わって、
+                        職場でも『なんか変わった？』と言われるようになりました。」
+                    </p>
+                    <div class="testimonial-author">
+                        <span class="author-initial">T</span>
+                        <div class="author-info">
+                            <span class="author-name">T.Y様</span>
+                            <span class="author-menu">メンズ眉毛WAX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Access Section -->
+    <section class="access" id="access">
+        <div class="container">
+            <div class="access-grid">
+                <div class="access-info" data-aos="fade-right">
+                    <span class="section-label">Access</span>
+                    <h2 class="section-title">サロン情報</h2>
+                    <div class="access-details">
+                        <div class="access-item">
+                            <h4 class="access-item-title">店舗名</h4>
+                            <p>KATE stage LASH 蒲田西口店</p>
+                        </div>
+                        <div class="access-item">
+                            <h4 class="access-item-title">住所</h4>
+                            <p>東京都大田区蒲田5丁目<br>（詳細はご予約時にお伝えします）</p>
+                        </div>
+                        <div class="access-item">
+                            <h4 class="access-item-title">アクセス</h4>
+                            <p>JR蒲田駅 西口より徒歩3分<br>東急蒲田駅より徒歩5分</p>
+                        </div>
+                        <div class="access-item">
+                            <h4 class="access-item-title">営業時間</h4>
+                            <p>10:00 - 21:00（最終受付 19:30）<br>不定休</p>
+                        </div>
+                        <div class="access-item">
+                            <h4 class="access-item-title">ご予約</h4>
+                            <p>LINEからのみ受付<br>
+                            <a href="https://lin.ee/lqKClP4" class="access-line-link" target="_blank" rel="noopener">
+                                LINE予約はこちら →
+                            </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="access-map" data-aos="fade-left">
+                    <div class="map-placeholder" data-text="Google Map">
+                        <!-- <iframe src="https://www.google.com/maps/embed?..." allowfullscreen></iframe> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="final-cta-bg">
+            <div class="image-placeholder image-placeholder-dark" data-text="背景イメージ">
+                <!-- <img src="images/cta-bg.jpg" alt=""> -->
+            </div>
+        </div>
+        <div class="container">
+            <div class="final-cta-content" data-aos="fade-up">
+                <h2 class="final-cta-title">
+                    今日から、<br>
+                    新しい自分に出会う。
+                </h2>
+                <p class="final-cta-text">
+                    あなたの魅力を最大限に引き出す、<br>
+                    眉毛×まつ毛の黄金比デザインを体験してください。
+                </p>
+                <div class="final-cta-offer">
+                    <div class="offer-badge">
+                        <span class="offer-label">LINE限定特典</span>
+                        <span class="offer-discount">初回 70%OFF</span>
+                    </div>
+                </div>
+                <a href="https://lin.ee/lqKClP4" class="btn btn-white btn-3d btn-xl" target="_blank" rel="noopener">
+                    <span class="btn-inner">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.105.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                        </svg>
+                        LINEで今すぐ予約
+                    </span>
+                    <span class="btn-shine"></span>
+                </a>
+                <p class="final-cta-note">※ 当日予約OK ※ カウンセリング無料</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">
+                        <span class="logo-main">KATE stage LASH</span>
+                        <span class="logo-sub">蒲田西口店</span>
+                    </a>
+                    <p class="footer-tagline">眉毛・まつ毛専門サロン</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-group">
+                        <h4>Menu</h4>
+                        <ul>
+                            <li><a href="#concept">Concept</a></li>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#menu">Menu</a></li>
+                            <li><a href="#gallery">Gallery</a></li>
+                            <li><a href="#access">Access</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-group">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li>
+                                <a href="https://lin.ee/lqKClP4" target="_blank" rel="noopener">
+                                    LINE予約
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2024 KATE stage LASH. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Fixed LINE Button -->
+    <a href="https://lin.ee/lqKClP4" class="fixed-line-btn" target="_blank" rel="noopener" aria-label="LINEで予約">
+        <div class="fixed-line-btn-inner">
+            <span class="fixed-line-badge">70%OFF</span>
+            <svg class="fixed-line-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.105.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+            </svg>
+            <span class="fixed-line-text">LINE予約</span>
+        </div>
+    </a>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
