@@ -89,14 +89,6 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
-    overflow-x: hidden;
-    width: 100%;
-}
-
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-    position: relative;
 }
 
 body {
@@ -105,39 +97,25 @@ body {
     line-height: 1.8;
     color: var(--color-gray-600);
     background-color: var(--color-white);
-    overflow-x: hidden;
-    width: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     /* 禁則処理 */
     word-break: keep-all;
     overflow-wrap: break-word;
     line-break: strict;
+    /* 横スクロール防止 - bodyのみで制御 */
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 body.no-scroll {
     overflow: hidden;
 }
 
-/* Page Wrapper - 横スクロール完全防止 */
-.page-wrapper {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-    position: relative;
-}
-
 img, video, iframe {
     max-width: 100%;
     height: auto;
     display: block;
-}
-
-/* Prevent horizontal overflow */
-section, .container, .hero, .concept, .features, .menu, .gallery, .access, .final-cta, .testimonials, .visual-break, .footer {
-    max-width: 100%;
-    overflow-x: hidden;
-    overflow-y: visible;
 }
 
 a {
@@ -924,9 +902,6 @@ ul, ol {
     padding: var(--space-2xl);
     text-align: center;
     transition: transform var(--transition-base), box-shadow var(--transition-base);
-    box-sizing: border-box;
-    max-width: 100%;
-    overflow: hidden;
 }
 
 .feature-card:hover {
@@ -1784,59 +1759,21 @@ ul, ol {
 
 @media (max-width: 768px) {
     /* ========================================
-       横スクロール完全防止（最重要）
+       モバイル基本設定
        ======================================== */
     html {
-        overflow-x: hidden !important;
-        width: 100% !important;
         font-size: 15px;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    body {
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
-        width: 100% !important;
-        position: relative;
-        touch-action: pan-y;
-        overscroll-behavior: none;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .page-wrapper {
-        overflow-x: hidden !important;
-        overflow-y: visible;
-        touch-action: pan-y;
     }
 
     /* AOSアニメーションの横移動を無効化 */
     [data-aos="fade-left"],
     [data-aos="fade-right"] {
-        transform: none !important;
+        transform: translateY(40px) !important;
     }
 
     [data-aos="fade-left"].aos-animate,
     [data-aos="fade-right"].aos-animate {
-        transform: none !important;
-    }
-
-    /* 全セクションにオーバーフロー制限 */
-    section,
-    .container,
-    .hero,
-    .concept,
-    .features,
-    .menu,
-    .gallery,
-    .access,
-    .final-cta,
-    .testimonials,
-    .visual-break,
-    .footer,
-    .header {
-        max-width: 100% !important;
-        overflow-x: hidden !important;
-        box-sizing: border-box !important;
+        transform: translateY(0) !important;
     }
 
     .container {
@@ -1847,11 +1784,6 @@ ul, ol {
     .exclusive-banner {
         font-size: 0.65rem;
         padding: 6px var(--space-sm);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 100%;
-        box-sizing: border-box;
     }
 
     .exclusive-banner span {
@@ -1866,24 +1798,10 @@ ul, ol {
     /* hero section */
     .hero {
         min-height: 100vh;
-        width: 100%;
-    }
-
-    .hero-video-wrapper {
-        width: 100%;
-        left: 0;
-        right: 0;
     }
 
     .hero-content {
-        width: 100%;
         padding: 0 var(--space-md);
-        box-sizing: border-box;
-    }
-
-    .hero-text-wrapper {
-        width: 100%;
-        box-sizing: border-box;
     }
 
     .hero-title {
@@ -1964,10 +1882,6 @@ ul, ol {
         height: 50%;
     }
 
-    .concept-grid {
-        overflow: hidden;
-    }
-
     /* Features section */
     .features-grid {
         grid-template-columns: 1fr;
@@ -1975,18 +1889,11 @@ ul, ol {
     }
 
     .feature-card {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
         padding: var(--space-xl);
     }
 
     .feature-card:hover {
         transform: none;
-    }
-
-    .feature-text {
-        word-break: break-word;
     }
 
     /* Visual break section */
@@ -2051,15 +1958,8 @@ ul, ol {
 }
 
 @media (max-width: 480px) {
-    /* 横スクロール完全防止 */
-    html, body {
-        overflow-x: hidden !important;
-        width: 100% !important;
-    }
-
     .container {
         padding: 0 var(--space-sm);
-        width: 100%;
     }
 
     .exclusive-banner {
