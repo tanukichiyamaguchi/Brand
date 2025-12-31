@@ -1579,10 +1579,10 @@ ul, ol {
     z-index: var(--z-fixed);
     background: #00B900;
     border-radius: var(--radius-full);
-    padding: var(--space-md) var(--space-lg);
+    padding: var(--space-lg) var(--space-2xl);
     box-shadow:
-        0 4px 0 #009900,
-        0 8px 24px rgba(0, 185, 0, 0.4);
+        0 6px 0 #009900,
+        0 12px 32px rgba(0, 185, 0, 0.5);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
     animation: pulse 2s ease-in-out infinite;
 }
@@ -1597,31 +1597,31 @@ ul, ol {
 .fixed-line-btn-inner {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-md);
 }
 
 .fixed-line-badge {
     position: absolute;
-    top: -8px;
-    right: -8px;
-    font-size: 0.625rem;
+    top: -12px;
+    right: -12px;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--color-white);
     background: var(--color-primary);
-    padding: 2px 8px;
+    padding: 4px 12px;
     border-radius: var(--radius-full);
     animation: badgePop 0.6s ease;
 }
 
 .fixed-line-icon {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     color: var(--color-white);
 }
 
 .fixed-line-text {
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--color-white);
 }
 
