@@ -100,6 +100,10 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* 禁則処理 */
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    line-break: strict;
 }
 
 body.no-scroll {
