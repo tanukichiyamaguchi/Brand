@@ -1610,13 +1610,114 @@ ul, ol {
 }
 
 /* =====================================================
-   Fixed LINE Button
+   Fixed CTA Container
    ===================================================== */
-.fixed-line-btn {
+.fixed-cta-container {
     position: fixed;
     bottom: var(--space-xl);
     right: var(--space-xl);
     z-index: var(--z-fixed);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: flex-end;
+}
+
+/* =====================================================
+   Fixed Review Button (Gold Glowing)
+   ===================================================== */
+.fixed-review-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: linear-gradient(180deg, #FFD700 0%, #FFC200 30%, #E6A800 70%, #CC9600 100%);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-lg);
+    box-shadow:
+        0 4px 0 #996600,
+        0 6px 20px rgba(255, 200, 0, 0.5),
+        inset 0 2px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    animation: goldGlow 2s ease-in-out infinite;
+    overflow: hidden;
+    border: none;
+    text-decoration: none;
+}
+
+.fixed-review-btn:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 7px 0 #996600,
+        0 12px 30px rgba(255, 200, 0, 0.7),
+        inset 0 2px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.fixed-review-btn:active {
+    transform: translateY(2px);
+    box-shadow:
+        0 2px 0 #996600,
+        0 3px 10px rgba(255, 200, 0, 0.4),
+        inset 0 2px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.fixed-review-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 100%
+    );
+    animation: shine 3s ease-in-out infinite;
+}
+
+.fixed-review-icon {
+    width: 20px;
+    height: 20px;
+    color: #5C4200;
+    fill: #FFE066;
+    stroke: #5C4200;
+}
+
+.fixed-review-text {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #5C4200;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+@keyframes goldGlow {
+    0%, 100% {
+        box-shadow: 0 4px 0 #996600, 0 6px 20px rgba(255, 200, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.5), inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        box-shadow: 0 4px 0 #996600, 0 10px 35px rgba(255, 200, 0, 0.8), inset 0 2px 0 rgba(255, 255, 255, 0.5), inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+    }
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    20%, 100% {
+        left: 100%;
+    }
+}
+
+/* =====================================================
+   Fixed LINE Button
+   ===================================================== */
+.fixed-line-btn {
+    position: relative;
     background: linear-gradient(180deg, #00D000 0%, #00B000 50%, #009000 100%);
     border-radius: var(--radius-md);
     padding: var(--space-md) var(--space-2xl);
@@ -1630,6 +1731,7 @@ ul, ol {
     max-width: calc(100% - 2rem);
     box-sizing: border-box;
     border: none;
+    text-decoration: none;
 }
 
 .fixed-line-btn:hover {
@@ -1979,15 +2081,26 @@ ul, ol {
         gap: var(--space-xl);
     }
 
-    /* Fixed LINE button */
-    .fixed-line-btn {
+    /* Fixed CTA buttons */
+    .fixed-cta-container {
         bottom: var(--space-md);
         right: var(--space-md);
+    }
+
+    .fixed-line-btn {
         padding: var(--space-sm) var(--space-lg);
     }
 
     .fixed-line-text {
         font-size: 0.9rem;
+    }
+
+    .fixed-review-btn {
+        padding: var(--space-xs) var(--space-md);
+    }
+
+    .fixed-review-text {
+        font-size: 0.75rem;
     }
 }
 
@@ -2128,7 +2241,7 @@ ul, ol {
    ===================================================== */
 @media print {
     .header,
-    .fixed-line-btn,
+    .fixed-cta-container,
     .hero-video-wrapper,
     .preloader {
         display: none;
