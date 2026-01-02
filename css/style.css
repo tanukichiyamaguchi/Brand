@@ -1890,7 +1890,7 @@ ul, ol {
     .concept-grid {
         grid-template-columns: 1fr;
         gap: var(--space-3xl);
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .concept-images {
@@ -1901,7 +1901,7 @@ ul, ol {
 
     .concept-content {
         padding-left: 0;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .concept-text p {
@@ -1917,7 +1917,7 @@ ul, ol {
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, 220px);
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .gallery-item-large {
@@ -1962,7 +1962,7 @@ ul, ol {
     /* hero section */
     .hero {
         min-height: 100vh;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .hero-content {
@@ -2070,7 +2070,7 @@ ul, ol {
 
     .feature-card {
         padding: var(--space-xl);
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .feature-card:hover {
@@ -2080,12 +2080,12 @@ ul, ol {
     /* Visual break section */
     .visual-break {
         padding: var(--space-3xl) 0;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .visual-break-image {
         border-radius: 0;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .visual-break-image img {
@@ -2113,38 +2113,39 @@ ul, ol {
         gap: var(--space-sm);
     }
 
+    /* バッジが見えるようにoverflow:visibleを維持 */
     .menu-item {
-        overflow: hidden;
+        overflow: visible;
     }
 
     /* Gallery section */
     .gallery {
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .gallery-grid {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(6, 200px);
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     /* Testimonials section */
     .testimonials {
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .testimonials-slider {
         grid-template-columns: 1fr;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .testimonial-card {
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     /* Footer */
     .footer {
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .footer-main {
@@ -2203,7 +2204,7 @@ ul, ol {
 
     .hero-text-wrapper {
         padding: 0 var(--space-sm);
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .hero-title {
@@ -2221,10 +2222,15 @@ ul, ol {
 
     /* カード・テキストはみ出し防止 */
     .feature-card,
-    .menu-item,
     .testimonial-card {
         padding: var(--space-md);
-        overflow: hidden;
+        overflow-x: hidden;
+    }
+
+    /* menu-itemはバッジが見えるようにoverflow:visible */
+    .menu-item {
+        padding: var(--space-md);
+        overflow: visible;
     }
 
     .feature-text,
