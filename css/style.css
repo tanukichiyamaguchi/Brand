@@ -1621,23 +1621,32 @@ ul, ol {
 }
 
 /* =====================================================
-   Fixed CTA Container
+   Fixed CTA Container - 各ボタンを個別に配置
    ===================================================== */
 .fixed-cta-container {
     position: fixed;
-    bottom: var(--space-xl);
+    bottom: 0;
     left: 0;
     right: 0;
     z-index: var(--z-fixed);
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 0 var(--space-xl);
+    padding: var(--space-xl);
     pointer-events: none;
+    /* GPUアクセラレーションでスクロール性能向上 */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .fixed-cta-container > * {
     pointer-events: auto;
+    /* 各ボタンも個別にGPUレイヤー化 */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
 }
 
 /* =====================================================
@@ -2276,6 +2285,19 @@ ul, ol {
 
     .fixed-bingo-text {
         font-size: 0.75rem;
+    }
+
+    /* モバイルではCTAボタンのアニメーションを無効化してスクロール性能向上 */
+    .fixed-review-btn,
+    .fixed-bingo-btn,
+    .fixed-line-btn {
+        animation: none;
+    }
+
+    .fixed-review-shine,
+    .fixed-bingo-shine {
+        animation: none;
+        display: none;
     }
 }
 
