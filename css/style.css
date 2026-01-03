@@ -1621,7 +1621,7 @@ ul, ol {
 }
 
 /* =====================================================
-   Fixed CTA Container - 各ボタンを個別に配置
+   Fixed CTA Container - 横並び配置
    ===================================================== */
 .fixed-cta-container {
     position: fixed;
@@ -1634,19 +1634,10 @@ ul, ol {
     align-items: flex-end;
     padding: var(--space-xl);
     pointer-events: none;
-    /* GPUアクセラレーションでスクロール性能向上 */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
 }
 
 .fixed-cta-container > * {
     pointer-events: auto;
-    /* 各ボタンも個別にGPUレイヤー化 */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    will-change: transform;
 }
 
 /* =====================================================
@@ -1984,23 +1975,15 @@ ul, ol {
     .concept-grid {
         grid-template-columns: 1fr;
         gap: var(--space-3xl);
-        overflow-x: hidden;
     }
 
     .concept-images {
         height: 400px;
         order: -1;
-        overflow: hidden;
     }
 
     .concept-content {
         padding-left: 0;
-        overflow-x: hidden;
-    }
-
-    .concept-text p {
-        word-break: break-word;
-        overflow-wrap: break-word;
     }
 
     .access-grid {
@@ -2011,7 +1994,6 @@ ul, ol {
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, 220px);
-        overflow-x: hidden;
     }
 
     .gallery-item-large {
@@ -2029,12 +2011,6 @@ ul, ol {
 
     .container {
         padding: 0 var(--space-md);
-        overflow-x: hidden;
-    }
-
-    /* 全セクションのoverflow対策 */
-    section {
-        overflow-x: hidden;
     }
 
     .exclusive-banner {
@@ -2056,7 +2032,6 @@ ul, ol {
     /* hero section */
     .hero {
         min-height: 100vh;
-        overflow-x: hidden;
     }
 
     .hero-content {
@@ -2145,17 +2120,6 @@ ul, ol {
         height: 50%;
     }
 
-    /* Concept section overflow対策 */
-    .concept-images {
-        overflow: hidden;
-    }
-
-    .concept-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
     /* Features section */
     .features-grid {
         grid-template-columns: 1fr;
@@ -2164,7 +2128,6 @@ ul, ol {
 
     .feature-card {
         padding: var(--space-xl);
-        overflow-x: hidden;
     }
 
     .feature-card:hover {
@@ -2174,18 +2137,10 @@ ul, ol {
     /* Visual break section */
     .visual-break {
         padding: var(--space-3xl) 0;
-        overflow-x: hidden;
     }
 
     .visual-break-image {
         border-radius: 0;
-        overflow-x: hidden;
-    }
-
-    .visual-break-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
     }
 
     .visual-break-text {
@@ -2198,7 +2153,6 @@ ul, ol {
 
     .visual-break-quote {
         font-size: 1.25rem;
-        word-break: keep-all;
     }
 
     /* Menu section */
@@ -2207,41 +2161,18 @@ ul, ol {
         gap: var(--space-sm);
     }
 
-    /* バッジが見えるようにoverflow:visibleを維持 */
-    .menu-item {
-        overflow: visible;
-    }
-
     /* Gallery section */
-    .gallery {
-        overflow-x: hidden;
-    }
-
     .gallery-grid {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(6, 200px);
-        overflow-x: hidden;
     }
 
     /* Testimonials section */
-    .testimonials {
-        overflow-x: hidden;
-    }
-
     .testimonials-slider {
         grid-template-columns: 1fr;
-        overflow-x: hidden;
-    }
-
-    .testimonial-card {
-        overflow-x: hidden;
     }
 
     /* Footer */
-    .footer {
-        overflow-x: hidden;
-    }
-
     .footer-main {
         flex-direction: column;
         gap: var(--space-2xl);
@@ -2250,11 +2181,6 @@ ul, ol {
     .footer-links {
         flex-direction: column;
         gap: var(--space-xl);
-    }
-
-    .footer-tagline {
-        font-size: 0.65rem;
-        word-break: break-word;
     }
 
     /* Fixed CTA buttons */
@@ -2287,24 +2213,11 @@ ul, ol {
         font-size: 0.75rem;
     }
 
-    /* モバイルではCTAボタンのアニメーションを無効化してスクロール性能向上 */
-    .fixed-review-btn,
-    .fixed-bingo-btn,
-    .fixed-line-btn {
-        animation: none;
-    }
-
-    .fixed-review-shine,
-    .fixed-bingo-shine {
-        animation: none;
-        display: none;
-    }
 }
 
 @media (max-width: 480px) {
     .container {
         padding: 0 var(--space-sm);
-        overflow-x: hidden;
     }
 
     .exclusive-banner {
@@ -2319,7 +2232,6 @@ ul, ol {
 
     .hero-text-wrapper {
         padding: 0 var(--space-sm);
-        overflow-x: hidden;
     }
 
     .hero-title {
@@ -2328,24 +2240,18 @@ ul, ol {
 
     .hero-tagline {
         font-size: 0.55rem;
-        word-break: break-word;
-        overflow-wrap: break-word;
         letter-spacing: 0.05em;
-        white-space: normal;
         line-height: 1.6;
     }
 
-    /* カード・テキストはみ出し防止 */
+    /* カード */
     .feature-card,
     .testimonial-card {
         padding: var(--space-md);
-        overflow-x: hidden;
     }
 
-    /* menu-itemはバッジが見えるようにoverflow:visible */
     .menu-item {
         padding: var(--space-md);
-        overflow: visible;
     }
 
     .feature-text,
