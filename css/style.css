@@ -1626,16 +1626,22 @@ ul, ol {
 .fixed-cta-container {
     position: fixed;
     bottom: var(--space-xl);
-    right: var(--space-xl);
+    left: 0;
+    right: 0;
     z-index: var(--z-fixed);
     display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
+    justify-content: space-between;
     align-items: flex-end;
+    padding: 0 var(--space-xl);
+    pointer-events: none;
+}
+
+.fixed-cta-container > * {
+    pointer-events: auto;
 }
 
 /* =====================================================
-   Fixed Review Button (Gold Glowing)
+   Fixed Review Button (Gold Glowing) - 左下
    ===================================================== */
 .fixed-review-btn {
     position: relative;
@@ -2245,7 +2251,7 @@ ul, ol {
     /* Fixed CTA buttons */
     .fixed-cta-container {
         bottom: var(--space-md);
-        right: var(--space-md);
+        padding: 0 var(--space-md);
     }
 
     .fixed-line-btn {
@@ -2379,54 +2385,53 @@ ul, ol {
     /* 固定CTAボタン */
     .fixed-cta-container {
         bottom: var(--space-sm);
-        right: var(--space-sm);
-        max-width: calc(100vw - 1rem);
+        padding: 0 var(--space-sm);
     }
 
     .fixed-line-btn {
-        padding: var(--space-xs) var(--space-md);
+        padding: var(--space-xs) var(--space-sm);
     }
 
     .fixed-line-icon {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
     }
 
     .fixed-line-text {
-        font-size: 0.75rem;
+        font-size: 0.65rem;
     }
 
     .fixed-line-badge {
-        font-size: 0.6rem;
-        padding: 3px 6px;
-        top: -10px;
-        right: -10px;
+        font-size: 0.55rem;
+        padding: 2px 5px;
+        top: -8px;
+        right: -8px;
     }
 
     .fixed-review-btn {
-        padding: 6px var(--space-sm);
+        padding: 5px var(--space-xs);
     }
 
     .fixed-review-icon {
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
     }
 
     .fixed-review-text {
-        font-size: 0.65rem;
+        font-size: 0.55rem;
     }
 
     .fixed-bingo-btn {
-        padding: 6px var(--space-sm);
+        padding: 5px var(--space-xs);
     }
 
     .fixed-bingo-icon {
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
     }
 
     .fixed-bingo-text {
-        font-size: 0.65rem;
+        font-size: 0.55rem;
     }
 
     /* アクセスセクション */
