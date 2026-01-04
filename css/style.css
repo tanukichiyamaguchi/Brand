@@ -2029,6 +2029,15 @@ ul, ol {
         display: none;
     }
 
+    /* バナーサイズに合わせてヘッダー位置を調整 */
+    .header.has-banner {
+        top: 24px;
+    }
+
+    .hero.has-banner {
+        padding-top: 24px;
+    }
+
     /* hero section */
     .hero {
         min-height: 100vh;
@@ -2228,6 +2237,15 @@ ul, ol {
 
     .exclusive-banner .icon-diamond {
         display: none;
+    }
+
+    /* バナーサイズに合わせてヘッダー位置を調整 */
+    .header.has-banner {
+        top: 18px;
+    }
+
+    .hero.has-banner {
+        padding-top: 18px;
     }
 
     .hero-text-wrapper {
