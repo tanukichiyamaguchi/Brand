@@ -335,7 +335,7 @@ ul, ol {
 }
 
 /* =====================================================
-   Preloader
+   Preloader - Elegant Full-screen Design
    ===================================================== */
 .preloader {
     position: fixed;
@@ -343,12 +343,45 @@ ul, ol {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-primary-light) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: var(--z-preloader);
-    transition: opacity var(--transition-slower), visibility var(--transition-slower);
+    transition: opacity 1s ease, visibility 1s ease;
+    overflow: hidden;
+}
+
+.preloader-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 30%, #3a2266 60%, #2d1b4e 100%);
+    z-index: -2;
+}
+
+.preloader-bg::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(122, 98, 202, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 60%);
+    animation: preloaderBgMove 8s ease-in-out infinite;
+}
+
+.preloader-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 0%, rgba(26, 10, 46, 0.3) 100%);
 }
 
 .preloader.hidden {
@@ -358,62 +391,101 @@ ul, ol {
 
 .preloader-inner {
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
-.preloader-exclusive {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    color: var(--color-gold);
-    margin-bottom: var(--space-md);
-    opacity: 0;
-    animation: fadeInUp 0.6s ease 0.2s forwards;
-    text-transform: uppercase;
+.preloader-main-text {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.4em;
+    margin-bottom: var(--space-xl);
 }
 
-.preloader-logo {
+.preloader-word {
     font-family: var(--font-serif);
-    font-size: 1.5rem;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--color-white);
+    opacity: 0;
+    transform: translateY(40px);
+    animation: preloaderWordIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(var(--delay) * 0.15s + 0.3s);
+}
+
+.preloader-word-accent {
+    font-style: italic;
+    font-weight: 400;
+    background: linear-gradient(135deg, var(--color-gold) 0%, #f5e6a3 50%, var(--color-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: preloaderWordIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+               preloaderGoldShimmer 3s ease-in-out infinite 1.2s;
+    animation-delay: calc(var(--delay) * 0.15s + 0.3s), 1.2s;
+}
+
+.preloader-line {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    margin: 0 auto var(--space-lg);
+    opacity: 0;
+    transform: scaleX(0);
+    animation: preloaderLineIn 0.6s ease forwards 1s;
+}
+
+.preloader-sub {
+    font-family: var(--font-serif);
+    font-size: 0.875rem;
     font-weight: 400;
     letter-spacing: 0.3em;
-    color: var(--color-white);
-    margin-bottom: var(--space-xl);
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
     opacity: 0;
-    animation: fadeInUp 0.8s ease 0.4s forwards;
+    animation: preloaderFadeIn 0.6s ease forwards 1.2s;
 }
 
-.preloader-bar {
-    width: 120px;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-full);
-    overflow: hidden;
-    margin: 0 auto;
-}
-
-.preloader-bar::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: var(--color-white);
-    animation: preloaderProgress 1.5s ease forwards;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+@keyframes preloaderBgMove {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
     }
+    50% {
+        transform: translate(-2%, -2%) rotate(1deg);
+    }
+}
+
+@keyframes preloaderWordIn {
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-@keyframes preloaderProgress {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(0); }
+@keyframes preloaderGoldShimmer {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes preloaderLineIn {
+    to {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+@keyframes preloaderFadeIn {
+    to {
+        opacity: 1;
+    }
 }
 
 /* =====================================================
