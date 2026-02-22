@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kate-stage-lash-kamata.com/sitemap.xml
+Sitemap: https://katestagelash.jp/sitemap.xml
