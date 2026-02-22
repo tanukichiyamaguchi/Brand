@@ -1643,8 +1643,8 @@ ul, ol {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: var(--space-md);
-    width: 200px;
+    gap: var(--space-sm);
+    width: 170px;
 }
 
 @keyframes shine {
@@ -1664,15 +1664,15 @@ ul, ol {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-md);
+    gap: var(--space-sm);
     background: linear-gradient(180deg, #FF69B4 0%, #FF1493 50%, #DB1490 100%);
     border-radius: var(--radius-md);
-    padding: var(--space-md) var(--space-lg);
+    padding: var(--space-sm) var(--space-md);
     box-shadow:
-        0 4px 0 #A00060,
-        0 6px 20px rgba(255, 20, 147, 0.5),
-        inset 0 2px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+        0 3px 0 #A00060,
+        0 4px 12px rgba(255, 20, 147, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
     animation: pinkGlow 2s ease-in-out infinite;
     overflow: hidden;
@@ -1682,21 +1682,21 @@ ul, ol {
 }
 
 .fixed-bingo-btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow:
-        0 7px 0 #A00060,
-        0 12px 30px rgba(255, 20, 147, 0.7),
-        inset 0 2px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+        0 5px 0 #A00060,
+        0 6px 16px rgba(255, 20, 147, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .fixed-bingo-btn:active {
-    transform: translateY(2px);
+    transform: translateY(1px);
     box-shadow:
-        0 2px 0 #A00060,
-        0 3px 10px rgba(255, 20, 147, 0.4),
-        inset 0 2px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+        0 1px 0 #A00060,
+        0 2px 6px rgba(255, 20, 147, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .fixed-bingo-shine {
@@ -1715,25 +1715,25 @@ ul, ol {
 }
 
 .fixed-bingo-icon {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     color: #FFFFFF;
 }
 
 .fixed-bingo-text {
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 700;
     color: #FFFFFF;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.02em;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes pinkGlow {
     0%, 100% {
-        box-shadow: 0 4px 0 #A00060, 0 6px 20px rgba(255, 20, 147, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.4), inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 0 3px 0 #A00060, 0 4px 12px rgba(255, 20, 147, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
     }
     50% {
-        box-shadow: 0 4px 0 #A00060, 0 10px 35px rgba(255, 20, 147, 0.8), inset 0 2px 0 rgba(255, 255, 255, 0.4), inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 0 3px 0 #A00060, 0 6px 18px rgba(255, 20, 147, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
     }
 }
 
@@ -1744,12 +1744,12 @@ ul, ol {
     position: relative;
     background: linear-gradient(180deg, #00D000 0%, #00B000 50%, #009000 100%);
     border-radius: var(--radius-md);
-    padding: var(--space-md) var(--space-lg);
+    padding: var(--space-sm) var(--space-md);
     box-shadow:
-        0 6px 0 #006600,
-        0 10px 25px rgba(0, 150, 0, 0.5),
-        inset 0 2px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+        0 3px 0 #006600,
+        0 4px 12px rgba(0, 150, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
     animation: lineGlow 2s ease-in-out infinite;
     box-sizing: border-box;
@@ -1758,7 +1758,18 @@ ul, ol {
     width: 100%;
 }
 
-.fixed-line-btn::before {
+.fixed-line-btn-shine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.fixed-line-btn-shine::before {
     content: '';
     position: absolute;
     top: 0;
@@ -1772,33 +1783,33 @@ ul, ol {
         transparent 100%
     );
     animation: shine 3s ease-in-out infinite;
-    border-radius: var(--radius-md);
 }
 
 @keyframes lineGlow {
     0%, 100% {
-        box-shadow: 0 6px 0 #006600, 0 10px 25px rgba(0, 150, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.4), inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 0 3px 0 #006600, 0 4px 12px rgba(0, 150, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
     }
     50% {
-        box-shadow: 0 6px 0 #006600, 0 14px 40px rgba(0, 200, 0, 0.8), inset 0 2px 0 rgba(255, 255, 255, 0.4), inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 0 3px 0 #006600, 0 6px 18px rgba(0, 200, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
     }
 }
 
 .fixed-line-bubble {
     position: absolute;
-    top: -38px;
+    top: -32px;
     left: 50%;
     transform: translateX(-50%);
     background: var(--color-white);
     color: #00B000;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     font-weight: 700;
     letter-spacing: 0.05em;
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: var(--radius-full);
     white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
     animation: bubbleBounce 2s ease-in-out infinite;
+    z-index: 2;
 }
 
 .fixed-line-bubble::after {
@@ -1820,43 +1831,44 @@ ul, ol {
 }
 
 .fixed-line-btn:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow:
-        0 10px 0 #006600,
-        0 16px 35px rgba(0, 150, 0, 0.6),
-        inset 0 2px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+        0 5px 0 #006600,
+        0 6px 16px rgba(0, 150, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .fixed-line-btn:active {
-    transform: translateY(3px);
+    transform: translateY(1px);
     box-shadow:
-        0 2px 0 #006600,
-        0 4px 10px rgba(0, 150, 0, 0.4),
-        inset 0 2px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+        0 1px 0 #006600,
+        0 2px 6px rgba(0, 150, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .fixed-line-btn-inner {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-md);
+    gap: var(--space-sm);
     width: 100%;
+    position: relative;
+    z-index: 1;
 }
 
-
 .fixed-line-icon {
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
     color: var(--color-white);
 }
 
 .fixed-line-text {
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 700;
     color: var(--color-white);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.02em;
 }
 
 
@@ -2132,28 +2144,25 @@ ul, ol {
     }
 
     .fixed-cta-right {
-        width: 180px;
+        width: 155px;
     }
 
-    .fixed-line-btn {
-        padding: var(--space-sm) var(--space-md);
-    }
-
-    .fixed-line-text {
-        font-size: 0.875rem;
-    }
-
-    .fixed-bingo-btn {
-        padding: var(--space-sm) var(--space-md);
-    }
-
-    .fixed-bingo-icon {
+    .fixed-line-icon {
         width: 20px;
         height: 20px;
     }
 
+    .fixed-line-text {
+        font-size: 0.75rem;
+    }
+
+    .fixed-bingo-icon {
+        width: 16px;
+        height: 16px;
+    }
+
     .fixed-bingo-text {
-        font-size: 0.875rem;
+        font-size: 0.75rem;
     }
 
 }
@@ -2246,11 +2255,11 @@ ul, ol {
     }
 
     .fixed-cta-right {
-        width: 160px;
+        width: 140px;
     }
 
     .fixed-line-btn {
-        padding: var(--space-xs) var(--space-sm);
+        padding: 5px var(--space-sm);
     }
 
     .fixed-line-icon {
@@ -2259,26 +2268,26 @@ ul, ol {
     }
 
     .fixed-line-text {
-        font-size: 0.75rem;
+        font-size: 0.65rem;
     }
 
     .fixed-line-bubble {
-        font-size: 0.6rem;
-        top: -34px;
-        padding: 3px 10px;
+        font-size: 0.55rem;
+        top: -28px;
+        padding: 2px 8px;
     }
 
     .fixed-bingo-btn {
-        padding: var(--space-xs) var(--space-sm);
+        padding: 5px var(--space-sm);
     }
 
     .fixed-bingo-icon {
-        width: 18px;
-        height: 18px;
+        width: 14px;
+        height: 14px;
     }
 
     .fixed-bingo-text {
-        font-size: 0.75rem;
+        font-size: 0.65rem;
     }
 
     /* アクセスセクション */
