@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kate-stage-lash-kamata.com/sitemap.xml
