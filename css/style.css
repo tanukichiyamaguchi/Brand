@@ -628,6 +628,8 @@ ul, ol {
     padding: var(--space-sm) var(--space-lg);
     border-radius: var(--radius-full);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
+    position: relative;
+    overflow: hidden;
 }
 
 .nav-cta:hover {
@@ -889,7 +891,7 @@ ul, ol {
         0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Button Shine Effect */
+/* Button Shine Effect - Auto Loop */
 .btn-shine {
     position: absolute;
     top: 0;
@@ -899,14 +901,16 @@ ul, ol {
     background: linear-gradient(
         120deg,
         transparent 0%,
-        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0.4) 50%,
         transparent 100%
     );
-    transition: left 0.6s ease;
+    animation: btn-shine-loop 3s ease-in-out infinite;
 }
 
-.btn:hover .btn-shine {
-    left: 100%;
+@keyframes btn-shine-loop {
+    0% { left: -100%; }
+    30% { left: 100%; }
+    100% { left: 100%; }
 }
 
 /* =====================================================
@@ -1745,6 +1749,8 @@ ul, ol {
     display: flex;
     align-items: center;
     gap: var(--space-md);
+    position: relative;
+    overflow: hidden;
 }
 
 .fixed-line-badge {
