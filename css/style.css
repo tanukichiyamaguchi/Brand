@@ -628,6 +628,8 @@ ul, ol {
     padding: var(--space-sm) var(--space-lg);
     border-radius: var(--radius-full);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
+    position: relative;
+    overflow: hidden;
 }
 
 .nav-cta:hover {
@@ -889,7 +891,7 @@ ul, ol {
         0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Button Shine Effect */
+/* Button Shine Effect - Auto Loop */
 .btn-shine {
     position: absolute;
     top: 0;
@@ -899,14 +901,16 @@ ul, ol {
     background: linear-gradient(
         120deg,
         transparent 0%,
-        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0.4) 50%,
         transparent 100%
     );
-    transition: left 0.6s ease;
+    animation: btn-shine-loop 3s ease-in-out infinite;
 }
 
-.btn:hover .btn-shine {
-    left: 100%;
+@keyframes btn-shine-loop {
+    0% { left: -100%; }
+    30% { left: 100%; }
+    100% { left: 100%; }
 }
 
 /* =====================================================
@@ -1745,6 +1749,8 @@ ul, ol {
     display: flex;
     align-items: center;
     gap: var(--space-md);
+    position: relative;
+    overflow: hidden;
 }
 
 .fixed-line-badge {
@@ -2207,6 +2213,102 @@ ul, ol {
     .copyright {
         font-size: 0.7rem;
     }
+}
+
+/* =====================================================
+   CTA Balloon (吹き出し) & Availability Button
+   ===================================================== */
+.cta-balloon-wrapper {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cta-balloon {
+    display: inline-block;
+    background: #ff4757;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.35em 1em;
+    border-radius: 999px;
+    margin-bottom: 0.5rem;
+    position: relative;
+    letter-spacing: 0.05em;
+    animation: balloon-bounce 2s ease-in-out infinite;
+    white-space: nowrap;
+}
+
+.cta-balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid #ff4757;
+}
+
+@keyframes balloon-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+.btn-availability {
+    margin-top: 0.75rem;
+}
+
+.btn-outline-light {
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    background: transparent;
+    padding: var(--space-sm) var(--space-xl);
+    font-size: 0.875rem;
+}
+
+.btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #fff;
+}
+
+.btn-outline {
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary-lighter);
+    background: transparent;
+    padding: var(--space-sm) var(--space-xl);
+    font-size: 0.875rem;
+}
+
+.btn-outline:hover {
+    background: rgba(107, 63, 160, 0.08);
+    border-color: var(--color-primary);
+}
+
+.btn-outline.btn-lg {
+    padding: var(--space-md) var(--space-2xl);
+    font-size: 1rem;
+}
+
+.btn-outline-white {
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    background: transparent;
+    padding: var(--space-sm) var(--space-xl);
+    font-size: 0.875rem;
+}
+
+.btn-outline-white:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #fff;
+}
+
+.btn-outline-white.btn-lg {
+    padding: var(--space-md) var(--space-2xl);
+    font-size: 1rem;
 }
 
 /* =====================================================
