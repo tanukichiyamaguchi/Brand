@@ -1662,10 +1662,10 @@ ul, ol {
     position: relative;
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-md);
     background: linear-gradient(180deg, #FF69B4 0%, #FF1493 50%, #DB1490 100%);
     border-radius: var(--radius-md);
-    padding: var(--space-sm) var(--space-lg);
+    padding: var(--space-md) var(--space-2xl);
     box-shadow:
         0 4px 0 #A00060,
         0 6px 20px rgba(255, 20, 147, 0.5),
@@ -1712,16 +1712,16 @@ ul, ol {
 }
 
 .fixed-bingo-icon {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     color: #FFFFFF;
 }
 
 .fixed-bingo-text {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #FFFFFF;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.05em;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -2114,15 +2114,20 @@ ul, ol {
     }
 
     .fixed-line-text {
-        font-size: 0.9rem;
+        font-size: 0.875rem;
     }
 
     .fixed-bingo-btn {
-        padding: var(--space-xs) var(--space-md);
+        padding: var(--space-sm) var(--space-lg);
+    }
+
+    .fixed-bingo-icon {
+        width: 20px;
+        height: 20px;
     }
 
     .fixed-bingo-text {
-        font-size: 0.75rem;
+        font-size: 0.875rem;
     }
 
 }
@@ -2219,8 +2224,8 @@ ul, ol {
     }
 
     .fixed-line-icon {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
     }
 
     .fixed-line-text {
@@ -2234,16 +2239,16 @@ ul, ol {
     }
 
     .fixed-bingo-btn {
-        padding: 5px var(--space-xs);
+        padding: var(--space-xs) var(--space-md);
     }
 
     .fixed-bingo-icon {
-        width: 14px;
-        height: 14px;
+        width: 18px;
+        height: 18px;
     }
 
     .fixed-bingo-text {
-        font-size: 0.55rem;
+        font-size: 0.75rem;
     }
 
     /* アクセスセクション */
