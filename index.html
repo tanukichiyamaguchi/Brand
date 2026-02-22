@@ -121,6 +121,45 @@
     }
     </script>
 
+    <!-- Google Maps Store Locator -->
+    <style>
+      gmpx-store-locator {
+        width: 100%;
+        height: 400px;
+        --gmpx-color-surface: #fff;
+        --gmpx-color-on-surface: #212121;
+        --gmpx-color-on-surface-variant: #757575;
+        --gmpx-color-primary: #1967d2;
+        --gmpx-color-outline: #e0e0e0;
+        --gmpx-fixed-panel-width-row-layout: 28.5em;
+        --gmpx-fixed-panel-height-column-layout: 65%;
+        --gmpx-font-family-base: "Roboto", sans-serif;
+        --gmpx-font-family-headings: "Roboto", sans-serif;
+        --gmpx-font-size-base: 0.875rem;
+        --gmpx-hours-color-open: #188038;
+        --gmpx-hours-color-closed: #d50000;
+        --gmpx-rating-color: #ffb300;
+        --gmpx-rating-color-empty: #e0e0e0;
+      }
+    </style>
+    <script>
+      const CONFIGURATION = {
+        "locations": [
+          {"title":"ケイトステージラッシュ 蒲田西口店","address1":"日本、〒144-0051 東京都大田区西蒲田７丁目４８−１０ 三晃電機ビル ５０１号","coords":{"lat":35.562612121617256,"lng":139.71414026441803},"placeId":"ChIJvwywhFthGGARrAhY-9gUva8","actions":[{"label":"Book appointment","defaultUrl":"https://beauty.hotpepper.jp/CSP/kr/reserve/?storeId\u003dH000797013\u0026ch\u003d1\u0026vos\u003dcpshbkprocap0140516003"}]}
+        ],
+        "mapOptions": {"center":{"lat":38.0,"lng":-100.0},"fullscreenControl":true,"mapTypeControl":false,"streetViewControl":false,"zoom":4,"zoomControl":true,"maxZoom":17,"mapId":""},
+        "mapsApiKey": "YOUR_API_KEY_HERE",
+        "capabilities": {"input":false,"autocomplete":false,"directions":false,"distanceMatrix":false,"details":false,"actions":true}
+      };
+    </script>
+    <script type="module">
+      document.addEventListener('DOMContentLoaded', async () => {
+        await customElements.whenDefined('gmpx-store-locator');
+        const locator = document.querySelector('gmpx-store-locator');
+        locator.configureFromQuickBuilder(CONFIGURATION);
+      });
+    </script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -716,7 +755,9 @@
                     </div>
                 </div>
                 <div class="access-map" data-aos="fade-left">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3245.5438098895284!2d139.71389731525882!3d35.56256898022206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601860f87f5da4e3%3A0x8a0493a2f4accfb2!2z6JKy55Sw6aeF!5e0!3m2!1sja!2sjp!4v1704067200000!5m2!1sja!2sjp" width="100%" height="400" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <script type="module" src="https://ajax.googleapis.com/ajax/libs/@googlemaps/extended-component-library/0.6.11/index.min.js"></script>
+                    <gmpx-api-loader key="YOUR_API_KEY_HERE" solution-channel="GMP_QB_locatorplus_v11_cF"></gmpx-api-loader>
+                    <gmpx-store-locator map-id="DEMO_MAP_ID" style="border-radius: 12px; overflow: hidden;"></gmpx-store-locator>
                 </div>
             </div>
         </div>
