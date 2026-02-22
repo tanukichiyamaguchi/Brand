@@ -1642,8 +1642,9 @@ ul, ol {
 .fixed-cta-right {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: stretch;
     gap: var(--space-md);
+    width: 200px;
 }
 
 @keyframes shine {
@@ -1662,10 +1663,11 @@ ul, ol {
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--space-md);
     background: linear-gradient(180deg, #FF69B4 0%, #FF1493 50%, #DB1490 100%);
     border-radius: var(--radius-md);
-    padding: var(--space-md) var(--space-2xl);
+    padding: var(--space-md) var(--space-lg);
     box-shadow:
         0 4px 0 #A00060,
         0 6px 20px rgba(255, 20, 147, 0.5),
@@ -1676,6 +1678,7 @@ ul, ol {
     overflow: hidden;
     border: none;
     text-decoration: none;
+    width: 100%;
 }
 
 .fixed-bingo-btn:hover {
@@ -1741,7 +1744,7 @@ ul, ol {
     position: relative;
     background: linear-gradient(180deg, #00D000 0%, #00B000 50%, #009000 100%);
     border-radius: var(--radius-md);
-    padding: var(--space-md) var(--space-2xl);
+    padding: var(--space-md) var(--space-lg);
     box-shadow:
         0 6px 0 #006600,
         0 10px 25px rgba(0, 150, 0, 0.5),
@@ -1749,10 +1752,10 @@ ul, ol {
         inset 0 -2px 0 rgba(0, 0, 0, 0.1);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
     animation: lineGlow 2s ease-in-out infinite;
-    max-width: calc(100% - 2rem);
     box-sizing: border-box;
     border: none;
     text-decoration: none;
+    width: 100%;
 }
 
 .fixed-line-btn::before {
@@ -1837,7 +1840,9 @@ ul, ol {
 .fixed-line-btn-inner {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--space-md);
+    width: 100%;
 }
 
 
@@ -2126,8 +2131,12 @@ ul, ol {
         padding: 0 var(--space-md);
     }
 
+    .fixed-cta-right {
+        width: 180px;
+    }
+
     .fixed-line-btn {
-        padding: var(--space-sm) var(--space-lg);
+        padding: var(--space-sm) var(--space-md);
     }
 
     .fixed-line-text {
@@ -2135,7 +2144,7 @@ ul, ol {
     }
 
     .fixed-bingo-btn {
-        padding: var(--space-sm) var(--space-lg);
+        padding: var(--space-sm) var(--space-md);
     }
 
     .fixed-bingo-icon {
@@ -2236,8 +2245,12 @@ ul, ol {
         padding: 0 var(--space-sm);
     }
 
+    .fixed-cta-right {
+        width: 160px;
+    }
+
     .fixed-line-btn {
-        padding: var(--space-xs) var(--space-md);
+        padding: var(--space-xs) var(--space-sm);
     }
 
     .fixed-line-icon {
@@ -2256,7 +2269,7 @@ ul, ol {
     }
 
     .fixed-bingo-btn {
-        padding: var(--space-xs) var(--space-md);
+        padding: var(--space-xs) var(--space-sm);
     }
 
     .fixed-bingo-icon {
