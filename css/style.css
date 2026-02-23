@@ -3211,6 +3211,10 @@ ul, ol {
         word-break: break-word;
     }
 
+    .hero-description br {
+        display: none;
+    }
+
     .nav {
         position: fixed;
         top: 0;
@@ -3250,6 +3254,20 @@ ul, ol {
         background: var(--color-white);
     }
 
+    /* Section header mobile */
+    .section-header {
+        padding: 0 var(--space-sm);
+    }
+
+    .section-subtitle {
+        font-size: 0.9375rem;
+        max-width: 100%;
+    }
+
+    .section-subtitle br {
+        display: none;
+    }
+
     /* Introduction / Concept section */
     .introduction-grid {
         grid-template-columns: 1fr;
@@ -3268,27 +3286,33 @@ ul, ol {
     /* Comparison section mobile */
     .comparison {
         padding: var(--space-4xl) 0;
+        overflow: hidden;
     }
 
     .comparison-table-wrapper {
         margin: 0 calc(-1 * var(--space-md));
         padding: 0 var(--space-md);
         margin-bottom: var(--space-3xl);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-width: 100vw;
     }
 
     .comparison-table {
         font-size: 0.75rem;
-        min-width: 600px;
+        min-width: 550px;
     }
 
     .comparison-table thead th,
     .comparison-table tbody td {
-        padding: var(--space-md) var(--space-sm);
+        padding: var(--space-sm);
     }
 
     .comparison-table thead th:first-child,
     .comparison-table td.comparison-item {
-        min-width: 80px;
+        min-width: 70px;
+        max-width: 80px;
+        word-break: keep-all;
     }
 
     .comparison-table thead th.comparison-ours::before {
@@ -3384,6 +3408,7 @@ ul, ol {
     /* Eyebrow section */
     .eyebrow {
         padding: var(--space-4xl) 0;
+        overflow: hidden;
     }
 
     .eyebrow-golden-content {
@@ -3399,8 +3424,18 @@ ul, ol {
         font-size: 1.25rem;
     }
 
+    .eyebrow-golden-points {
+        padding-left: 0;
+    }
+
+    .eyebrow-golden-note {
+        padding: var(--space-md);
+        font-size: 0.875rem;
+    }
+
     .eyebrow-bone-inner {
         padding: var(--space-xl);
+        overflow: hidden;
     }
 
     .eyebrow-bone-title {
@@ -3416,6 +3451,19 @@ ul, ol {
         padding: var(--space-md);
     }
 
+    .bone-type-label {
+        font-size: 0.75rem;
+    }
+
+    .bone-type p {
+        font-size: 0.75rem;
+        line-height: 1.6;
+    }
+
+    .eyebrow-bone-note {
+        font-size: 0.875rem;
+    }
+
     .eyebrow-wax-content {
         grid-template-columns: 1fr;
         gap: var(--space-2xl);
@@ -3429,6 +3477,18 @@ ul, ol {
         font-size: 1.25rem;
     }
 
+    .eyebrow-wax-text > p {
+        font-size: 0.875rem;
+    }
+
+    .wax-benefit strong {
+        font-size: 0.875rem;
+    }
+
+    .wax-benefit p {
+        font-size: 0.75rem;
+    }
+
     .eyebrow-domestic-inner {
         padding: var(--space-xl);
     }
@@ -3437,18 +3497,32 @@ ul, ol {
         font-size: 1.25rem;
     }
 
+    .eyebrow-domestic-desc {
+        font-size: 0.875rem;
+    }
+
     .eyebrow-domestic-points {
         grid-template-columns: 1fr;
         gap: var(--space-lg);
     }
 
+    .domestic-point strong {
+        font-size: 0.875rem;
+    }
+
+    .domestic-point p {
+        font-size: 0.75rem;
+    }
+
     /* Set recommend section */
     .set-recommend {
         padding: var(--space-4xl) 0;
+        overflow: hidden;
     }
 
     .set-recommend-lead {
         font-size: 1rem;
+        text-align: left;
     }
 
     .set-recommend-benefits {
@@ -3463,6 +3537,27 @@ ul, ol {
     .set-benefit-icon {
         width: 40px;
         height: 40px;
+        flex-shrink: 0;
+    }
+
+    .set-benefit-content h4 {
+        font-size: 0.9375rem;
+    }
+
+    .set-benefit-content p {
+        font-size: 0.8125rem;
+    }
+
+    .set-recommend-cta {
+        padding: var(--space-xl);
+    }
+
+    .set-recommend-cta-text {
+        font-size: 0.9375rem;
+    }
+
+    .set-recommend-cta-text strong {
+        font-size: 1.125rem;
     }
 
     /* Treatment flow */
@@ -3730,6 +3825,148 @@ ul, ol {
 
     .copyright {
         font-size: 0.7rem;
+    }
+
+    /* Comparison section 480px */
+    .comparison-table {
+        min-width: 500px;
+        font-size: 0.65rem;
+    }
+
+    .comparison-table thead th,
+    .comparison-table tbody td {
+        padding: var(--space-xs) var(--space-sm);
+    }
+
+    .comparison-table td.comparison-item {
+        font-size: 0.6rem;
+        min-width: 60px;
+    }
+
+    .comparison-table td.comparison-general small,
+    .comparison-table td.comparison-ours small {
+        font-size: 0.55rem;
+    }
+
+    .comparison-message {
+        padding: var(--space-lg);
+    }
+
+    .comparison-message h3 {
+        font-size: 1.1rem;
+    }
+
+    .comparison-message p {
+        font-size: 0.8125rem;
+    }
+
+    /* Eyebrow section 480px */
+    .eyebrow-golden-title {
+        font-size: 1.1rem;
+    }
+
+    .eyebrow-golden-desc,
+    .eyebrow-golden-points li {
+        font-size: 0.8125rem;
+    }
+
+    .eyebrow-bone-inner {
+        padding: var(--space-lg);
+    }
+
+    .eyebrow-bone-title {
+        font-size: 1.1rem;
+    }
+
+    .eyebrow-bone-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .eyebrow-bone-note {
+        font-size: 0.8125rem;
+        text-align: left;
+    }
+
+    .eyebrow-wax-title {
+        font-size: 1.1rem;
+    }
+
+    .eyebrow-domestic-inner {
+        padding: var(--space-lg);
+    }
+
+    .eyebrow-domestic-title {
+        font-size: 1.1rem;
+    }
+
+    /* Set recommend section 480px */
+    .set-recommend-lead {
+        font-size: 0.9375rem;
+    }
+
+    .set-benefit {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-md);
+    }
+
+    .set-benefit-icon {
+        margin: 0 auto;
+    }
+
+    .set-recommend-cta {
+        padding: var(--space-lg);
+    }
+
+    .set-recommend-cta-text strong {
+        font-size: 1rem;
+    }
+
+    /* Continuity section 480px */
+    .continuity-philosophy-inner {
+        padding: var(--space-lg);
+    }
+
+    .continuity-philosophy-title {
+        font-size: 1.1rem;
+    }
+
+    .philosophy-desc {
+        font-size: 0.8125rem;
+    }
+
+    .continuity-serum-content {
+        padding: var(--space-lg);
+    }
+
+    .continuity-serum-title {
+        font-size: 1rem;
+    }
+
+    .continuity-serum-name {
+        font-size: 1.25rem;
+    }
+
+    .continuity-cycle-title {
+        font-size: 1.1rem;
+    }
+
+    .continuity-cycle-desc {
+        font-size: 0.8125rem;
+    }
+
+    .continuity-cta {
+        padding: var(--space-lg);
+    }
+
+    /* Introduction section 480px */
+    .introduction-text p {
+        font-size: 0.875rem;
+    }
+
+    .introduction-highlight {
+        padding: var(--space-md);
+        font-size: 0.8125rem;
     }
 }
 
