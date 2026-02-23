@@ -1295,7 +1295,7 @@ ul, ol {
 }
 
 /* =====================================================
-   NOBIRU Serum Section
+   Premium Lash Serum Section
    ===================================================== */
 .nobiru-section {
     position: relative;
@@ -1389,16 +1389,62 @@ ul, ol {
     line-height: 1.6;
 }
 
+.nobiru-price-boxes {
+    display: flex;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+}
+
 .nobiru-price-box {
+    position: relative;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
-    border: 2px solid var(--color-gold);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-lg);
     padding: var(--space-lg) var(--space-2xl);
     text-align: center;
+    flex: 1;
+    min-width: 200px;
+}
+
+.nobiru-price-box-recommended {
+    border-color: var(--color-gold);
+    background: rgba(212, 175, 55, 0.08);
+}
+
+.nobiru-price-badge {
+    position: absolute;
+    top: -12px;
+    right: var(--space-md);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-white);
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+}
+
+.nobiru-price-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin: var(--space-xs) 0;
+}
+
+.nobiru-price-original {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: line-through;
+}
+
+.nobiru-price-arrow {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .nobiru-price-label {
@@ -1427,45 +1473,110 @@ ul, ol {
     margin-top: var(--space-sm);
 }
 
-/* NOBIRU Visual / Comparison */
+/* Serum Visual / Progress Timeline */
 .nobiru-visual {
     text-align: center;
 }
 
-.nobiru-comparison {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-xl);
+.nobiru-timeline-visual {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
     margin-bottom: var(--space-xl);
 }
 
-.nobiru-comparison-item {
+.nobiru-visual-title {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-white);
+    margin-bottom: var(--space-xl);
+}
+
+.nobiru-progress-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+}
+
+.nobiru-progress-step {
+    text-align: center;
+    flex: 1;
+}
+
+.nobiru-progress-step-final {
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    background: rgba(212, 175, 55, 0.06);
+}
+
+.nobiru-progress-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: var(--space-sm);
+}
+
+.nobiru-progress-label-gold {
+    color: var(--color-gold);
+}
+
+.nobiru-progress-arrow {
+    color: var(--color-gold);
+    flex-shrink: 0;
+}
+
+.nobiru-progress-arrow svg {
+    width: 20px;
+    height: 20px;
+}
+
+.nobiru-target-list {
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--radius-lg);
     padding: var(--space-xl);
-    text-align: center;
-    min-width: 160px;
+    margin-bottom: var(--space-lg);
+    text-align: left;
 }
 
-.nobiru-comparison-after {
-    border-color: var(--color-gold);
-    background: rgba(212, 175, 55, 0.08);
-}
-
-.nobiru-comparison-label {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: var(--space-md);
-}
-
-.nobiru-comparison-after .nobiru-comparison-label {
+.nobiru-target-title {
+    font-family: var(--font-serif);
+    font-size: 0.9375rem;
+    font-weight: 500;
     color: var(--color-gold);
+    margin-bottom: var(--space-md);
+    text-align: center;
+}
+
+.nobiru-target-list ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.nobiru-target-list li {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.75);
+    padding-left: var(--space-lg);
+    position: relative;
+}
+
+.nobiru-target-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    background: var(--color-gold);
+    border-radius: 50%;
 }
 
 .nobiru-lash-visual {
@@ -1494,6 +1605,17 @@ ul, ol {
 .lash-short:nth-child(3) { height: 35px; }
 .lash-short:nth-child(4) { height: 33px; }
 .lash-short:nth-child(5) { height: 28px; }
+
+.lash-mid {
+    height: 48px;
+    background: linear-gradient(to top, var(--color-primary-lighter), rgba(122, 98, 202, 0.5));
+}
+
+.lash-mid:nth-child(1) { height: 38px; }
+.lash-mid:nth-child(2) { height: 48px; }
+.lash-mid:nth-child(3) { height: 45px; }
+.lash-mid:nth-child(4) { height: 42px; }
+.lash-mid:nth-child(5) { height: 36px; }
 
 .lash-long {
     height: 60px;
@@ -1588,7 +1710,7 @@ ul, ol {
 }
 
 /* =====================================================
-   Menu Item Addon (NOBIRU美容液)
+   Menu Item Addon (まつ育プレミアムケア)
    ===================================================== */
 .menu-item-addon {
     margin-top: var(--space-md);
@@ -2576,23 +2698,22 @@ ul, ol {
         padding: var(--space-lg);
     }
 
-    /* NOBIRU section */
+    /* Serum section */
     .nobiru-grid {
         grid-template-columns: 1fr;
     }
 
-    .nobiru-comparison {
+    .nobiru-price-boxes {
         flex-direction: column;
-        gap: var(--space-md);
     }
 
-    .nobiru-comparison-arrow {
-        transform: rotate(90deg);
+    .nobiru-progress-steps {
+        gap: var(--space-sm);
     }
 
-    .nobiru-comparison-item {
-        min-width: auto;
-        width: 100%;
+    .nobiru-progress-arrow svg {
+        width: 16px;
+        height: 16px;
     }
 
     /* Trust section */
@@ -2805,7 +2926,7 @@ ul, ol {
         font-size: 1rem;
     }
 
-    /* NOBIRU section */
+    /* Serum section */
     .nobiru-section {
         padding: var(--space-3xl) 0;
     }
@@ -2818,11 +2939,26 @@ ul, ol {
         padding: var(--space-md) var(--space-lg);
     }
 
+    .nobiru-progress-steps {
+        flex-wrap: wrap;
+    }
+
+    .nobiru-progress-arrow svg {
+        width: 14px;
+        height: 14px;
+    }
+
     .lash-short:nth-child(1) { height: 22px; }
     .lash-short:nth-child(2) { height: 28px; }
     .lash-short:nth-child(3) { height: 26px; }
     .lash-short:nth-child(4) { height: 24px; }
     .lash-short:nth-child(5) { height: 20px; }
+
+    .lash-mid:nth-child(1) { height: 28px; }
+    .lash-mid:nth-child(2) { height: 35px; }
+    .lash-mid:nth-child(3) { height: 33px; }
+    .lash-mid:nth-child(4) { height: 30px; }
+    .lash-mid:nth-child(5) { height: 26px; }
 
     .lash-long:nth-child(1) { height: 38px; }
     .lash-long:nth-child(2) { height: 48px; }
