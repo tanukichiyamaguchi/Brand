@@ -2476,6 +2476,412 @@ ul, ol {
 }
 
 /* =====================================================
+   Eyebrow Section (眉毛スタイリング)
+   ===================================================== */
+.eyebrow {
+    padding: var(--space-5xl) 0;
+    background: linear-gradient(180deg, var(--color-off-white) 0%, var(--color-white) 100%);
+}
+
+/* Golden Ratio Block */
+.eyebrow-golden {
+    margin-bottom: var(--space-4xl);
+}
+
+.eyebrow-golden-content {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+}
+
+.eyebrow-golden-label,
+.eyebrow-bone-label,
+.eyebrow-wax-label,
+.eyebrow-domestic-label {
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-gold-dark);
+    background: rgba(212, 175, 55, 0.1);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-md);
+}
+
+.eyebrow-golden-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+}
+
+.eyebrow-golden-desc {
+    font-size: 0.9375rem;
+    line-height: 2;
+    color: var(--color-gray-500);
+    margin-bottom: var(--space-lg);
+}
+
+.eyebrow-golden-points {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-md);
+}
+
+.eyebrow-golden-points li {
+    font-size: 0.9375rem;
+    line-height: 2;
+    color: var(--color-gray-500);
+    margin-bottom: var(--space-sm);
+    position: relative;
+    padding-left: var(--space-lg);
+}
+
+.eyebrow-golden-points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.75em;
+    width: 8px;
+    height: 8px;
+    background: var(--color-gold);
+    border-radius: 50%;
+}
+
+.eyebrow-golden-points li strong {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.eyebrow-golden-note {
+    font-size: 0.9375rem;
+    line-height: 2;
+    color: var(--color-gray-600);
+    padding: var(--space-lg);
+    background: linear-gradient(135deg, rgba(58, 34, 138, 0.04) 0%, rgba(212, 175, 55, 0.06) 100%);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--color-gold);
+}
+
+.eyebrow-golden-image img {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Bone Structure Block */
+.eyebrow-bone {
+    margin-bottom: var(--space-4xl);
+}
+
+.eyebrow-bone-inner {
+    background: linear-gradient(135deg, var(--color-primary-darker) 0%, var(--color-primary) 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--space-3xl);
+    color: var(--color-white);
+}
+
+.eyebrow-bone-label {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--color-white);
+}
+
+.eyebrow-bone-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-white);
+    margin-bottom: var(--space-lg);
+}
+
+.eyebrow-bone-desc {
+    font-size: 0.9375rem;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--space-2xl);
+    max-width: 800px;
+}
+
+.eyebrow-bone-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+}
+
+.bone-type {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+}
+
+.bone-type-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    margin-bottom: var(--space-sm);
+}
+
+.bone-type p {
+    font-size: 0.8125rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.eyebrow-bone-note {
+    font-size: 1rem;
+    line-height: 2;
+    color: var(--color-white);
+    text-align: center;
+    padding-top: var(--space-xl);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.eyebrow-bone-note strong {
+    color: var(--color-gold);
+}
+
+/* WAX Block */
+.eyebrow-wax {
+    margin-bottom: var(--space-4xl);
+}
+
+.eyebrow-wax-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--space-3xl);
+    align-items: center;
+}
+
+.eyebrow-wax-image img {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.eyebrow-wax-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+}
+
+.eyebrow-wax-text > p {
+    font-size: 0.9375rem;
+    line-height: 2;
+    color: var(--color-gray-500);
+    margin-bottom: var(--space-lg);
+}
+
+.eyebrow-wax-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+
+.wax-benefit {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+}
+
+.wax-benefit-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    color: var(--color-primary);
+}
+
+.wax-benefit-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.wax-benefit strong {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-xs);
+}
+
+.wax-benefit p {
+    font-size: 0.8125rem;
+    line-height: 1.8;
+    color: var(--color-gray-400);
+}
+
+/* Domestic Block */
+.eyebrow-domestic-inner {
+    background: linear-gradient(135deg, var(--color-off-white) 0%, rgba(212, 175, 55, 0.05) 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--space-3xl);
+    border: 1px solid var(--color-gray-100);
+    text-align: center;
+}
+
+.eyebrow-domestic-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-lg);
+}
+
+.eyebrow-domestic-desc {
+    font-size: 0.9375rem;
+    line-height: 2;
+    color: var(--color-gray-500);
+    max-width: 700px;
+    margin: 0 auto var(--space-2xl);
+}
+
+.eyebrow-domestic-points {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+    text-align: left;
+}
+
+.domestic-point {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+}
+
+.domestic-point-number {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    color: var(--color-white);
+    font-family: var(--font-serif);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 50%;
+}
+
+.domestic-point strong {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-xs);
+}
+
+.domestic-point p {
+    font-size: 0.8125rem;
+    line-height: 1.8;
+    color: var(--color-gray-400);
+}
+
+/* =====================================================
+   Set Recommend Section (同時施術のすすめ)
+   ===================================================== */
+.set-recommend {
+    padding: var(--space-5xl) 0;
+    background: linear-gradient(180deg, var(--color-white) 0%, var(--color-cream) 100%);
+}
+
+.set-recommend-main {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.set-recommend-lead {
+    font-size: 1.125rem;
+    line-height: 2;
+    color: var(--color-gray-500);
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+}
+
+.set-recommend-benefits {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+    margin-bottom: var(--space-3xl);
+}
+
+.set-benefit {
+    display: flex;
+    gap: var(--space-lg);
+    align-items: flex-start;
+    background: var(--color-white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.set-benefit:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.set-benefit-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    color: var(--color-primary);
+}
+
+.set-benefit-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.set-benefit-content h4 {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-sm);
+}
+
+.set-benefit-content p {
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: var(--color-gray-400);
+}
+
+.set-recommend-cta {
+    text-align: center;
+    padding: var(--space-2xl);
+    background: linear-gradient(135deg, rgba(58, 34, 138, 0.04) 0%, rgba(212, 175, 55, 0.06) 100%);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-gray-100);
+}
+
+.set-recommend-cta-text {
+    font-size: 1rem;
+    line-height: 2;
+    color: var(--color-gray-500);
+    margin-bottom: var(--space-xl);
+}
+
+.set-recommend-cta-text strong {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+}
+
+/* =====================================================
    Treatment Flow Section (施術の流れ)
    ===================================================== */
 .treatment-flow {
@@ -2973,6 +3379,90 @@ ul, ol {
 
     .timeline-item-highlight {
         padding: var(--space-md);
+    }
+
+    /* Eyebrow section */
+    .eyebrow {
+        padding: var(--space-4xl) 0;
+    }
+
+    .eyebrow-golden-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-2xl);
+    }
+
+    .eyebrow-golden-image {
+        order: -1;
+    }
+
+    .eyebrow-golden-title {
+        font-size: 1.25rem;
+    }
+
+    .eyebrow-bone-inner {
+        padding: var(--space-xl);
+    }
+
+    .eyebrow-bone-title {
+        font-size: 1.25rem;
+    }
+
+    .eyebrow-bone-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md);
+    }
+
+    .bone-type {
+        padding: var(--space-md);
+    }
+
+    .eyebrow-wax-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-2xl);
+    }
+
+    .eyebrow-wax-image {
+        order: -1;
+    }
+
+    .eyebrow-wax-title {
+        font-size: 1.25rem;
+    }
+
+    .eyebrow-domestic-inner {
+        padding: var(--space-xl);
+    }
+
+    .eyebrow-domestic-title {
+        font-size: 1.25rem;
+    }
+
+    .eyebrow-domestic-points {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    /* Set recommend section */
+    .set-recommend {
+        padding: var(--space-4xl) 0;
+    }
+
+    .set-recommend-lead {
+        font-size: 1rem;
+    }
+
+    .set-recommend-benefits {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .set-benefit {
+        padding: var(--space-lg);
+    }
+
+    .set-benefit-icon {
+        width: 40px;
+        height: 40px;
     }
 
     /* Treatment flow */
