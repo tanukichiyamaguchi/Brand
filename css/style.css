@@ -1874,6 +1874,426 @@ ul, ol {
 
 
 /* =====================================================
+   Hero Bullets
+   ===================================================== */
+.hero-bullets {
+    margin-bottom: var(--space-xl);
+}
+
+.hero-bullet-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.hero-bullet-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.05em;
+}
+
+.hero-bullet-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--color-gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* =====================================================
+   Introduction Section (はじめての方へ)
+   ===================================================== */
+.introduction {
+    padding: var(--space-5xl) 0;
+    background-color: var(--color-off-white);
+}
+
+.introduction-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4xl);
+    align-items: center;
+}
+
+.introduction-images {
+    position: relative;
+    height: 600px;
+}
+
+.introduction-content {
+    padding-left: var(--space-xl);
+}
+
+.introduction-text {
+    margin-bottom: var(--space-2xl);
+}
+
+.introduction-text p {
+    margin-bottom: var(--space-lg);
+    font-size: 0.9375rem;
+    line-height: 2;
+}
+
+.introduction-lead {
+    font-size: 1.125rem !important;
+    font-weight: 500;
+    color: var(--color-primary);
+    line-height: 1.8 !important;
+}
+
+.introduction-highlight {
+    background: linear-gradient(135deg, rgba(58, 34, 138, 0.04) 0%, rgba(212, 175, 55, 0.06) 100%);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--color-gold);
+}
+
+.introduction-highlight strong {
+    color: var(--color-primary);
+}
+
+/* =====================================================
+   Continuity Care Section (継続ケア)
+   ===================================================== */
+.continuity {
+    padding: var(--space-5xl) 0;
+    background-color: var(--color-white);
+}
+
+/* Serum Block */
+.continuity-serum {
+    margin-bottom: var(--space-4xl);
+}
+
+.continuity-serum-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+    background: linear-gradient(135deg, var(--color-off-white) 0%, rgba(212, 175, 55, 0.05) 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--space-3xl);
+    border: 1px solid var(--color-gray-100);
+}
+
+.continuity-serum-title {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+}
+
+.continuity-serum-name {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-top: var(--space-sm);
+}
+
+.continuity-serum-price {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-gold-dark);
+    margin-bottom: var(--space-lg);
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: var(--radius-full);
+    display: inline-block;
+}
+
+.continuity-serum-desc {
+    font-size: 0.9375rem;
+    line-height: 2;
+    color: var(--color-gray-500);
+    margin-bottom: var(--space-xl);
+}
+
+.continuity-serum-features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.continuity-serum-features li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-gray-600);
+}
+
+.serum-feature-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.serum-feature-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.continuity-serum-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.continuity-serum-image img {
+    max-width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Cycle Block */
+.continuity-cycle {
+    margin-bottom: var(--space-4xl);
+    text-align: center;
+}
+
+.continuity-cycle-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 500;
+    color: var(--color-primary);
+    margin-bottom: var(--space-lg);
+}
+
+.continuity-cycle-desc {
+    font-size: 0.9375rem;
+    line-height: 2;
+    color: var(--color-gray-500);
+    margin-bottom: var(--space-3xl);
+}
+
+/* Timeline */
+.continuity-timeline {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.timeline-item {
+    display: flex;
+    gap: var(--space-xl);
+    align-items: flex-start;
+}
+
+.timeline-period {
+    flex-shrink: 0;
+    width: 110px;
+    padding: var(--space-sm) var(--space-md);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-white);
+    font-family: var(--font-serif);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+    border-radius: var(--radius-full);
+}
+
+.timeline-content h4 {
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-sm);
+}
+
+.timeline-content p {
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: var(--color-gray-400);
+}
+
+.timeline-connector {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--color-primary-lighter), var(--color-gray-100));
+    margin-left: 55px;
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-sm);
+}
+
+/* Continuity CTA */
+.continuity-cta {
+    text-align: center;
+    padding: var(--space-3xl);
+    background: linear-gradient(135deg, rgba(58, 34, 138, 0.03) 0%, rgba(212, 175, 55, 0.03) 100%);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-gray-100);
+}
+
+.continuity-cta-text {
+    font-size: 1rem;
+    line-height: 2;
+    color: var(--color-gray-500);
+    margin-bottom: var(--space-xl);
+}
+
+/* =====================================================
+   Treatment Flow Section (施術の流れ)
+   ===================================================== */
+.treatment-flow {
+    padding: var(--space-5xl) 0;
+    background: linear-gradient(180deg, var(--color-off-white) 0%, var(--color-white) 100%);
+}
+
+.flow-steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+}
+
+.flow-step {
+    flex: 0 0 140px;
+    text-align: center;
+    position: relative;
+}
+
+.flow-step-number {
+    font-family: var(--font-serif);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: var(--color-gold);
+    margin-bottom: var(--space-sm);
+}
+
+.flow-step-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto var(--space-md);
+    color: var(--color-primary);
+    background: var(--color-off-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border: 2px solid var(--color-gray-100);
+}
+
+.flow-step-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.flow-step-title {
+    font-family: var(--font-serif);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-sm);
+}
+
+.flow-step-text {
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--color-gray-400);
+}
+
+.flow-step-arrow {
+    flex: 0 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-300);
+    margin-top: 42px;
+}
+
+.flow-step-arrow svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* =====================================================
+   FAQ Section (よくあるご質問)
+   ===================================================== */
+.faq {
+    padding: var(--space-5xl) 0;
+    background-color: var(--color-white);
+}
+
+.faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    border-bottom: 1px solid var(--color-gray-100);
+}
+
+.faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-xl) 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    text-align: left;
+    transition: color var(--transition-base);
+}
+
+.faq-question:hover {
+    color: var(--color-primary);
+}
+
+.faq-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    color: var(--color-primary);
+    transition: transform var(--transition-base);
+}
+
+.faq-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 300px;
+    padding-bottom: var(--space-xl);
+}
+
+.faq-answer p {
+    font-size: 0.9375rem;
+    line-height: 2;
+    color: var(--color-gray-400);
+}
+
+/* =====================================================
    Image Placeholders (for development)
    ===================================================== */
 .image-placeholder {
@@ -1947,6 +2367,20 @@ ul, ol {
    Responsive Design
    ===================================================== */
 @media (max-width: 1024px) {
+    .introduction-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3xl);
+    }
+
+    .introduction-images {
+        height: 400px;
+        order: -1;
+    }
+
+    .introduction-content {
+        padding-left: 0;
+    }
+
     .concept-grid {
         grid-template-columns: 1fr;
         gap: var(--space-3xl);
@@ -1959,6 +2393,10 @@ ul, ol {
 
     .concept-content {
         padding-left: 0;
+    }
+
+    .continuity-serum-content {
+        grid-template-columns: 1fr;
     }
 
     .access-grid {
@@ -2059,7 +2497,21 @@ ul, ol {
         background: var(--color-white);
     }
 
-    /* Concept section */
+    /* Introduction / Concept section */
+    .introduction-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3xl);
+    }
+
+    .introduction-images {
+        height: 300px;
+        order: -1;
+    }
+
+    .introduction-content {
+        padding-left: 0;
+    }
+
     .concept-images {
         height: 300px;
     }
@@ -2072,6 +2524,48 @@ ul, ol {
     .concept-image-2 {
         width: 55%;
         height: 50%;
+    }
+
+    /* Continuity section */
+    .continuity-serum-content {
+        grid-template-columns: 1fr;
+        padding: var(--space-xl);
+    }
+
+    .continuity-serum-image {
+        order: -1;
+    }
+
+    .timeline-item {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+
+    .timeline-period {
+        width: auto;
+        display: inline-block;
+    }
+
+    .timeline-connector {
+        margin-left: var(--space-xl);
+    }
+
+    /* Treatment flow */
+    .flow-steps {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+    }
+
+    .flow-step {
+        flex: none;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .flow-step-arrow {
+        transform: rotate(90deg);
+        margin: var(--space-sm) 0;
     }
 
     /* Features section */
