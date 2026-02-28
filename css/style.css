@@ -3175,8 +3175,19 @@ ul, ol {
         font-size: 15px;
     }
 
+    body {
+        word-break: normal;
+        overflow-wrap: anywhere;
+    }
+
     .container {
-        padding: 0 var(--space-md);
+        padding: 0 var(--space-lg);
+        box-sizing: border-box;
+    }
+
+    /* すべてのセクションのoverflow制御 */
+    section {
+        overflow-x: hidden;
     }
 
     /* hero section */
@@ -3256,11 +3267,11 @@ ul, ol {
 
     /* Section header mobile */
     .section-header {
-        padding: 0 var(--space-sm);
+        padding: 0;
     }
 
     .section-subtitle {
-        font-size: 0.9375rem;
+        font-size: 0.875rem;
         max-width: 100%;
     }
 
@@ -3290,28 +3301,28 @@ ul, ol {
     }
 
     .comparison-table-wrapper {
-        margin: 0 calc(-1 * var(--space-md));
-        padding: 0 var(--space-md);
+        margin: 0 calc(-1 * var(--space-lg));
+        padding: 0 var(--space-lg);
         margin-bottom: var(--space-3xl);
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        max-width: 100vw;
+        max-width: calc(100vw);
     }
 
     .comparison-table {
-        font-size: 0.75rem;
-        min-width: 550px;
+        font-size: 0.7rem;
+        min-width: 500px;
     }
 
     .comparison-table thead th,
     .comparison-table tbody td {
-        padding: var(--space-sm);
+        padding: var(--space-xs) var(--space-sm);
     }
 
     .comparison-table thead th:first-child,
     .comparison-table td.comparison-item {
-        min-width: 70px;
-        max-width: 80px;
+        min-width: 60px;
+        max-width: 70px;
         word-break: keep-all;
     }
 
@@ -3321,21 +3332,25 @@ ul, ol {
     }
 
     .comparison-message {
-        padding: var(--space-xl);
+        padding: var(--space-lg);
         border-radius: var(--radius-lg);
     }
 
     .comparison-message h3 {
-        font-size: 1.25rem;
+        font-size: 1.125rem;
     }
 
     .comparison-message p {
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
         line-height: 2;
     }
 
     .comparison-message-highlight {
-        font-size: 1rem;
+        font-size: 0.9375rem;
+    }
+
+    .comparison-message-highlight br {
+        display: none;
     }
 
     .concept-images {
@@ -3354,55 +3369,105 @@ ul, ol {
 
     /* Continuity section */
     .continuity-philosophy-inner {
-        padding: var(--space-xl);
+        padding: var(--space-lg);
     }
 
     .continuity-philosophy-title {
-        font-size: 1.25rem;
+        font-size: 1.125rem;
     }
 
     .continuity-philosophy-grid {
         grid-template-columns: 1fr;
-        gap: var(--space-lg);
+        gap: var(--space-md);
     }
 
     .philosophy-item {
-        padding: var(--space-lg);
+        padding: var(--space-md);
     }
 
     .philosophy-desc {
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
+    }
+
+    .philosophy-desc br {
+        display: none;
+    }
+
+    .philosophy-result {
+        font-size: 0.8125rem;
     }
 
     .continuity-serum-content {
         grid-template-columns: 1fr;
-        padding: var(--space-xl);
+        padding: var(--space-lg);
+        gap: var(--space-xl);
     }
 
     .continuity-serum-image {
         order: -1;
     }
 
+    .continuity-serum-features {
+        gap: var(--space-sm);
+    }
+
     .continuity-serum-features li {
+        font-size: 0.8125rem;
+        gap: var(--space-sm);
+        line-height: 1.8;
+    }
+
+    .continuity-serum-features li span {
+        min-width: 0;
+    }
+
+    .continuity-serum-desc {
+        font-size: 0.875rem;
+    }
+
+    .continuity-serum-name {
+        font-size: 1.25rem;
+    }
+
+    .continuity-serum-title {
+        font-size: 1rem;
+    }
+
+    .continuity-serum-price {
         font-size: 0.875rem;
     }
 
     .timeline-item {
         flex-direction: column;
-        gap: var(--space-md);
+        gap: var(--space-sm);
     }
 
     .timeline-period {
         width: auto;
         display: inline-block;
+        font-size: 0.8125rem;
+    }
+
+    .timeline-content h4 {
+        font-size: 0.9375rem;
+    }
+
+    .timeline-content p {
+        font-size: 0.8125rem;
     }
 
     .timeline-connector {
-        margin-left: var(--space-xl);
+        margin-left: var(--space-lg);
+        height: 30px;
     }
 
     .timeline-item-highlight {
         padding: var(--space-md);
+    }
+
+    .continuity-cycle-desc br,
+    .continuity-cta-text br {
+        display: none;
     }
 
     /* Eyebrow section */
@@ -3413,7 +3478,7 @@ ul, ol {
 
     .eyebrow-golden-content {
         grid-template-columns: 1fr;
-        gap: var(--space-2xl);
+        gap: var(--space-xl);
     }
 
     .eyebrow-golden-image {
@@ -3421,34 +3486,46 @@ ul, ol {
     }
 
     .eyebrow-golden-title {
-        font-size: 1.25rem;
+        font-size: 1.125rem;
+    }
+
+    .eyebrow-golden-desc {
+        font-size: 0.8125rem;
     }
 
     .eyebrow-golden-points {
         padding-left: 0;
     }
 
+    .eyebrow-golden-points li {
+        font-size: 0.8125rem;
+    }
+
     .eyebrow-golden-note {
         padding: var(--space-md);
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
     }
 
     .eyebrow-bone-inner {
-        padding: var(--space-xl);
+        padding: var(--space-lg);
         overflow: hidden;
     }
 
     .eyebrow-bone-title {
-        font-size: 1.25rem;
+        font-size: 1.125rem;
+    }
+
+    .eyebrow-bone-desc {
+        font-size: 0.8125rem;
     }
 
     .eyebrow-bone-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-md);
+        gap: var(--space-sm);
     }
 
     .bone-type {
-        padding: var(--space-md);
+        padding: var(--space-sm);
     }
 
     .bone-type-label {
@@ -3456,17 +3533,18 @@ ul, ol {
     }
 
     .bone-type p {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         line-height: 1.6;
     }
 
     .eyebrow-bone-note {
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
+        text-align: left;
     }
 
     .eyebrow-wax-content {
         grid-template-columns: 1fr;
-        gap: var(--space-2xl);
+        gap: var(--space-xl);
     }
 
     .eyebrow-wax-image {
@@ -3474,36 +3552,51 @@ ul, ol {
     }
 
     .eyebrow-wax-title {
-        font-size: 1.25rem;
+        font-size: 1.125rem;
     }
 
     .eyebrow-wax-text > p {
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
     }
 
     .wax-benefit strong {
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
     }
 
     .wax-benefit p {
         font-size: 0.75rem;
     }
 
+    .wax-benefit-icon {
+        width: 22px;
+        height: 22px;
+    }
+
     .eyebrow-domestic-inner {
-        padding: var(--space-xl);
+        padding: var(--space-lg);
     }
 
     .eyebrow-domestic-title {
-        font-size: 1.25rem;
+        font-size: 1.125rem;
     }
 
     .eyebrow-domestic-desc {
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
     }
 
     .eyebrow-domestic-points {
         grid-template-columns: 1fr;
-        gap: var(--space-lg);
+        gap: var(--space-md);
+    }
+
+    .domestic-point {
+        gap: var(--space-sm);
+    }
+
+    .domestic-point-number {
+        width: 36px;
+        height: 36px;
+        font-size: 0.75rem;
     }
 
     .domestic-point strong {
@@ -3521,22 +3614,27 @@ ul, ol {
     }
 
     .set-recommend-lead {
-        font-size: 1rem;
+        font-size: 0.9375rem;
         text-align: left;
+    }
+
+    .set-recommend-lead br {
+        display: none;
     }
 
     .set-recommend-benefits {
         grid-template-columns: 1fr;
-        gap: var(--space-lg);
+        gap: var(--space-md);
     }
 
     .set-benefit {
-        padding: var(--space-lg);
+        padding: var(--space-md);
+        gap: var(--space-md);
     }
 
     .set-benefit-icon {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
         flex-shrink: 0;
     }
 
@@ -3549,7 +3647,7 @@ ul, ol {
     }
 
     .set-recommend-cta {
-        padding: var(--space-xl);
+        padding: var(--space-lg);
     }
 
     .set-recommend-cta-text {
@@ -3557,7 +3655,7 @@ ul, ol {
     }
 
     .set-recommend-cta-text strong {
-        font-size: 1.125rem;
+        font-size: 1.0625rem;
     }
 
     /* Treatment flow */
@@ -3570,26 +3668,46 @@ ul, ol {
     .flow-step {
         flex: none;
         width: 100%;
-        max-width: 300px;
+        max-width: 280px;
+    }
+
+    .flow-step-text {
+        font-size: 0.7rem;
     }
 
     .flow-step-arrow {
         transform: rotate(90deg);
-        margin: var(--space-sm) 0;
+        margin: var(--space-xs) 0;
     }
 
     /* Features section */
+    .features {
+        padding: var(--space-4xl) 0;
+    }
+
     .features-grid {
         grid-template-columns: 1fr;
-        gap: var(--space-lg);
+        gap: var(--space-md);
     }
 
     .feature-card {
-        padding: var(--space-xl);
+        padding: var(--space-lg);
     }
 
     .feature-card:hover {
         transform: none;
+    }
+
+    .feature-title {
+        font-size: 1.0625rem;
+    }
+
+    .feature-text {
+        font-size: 0.8125rem;
+    }
+
+    .feature-text strong {
+        font-size: 0.875rem;
     }
 
     /* Visual break section */
@@ -3614,9 +3732,38 @@ ul, ol {
     }
 
     /* Menu section */
+    .menu {
+        padding: var(--space-4xl) 0;
+    }
+
+    .menu-item {
+        padding: var(--space-lg);
+    }
+
     .menu-item-header {
         flex-direction: column;
         gap: var(--space-sm);
+    }
+
+    .menu-item-title {
+        font-size: 0.9375rem;
+    }
+
+    .menu-item-description {
+        font-size: 0.8125rem;
+    }
+
+    .menu-item-book {
+        font-size: 0.75rem;
+        padding: var(--space-xs) var(--space-md);
+    }
+
+    .menu-cta {
+        padding: var(--space-xl) var(--space-lg);
+    }
+
+    .menu-cta-text {
+        font-size: 0.875rem;
     }
 
     /* Gallery section */
@@ -3639,6 +3786,60 @@ ul, ol {
     .footer-links {
         flex-direction: column;
         gap: var(--space-xl);
+    }
+
+    /* FAQ section */
+    .faq-question {
+        font-size: 0.875rem;
+        padding: var(--space-lg) 0;
+        gap: var(--space-md);
+    }
+
+    .faq-answer p {
+        font-size: 0.8125rem;
+    }
+
+    /* Introduction text */
+    .introduction-text p {
+        font-size: 0.875rem;
+    }
+
+    .introduction-lead {
+        font-size: 1rem !important;
+    }
+
+    .introduction-highlight {
+        padding: var(--space-md);
+        font-size: 0.8125rem;
+    }
+
+    /* Hero bullets */
+    .hero-bullet-list li {
+        font-size: 0.8125rem;
+    }
+
+    /* Final CTA */
+    .final-cta {
+        min-height: auto;
+        padding: var(--space-4xl) 0;
+    }
+
+    .final-cta-title {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+
+    .final-cta-text {
+        font-size: 0.875rem;
+    }
+
+    .final-cta-text br,
+    .final-cta-title br {
+        display: none;
+    }
+
+    /* Access section */
+    .access {
+        padding: var(--space-4xl) 0;
     }
 
     /* Fixed CTA buttons */
@@ -3673,11 +3874,11 @@ ul, ol {
 
 @media (max-width: 480px) {
     .container {
-        padding: 0 var(--space-sm);
+        padding: 0 var(--space-md);
     }
 
     .hero-text-wrapper {
-        padding: 0 var(--space-sm);
+        padding: 0 var(--space-xs);
     }
 
     .hero-title {
@@ -3688,6 +3889,10 @@ ul, ol {
         font-size: 0.55rem;
         letter-spacing: 0.05em;
         line-height: 1.6;
+    }
+
+    .hero-bullet-list li {
+        font-size: 0.75rem;
     }
 
     /* カード */
@@ -3828,145 +4033,372 @@ ul, ol {
     }
 
     /* Comparison section 480px */
+    .comparison-table-wrapper {
+        margin: 0 calc(-1 * var(--space-md));
+        padding: 0 var(--space-md);
+    }
+
     .comparison-table {
-        min-width: 500px;
-        font-size: 0.65rem;
+        min-width: 460px;
+        font-size: 0.625rem;
     }
 
     .comparison-table thead th,
     .comparison-table tbody td {
-        padding: var(--space-xs) var(--space-sm);
+        padding: var(--space-xs) var(--space-xs);
     }
 
     .comparison-table td.comparison-item {
         font-size: 0.6rem;
-        min-width: 60px;
+        min-width: 50px;
     }
 
     .comparison-table td.comparison-general small,
     .comparison-table td.comparison-ours small {
-        font-size: 0.55rem;
+        font-size: 0.5rem;
     }
 
     .comparison-message {
-        padding: var(--space-lg);
+        padding: var(--space-md);
     }
 
     .comparison-message h3 {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .comparison-message p {
-        font-size: 0.8125rem;
+        font-size: 0.75rem;
     }
 
     /* Eyebrow section 480px */
     .eyebrow-golden-title {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .eyebrow-golden-desc,
     .eyebrow-golden-points li {
-        font-size: 0.8125rem;
+        font-size: 0.75rem;
+    }
+
+    .eyebrow-golden-note {
+        font-size: 0.75rem;
+        padding: var(--space-sm);
     }
 
     .eyebrow-bone-inner {
-        padding: var(--space-lg);
+        padding: var(--space-md);
     }
 
     .eyebrow-bone-title {
-        font-size: 1.1rem;
+        font-size: 1rem;
+    }
+
+    .eyebrow-bone-desc {
+        font-size: 0.75rem;
     }
 
     .eyebrow-bone-grid {
         grid-template-columns: 1fr;
+        gap: var(--space-xs);
+    }
+
+    .bone-type {
+        padding: var(--space-xs) var(--space-sm);
     }
 
     .eyebrow-bone-note {
-        font-size: 0.8125rem;
+        font-size: 0.75rem;
         text-align: left;
     }
 
     .eyebrow-wax-title {
-        font-size: 1.1rem;
+        font-size: 1rem;
+    }
+
+    .eyebrow-wax-text > p {
+        font-size: 0.75rem;
+    }
+
+    .wax-benefit strong {
+        font-size: 0.75rem;
+    }
+
+    .wax-benefit p {
+        font-size: 0.7rem;
     }
 
     .eyebrow-domestic-inner {
-        padding: var(--space-lg);
+        padding: var(--space-md);
     }
 
     .eyebrow-domestic-title {
-        font-size: 1.1rem;
+        font-size: 1rem;
+    }
+
+    .eyebrow-domestic-desc {
+        font-size: 0.75rem;
+    }
+
+    .domestic-point-number {
+        width: 32px;
+        height: 32px;
+        font-size: 0.6875rem;
+    }
+
+    .domestic-point strong {
+        font-size: 0.8125rem;
+    }
+
+    .domestic-point p {
+        font-size: 0.7rem;
     }
 
     /* Set recommend section 480px */
     .set-recommend-lead {
-        font-size: 0.9375rem;
+        font-size: 0.875rem;
     }
 
     .set-benefit {
         flex-direction: column;
         text-align: center;
-        gap: var(--space-md);
+        gap: var(--space-sm);
+        padding: var(--space-md);
     }
 
     .set-benefit-icon {
         margin: 0 auto;
+        width: 32px;
+        height: 32px;
+    }
+
+    .set-benefit-content h4 {
+        font-size: 0.875rem;
+    }
+
+    .set-benefit-content p {
+        font-size: 0.75rem;
     }
 
     .set-recommend-cta {
-        padding: var(--space-lg);
+        padding: var(--space-md);
+    }
+
+    .set-recommend-cta-text {
+        font-size: 0.875rem;
     }
 
     .set-recommend-cta-text strong {
-        font-size: 1rem;
+        font-size: 0.9375rem;
     }
 
     /* Continuity section 480px */
     .continuity-philosophy-inner {
-        padding: var(--space-lg);
+        padding: var(--space-md);
     }
 
     .continuity-philosophy-title {
-        font-size: 1.1rem;
-    }
-
-    .philosophy-desc {
-        font-size: 0.8125rem;
-    }
-
-    .continuity-serum-content {
-        padding: var(--space-lg);
-    }
-
-    .continuity-serum-title {
         font-size: 1rem;
     }
 
+    .philosophy-desc {
+        font-size: 0.75rem;
+    }
+
+    .philosophy-label {
+        font-size: 0.6875rem;
+    }
+
+    .philosophy-result {
+        font-size: 0.75rem;
+        padding: var(--space-xs) var(--space-md);
+    }
+
+    .continuity-serum-content {
+        padding: var(--space-md);
+    }
+
+    .continuity-serum-title {
+        font-size: 0.9375rem;
+    }
+
     .continuity-serum-name {
-        font-size: 1.25rem;
+        font-size: 1.125rem;
+    }
+
+    .continuity-serum-features li {
+        font-size: 0.75rem;
+    }
+
+    .serum-feature-icon {
+        width: 20px;
+        height: 20px;
     }
 
     .continuity-cycle-title {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .continuity-cycle-desc {
-        font-size: 0.8125rem;
+        font-size: 0.75rem;
     }
 
     .continuity-cta {
-        padding: var(--space-lg);
+        padding: var(--space-md);
+    }
+
+    .continuity-cta-text {
+        font-size: 0.875rem;
+    }
+
+    .continuity-cta-text strong {
+        font-size: 1rem;
     }
 
     /* Introduction section 480px */
     .introduction-text p {
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
+    }
+
+    .introduction-lead {
+        font-size: 0.9375rem !important;
     }
 
     .introduction-highlight {
-        padding: var(--space-md);
+        padding: var(--space-sm);
+        font-size: 0.75rem;
+    }
+
+    /* FAQ 480px */
+    .faq-question {
         font-size: 0.8125rem;
+        padding: var(--space-md) 0;
+    }
+
+    .faq-answer p {
+        font-size: 0.75rem;
+    }
+
+    .faq-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Menu 480px */
+    .menu-category-note {
+        font-size: 0.75rem;
+    }
+
+    .menu-item-badge {
+        font-size: 0.5625rem;
+        padding: 4px 10px;
+    }
+
+    /* Timeline 480px */
+    .timeline-period {
+        font-size: 0.75rem;
+        padding: var(--space-xs) var(--space-sm);
+    }
+
+    .timeline-content h4 {
+        font-size: 0.875rem;
+    }
+
+    .timeline-content p {
+        font-size: 0.75rem;
+    }
+
+    .timeline-connector {
+        height: 24px;
+        margin-left: var(--space-md);
+    }
+
+    /* Final CTA 480px */
+    .final-cta-text {
+        font-size: 0.8125rem;
+    }
+
+    .final-cta-note {
+        font-size: 0.75rem;
+    }
+}
+
+/* =====================================================
+   Extra Small Screens (360px and below)
+   ===================================================== */
+@media (max-width: 360px) {
+    .container {
+        padding: 0 var(--space-sm);
+    }
+
+    .hero-title {
+        font-size: clamp(1.2rem, 6vw, 1.6rem);
+    }
+
+    .hero-description {
+        font-size: 0.75rem;
+    }
+
+    .hero-bullet-list li {
+        font-size: 0.7rem;
+    }
+
+    .section-title {
+        font-size: clamp(1.1rem, 5vw, 1.5rem);
+    }
+
+    .btn-primary {
+        font-size: 0.8rem;
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .btn-xl {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.8rem;
+    }
+
+    .feature-card {
+        padding: var(--space-sm);
+    }
+
+    .feature-title {
+        font-size: 0.9375rem;
+    }
+
+    .feature-text {
+        font-size: 0.75rem;
+    }
+
+    .comparison-table {
+        min-width: 400px;
+        font-size: 0.5625rem;
+    }
+
+    .set-benefit {
+        padding: var(--space-sm);
+    }
+
+    .continuity-serum-content {
+        padding: var(--space-sm);
+    }
+
+    .eyebrow-domestic-inner {
+        padding: var(--space-sm);
+    }
+
+    .eyebrow-bone-inner {
+        padding: var(--space-sm);
+    }
+
+    .continuity-philosophy-inner {
+        padding: var(--space-sm);
+    }
+
+    .menu-item {
+        padding: var(--space-sm);
+    }
+
+    .menu-cta {
+        padding: var(--space-lg) var(--space-sm);
     }
 }
 
