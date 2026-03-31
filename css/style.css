@@ -191,7 +191,7 @@ ul, ol {
 .section-header {
     text-align: center;
     margin-bottom: var(--space-4xl);
-    word-break: break-word;
+    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -948,7 +948,7 @@ ul, ol {
     text-align: center;
     transition: transform var(--transition-base), box-shadow var(--transition-base);
     overflow: hidden;
-    word-break: break-word;
+    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -1092,7 +1092,7 @@ ul, ol {
     padding: var(--space-xl);
     box-shadow: var(--shadow-sm);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
-    word-break: break-word;
+    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -1120,7 +1120,7 @@ ul, ol {
     font-size: 1.125rem;
     font-weight: 500;
     color: var(--color-gray-600);
-    word-break: break-word;
+    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -1218,7 +1218,7 @@ ul, ol {
 .menu-cta-content {
     position: relative;
     z-index: 1;
-    word-break: break-word;
+    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -1348,7 +1348,7 @@ ul, ol {
     box-shadow: var(--shadow-md);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
     overflow: hidden;
-    word-break: break-word;
+    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -1525,7 +1525,7 @@ ul, ol {
     max-width: 700px;
     margin: 0 auto;
     padding: 0 var(--space-xl);
-    word-break: break-word;
+    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -3398,34 +3398,6 @@ ul, ol {
         padding: var(--space-3xl) 0;
     }
 
-    /* Sections already at 4xl - reduce to 3xl for consistency */
-    .features {
-        padding: var(--space-3xl) 0;
-    }
-
-    .eyebrow {
-        padding: var(--space-3xl) 0;
-    }
-
-    .set-recommend {
-        padding: var(--space-3xl) 0;
-    }
-
-    .comparison {
-        padding: var(--space-3xl) 0;
-    }
-
-    .menu {
-        padding: var(--space-3xl) 0;
-    }
-
-    .access {
-        padding: var(--space-3xl) 0;
-    }
-
-    .final-cta {
-        padding: var(--space-3xl) 0;
-    }
 
     /* Introduction / Concept section */
     .introduction-grid {
@@ -4034,6 +4006,52 @@ ul, ol {
         padding: var(--space-md) var(--space-2xl);
         font-size: 1rem;
     }
+
+    /* CRO: Hero CTA note - improve contrast on video background */
+    .hero-cta-note {
+        font-size: 0.8125rem;
+        color: rgba(255, 255, 255, 0.95);
+        font-weight: 600;
+        background: rgba(0, 0, 0, 0.35);
+        padding: var(--space-xs) var(--space-md);
+        border-radius: var(--radius-full);
+        letter-spacing: 0.05em;
+    }
+
+    /* CRO: Menu booking links - fill-width CTA style on mobile */
+    .menu-item-book {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        font-size: 0.875rem;
+        padding: var(--space-sm) var(--space-lg);
+        background: var(--color-primary);
+        color: var(--color-white);
+        border-color: var(--color-primary);
+        border-radius: var(--radius-md);
+        text-align: center;
+    }
+
+    /* CRO: Final CTA section - larger tap target and better note contrast */
+    .final-cta .btn {
+        width: 100%;
+        max-width: 360px;
+        font-size: 1rem;
+        padding: var(--space-lg) var(--space-xl);
+    }
+
+    .final-cta-note {
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+    }
+
+    /* CRO: LINE bubble - ensure visibility/readability on mobile */
+    .fixed-line-bubble {
+        font-size: 0.625rem;
+        font-weight: 800;
+        padding: 3px 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
 @media (max-width: 480px) {
@@ -4468,7 +4486,7 @@ ul, ol {
     .faq-question {
         font-size: 0.875rem;
         padding: var(--space-md) 0;
-        line-height: 1.6;
+        line-height: 1.8;
     }
 
     .faq-answer p {
