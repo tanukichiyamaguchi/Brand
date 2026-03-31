@@ -818,7 +818,7 @@ ul, ol {
 .btn-shine {
     position: absolute;
     top: 0;
-    left: -100%;
+    left: 0;
     width: 100%;
     height: 100%;
     background: linear-gradient(
@@ -827,11 +827,12 @@ ul, ol {
         rgba(255, 255, 255, 0.3) 50%,
         transparent 100%
     );
-    transition: left 0.6s ease;
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
 }
 
 .btn:hover .btn-shine {
-    left: 100%;
+    transform: translateX(100%);
 }
 
 /* =====================================================
@@ -1651,16 +1652,16 @@ ul, ol {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: var(--space-sm);
+    gap: var(--space-md);
     width: 170px;
 }
 
 @keyframes shine {
     0% {
-        left: -100%;
+        transform: translateX(-100%);
     }
     20%, 100% {
-        left: 100%;
+        transform: translateX(200%);
     }
 }
 
@@ -1710,7 +1711,8 @@ ul, ol {
 .fixed-bingo-shine {
     position: absolute;
     top: 0;
-    left: -100%;
+    left: 0;
+    transform: translateX(-100%);
     width: 100%;
     height: 100%;
     background: linear-gradient(
@@ -1781,7 +1783,8 @@ ul, ol {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
+    left: 0;
+    transform: translateX(-100%);
     width: 100%;
     height: 100%;
     background: linear-gradient(
@@ -3256,8 +3259,8 @@ ul, ol {
     }
 
     body {
-        word-break: normal;
-        overflow-wrap: anywhere;
+        word-break: keep-all;
+        overflow-wrap: break-word;
     }
 
     .container {
@@ -3273,6 +3276,7 @@ ul, ol {
     /* hero section */
     .hero {
         min-height: 100vh;
+        min-height: 100dvh;
     }
 
     .hero-content {
@@ -3350,6 +3354,11 @@ ul, ol {
         padding: 0;
     }
 
+    .section-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+    }
+
     .section-subtitle {
         font-size: 0.875rem;
         max-width: 100%;
@@ -3357,6 +3366,61 @@ ul, ol {
 
     .section-subtitle br {
         display: none;
+    }
+
+    /* Section header spacing - 6rem is too much on mobile */
+    .section-header {
+        margin-bottom: var(--space-2xl);
+    }
+
+    /* Section padding - reduce 8rem to 4rem on mobile */
+    .introduction {
+        padding: var(--space-3xl) 0;
+    }
+
+    .gallery {
+        padding: var(--space-3xl) 0;
+    }
+
+    .testimonials {
+        padding: var(--space-3xl) 0;
+    }
+
+    .continuity {
+        padding: var(--space-3xl) 0;
+    }
+
+    .faq {
+        padding: var(--space-3xl) 0;
+    }
+
+    /* Sections already at 4xl - reduce to 3xl for consistency */
+    .features {
+        padding: var(--space-3xl) 0;
+    }
+
+    .eyebrow {
+        padding: var(--space-3xl) 0;
+    }
+
+    .set-recommend {
+        padding: var(--space-3xl) 0;
+    }
+
+    .comparison {
+        padding: var(--space-3xl) 0;
+    }
+
+    .menu {
+        padding: var(--space-3xl) 0;
+    }
+
+    .access {
+        padding: var(--space-3xl) 0;
+    }
+
+    .final-cta {
+        padding: var(--space-3xl) 0;
     }
 
     /* Introduction / Concept section */
@@ -3376,7 +3440,7 @@ ul, ol {
 
     /* Comparison section mobile */
     .comparison {
-        padding: var(--space-4xl) 0;
+        padding: var(--space-3xl) 0;
         overflow: hidden;
     }
 
@@ -3556,7 +3620,7 @@ ul, ol {
 
     /* Eyebrow section */
     .eyebrow {
-        padding: var(--space-4xl) 0;
+        padding: var(--space-3xl) 0;
         overflow: hidden;
     }
 
@@ -3839,7 +3903,8 @@ ul, ol {
 
     .menu-item-book {
         font-size: 0.75rem;
-        padding: var(--space-xs) var(--space-md);
+        padding: var(--space-sm) var(--space-md);
+        min-height: 44px;
     }
 
     .menu-cta {
@@ -3992,12 +4057,12 @@ ul, ol {
     .feature-text,
     .menu-item-description,
     .testimonial-text {
-        word-break: break-word;
+        word-break: keep-all;
         overflow-wrap: break-word;
     }
 
     .menu-category-title {
-        word-break: break-word;
+        word-break: keep-all;
         overflow-wrap: break-word;
     }
 
