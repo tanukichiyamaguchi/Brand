@@ -1233,6 +1233,7 @@ ul, ol {
 
 .menu-cta-text strong {
     color: var(--color-gold);
+    font-weight: 600;
 }
 
 /* =====================================================
@@ -1966,6 +1967,7 @@ ul, ol {
 
 .introduction-highlight strong {
     color: var(--color-primary);
+    font-weight: 600;
 }
 
 /* =====================================================
@@ -3298,14 +3300,14 @@ ul, ol {
     .hero-tagline {
         font-size: 0.7rem;
         letter-spacing: 0.1em;
-        word-break: break-word;
+        word-break: keep-all;
         overflow-wrap: break-word;
         white-space: normal;
     }
 
     .hero-description {
         font-size: 0.9rem;
-        word-break: break-word;
+        word-break: keep-all;
     }
 
     .hero-description br {
@@ -3899,6 +3901,11 @@ ul, ol {
         font-size: 0.9375rem;
     }
 
+    .menu-item-price {
+        font-size: 1.125rem;
+        font-weight: 700;
+    }
+
     .menu-item-description {
         font-size: 0.8125rem;
     }
@@ -4030,6 +4037,35 @@ ul, ol {
 }
 
 @media (max-width: 480px) {
+    /* Section padding - reduce from 4rem to 3rem on small phones */
+    .introduction,
+    .features,
+    .gallery,
+    .testimonials,
+    .continuity,
+    .eyebrow,
+    .set-recommend,
+    .comparison,
+    .menu,
+    .faq,
+    .access,
+    .final-cta,
+    .visual-break {
+        padding: var(--space-2xl) 0;
+    }
+
+    /* Section header margin - tighten on small screens */
+    .section-header {
+        margin-bottom: var(--space-xl);
+    }
+
+    /* Hero - drop fixed 700px min-height for short phones like iPhone SE */
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
     .container {
         padding: 0 var(--space-md);
     }
