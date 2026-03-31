@@ -3079,6 +3079,36 @@ ul, ol {
 }
 
 /* =====================================================
+   Focus Visible (キーボードアクセシビリティ)
+   ===================================================== */
+:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.3);
+}
+
+.hamburger:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 4px;
+}
+
+.faq-question:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+.nav-link:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 4px;
+}
+
+/* =====================================================
    Animations (AOS-like)
    横方向のtransformは使用しない（オーバーフローの原因になるため）
    ===================================================== */
@@ -3164,6 +3194,56 @@ ul, ol {
 
     .comparison-message {
         padding: var(--space-2xl);
+    }
+
+    /* タブレット向け追加修正 */
+    .container {
+        padding: 0 var(--space-lg);
+    }
+
+    .eyebrow-bone-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md);
+    }
+
+    .eyebrow-domestic-points {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .set-recommend-benefits {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .flow-steps {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .flow-step {
+        flex: none;
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .flow-step-arrow {
+        transform: rotate(90deg);
+        margin: var(--space-sm) 0;
+    }
+
+    .fixed-cta-right {
+        width: 160px;
+    }
+
+    .eyebrow-golden-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-2xl);
+    }
+
+    .eyebrow-wax-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-2xl);
     }
 }
 
@@ -3306,7 +3386,11 @@ ul, ol {
         margin-bottom: var(--space-3xl);
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        max-width: calc(100vw);
+        max-width: 100%;
+    }
+
+    .menu-item-price {
+        white-space: normal;
     }
 
     .comparison-table {
