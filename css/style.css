@@ -3261,6 +3261,8 @@ ul, ol {
     body {
         word-break: keep-all;
         overflow-wrap: break-word;
+        /* Prevent fixed CTA buttons from overlapping footer content */
+        padding-bottom: 120px;
     }
 
     .container {
@@ -3757,7 +3759,7 @@ ul, ol {
 
     /* Set recommend section */
     .set-recommend {
-        padding: var(--space-4xl) 0;
+        padding: var(--space-3xl) 0;
         overflow: hidden;
     }
 
@@ -3830,7 +3832,7 @@ ul, ol {
 
     /* Features section */
     .features {
-        padding: var(--space-4xl) 0;
+        padding: var(--space-3xl) 0;
     }
 
     .features-grid {
@@ -3881,7 +3883,7 @@ ul, ol {
 
     /* Menu section */
     .menu {
-        padding: var(--space-4xl) 0;
+        padding: var(--space-3xl) 0;
     }
 
     .menu-item {
@@ -3970,7 +3972,7 @@ ul, ol {
     /* Final CTA */
     .final-cta {
         min-height: auto;
-        padding: var(--space-4xl) 0;
+        padding: var(--space-3xl) 0;
     }
 
     .final-cta-title {
@@ -3988,7 +3990,7 @@ ul, ol {
 
     /* Access section */
     .access {
-        padding: var(--space-4xl) 0;
+        padding: var(--space-3xl) 0;
     }
 
     /* Fixed CTA buttons */
@@ -4019,6 +4021,12 @@ ul, ol {
         font-size: 0.75rem;
     }
 
+
+    /* CTA buttons - reduce oversized horizontal padding for mobile */
+    .btn-xl {
+        padding: var(--space-md) var(--space-2xl);
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -4079,6 +4087,7 @@ ul, ol {
 
     .section-title {
         font-size: clamp(1.3rem, 5.5vw, 1.8rem);
+        font-weight: 600;
         word-break: keep-all;
     }
 
@@ -4117,7 +4126,8 @@ ul, ol {
     }
 
     .fixed-line-btn {
-        padding: 5px var(--space-sm);
+        padding: var(--space-sm) var(--space-sm);
+        min-height: 44px;
     }
 
     .fixed-line-icon {
@@ -4136,7 +4146,8 @@ ul, ol {
     }
 
     .fixed-bingo-btn {
-        padding: 5px var(--space-sm);
+        padding: var(--space-sm) var(--space-sm);
+        min-height: 44px;
     }
 
     .fixed-bingo-icon {
@@ -4419,12 +4430,13 @@ ul, ol {
 
     /* FAQ 480px */
     .faq-question {
-        font-size: 0.8125rem;
+        font-size: 0.875rem;
         padding: var(--space-md) 0;
+        line-height: 1.6;
     }
 
     .faq-answer p {
-        font-size: 0.75rem;
+        font-size: 0.8125rem;
     }
 
     .faq-icon {
