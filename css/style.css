@@ -3397,7 +3397,7 @@ ul, ol {
     }
 
     .comparison-table {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
         min-width: auto;
         width: 100%;
         table-layout: auto;
@@ -4609,6 +4609,64 @@ ul, ol {
 
     .menu-cta {
         padding: var(--space-lg) var(--space-sm);
+    }
+}
+
+/* =====================================================
+   Landscape Mode (横向き対応)
+   ===================================================== */
+@media (orientation: landscape) and (max-height: 600px) {
+    .hero {
+        min-height: auto;
+        height: auto;
+        padding: var(--space-3xl) 0;
+    }
+
+    .hero-content {
+        padding: var(--space-md) var(--space-xs);
+    }
+
+    .hero-description {
+        display: none;
+    }
+
+    .hero-bullets {
+        display: none;
+    }
+
+    .nav {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    body {
+        padding-bottom: 60px;
+    }
+
+    .fixed-cta-container {
+        padding: 0 var(--space-sm);
+        bottom: var(--space-xs);
+    }
+
+    .section-header {
+        margin-bottom: var(--space-lg);
+    }
+
+    .introduction,
+    .features,
+    .gallery,
+    .testimonials,
+    .continuity,
+    .eyebrow,
+    .set-recommend,
+    .comparison,
+    .treatment-flow,
+    .menu,
+    .faq,
+    .access,
+    .final-cta,
+    .visual-break {
+        padding: var(--space-xl) 0;
     }
 }
 
