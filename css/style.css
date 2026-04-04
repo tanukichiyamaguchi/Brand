@@ -3460,13 +3460,16 @@ ul, ol {
     .eyebrow-domestic-title br,
     .continuity-cta-text br,
     .continuity-cycle-desc br,
+    .continuity-serum-title br,
     .set-recommend-lead br,
+    .set-recommend-cta-text br,
     .comparison-message-highlight br,
     .philosophy-desc br,
     .final-cta-title br,
     .final-cta-text br,
     .introduction-lead br,
     .introduction-text br,
+    .introduction-highlight br,
     .comparison-message p br,
     .feature-text br {
         display: none;
