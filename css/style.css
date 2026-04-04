@@ -3391,10 +3391,6 @@ ul, ol {
         word-break: keep-all;
     }
 
-    .hero-description br {
-        display: none;
-    }
-
     .nav {
         position: fixed;
         top: 0;
@@ -3451,6 +3447,28 @@ ul, ol {
     }
 
     .section-subtitle br {
+        display: none;
+    }
+
+    /* モバイルでの不自然な改行を防止 - デスクトップ向けbrを非表示 */
+    .section-title br,
+    .feature-title br,
+    .hero-description br,
+    .eyebrow-golden-title br,
+    .eyebrow-wax-title br,
+    .eyebrow-bone-title br,
+    .eyebrow-domestic-title br,
+    .continuity-cta-text br,
+    .continuity-cycle-desc br,
+    .set-recommend-lead br,
+    .comparison-message-highlight br,
+    .philosophy-desc br,
+    .final-cta-title br,
+    .final-cta-text br,
+    .introduction-lead br,
+    .introduction-text br,
+    .comparison-message p br,
+    .feature-text br {
         display: none;
     }
 
@@ -3543,10 +3561,6 @@ ul, ol {
         font-size: 0.9375rem;
     }
 
-    .comparison-message-highlight br {
-        display: none;
-    }
-
     .concept-images {
         height: 300px;
     }
@@ -3581,10 +3595,6 @@ ul, ol {
 
     .philosophy-desc {
         font-size: 0.8125rem;
-    }
-
-    .philosophy-desc br {
-        display: none;
     }
 
     .philosophy-result {
@@ -3657,11 +3667,6 @@ ul, ol {
 
     .timeline-item-highlight {
         padding: var(--space-md);
-    }
-
-    .continuity-cycle-desc br,
-    .continuity-cta-text br {
-        display: none;
     }
 
     /* Eyebrow section */
@@ -3816,10 +3821,6 @@ ul, ol {
     .set-recommend-lead {
         font-size: 0.9375rem;
         text-align: left;
-    }
-
-    .set-recommend-lead br {
-        display: none;
     }
 
     .set-recommend-benefits {
@@ -4033,11 +4034,6 @@ ul, ol {
 
     .final-cta-text {
         font-size: 0.875rem;
-    }
-
-    .final-cta-text br,
-    .final-cta-title br {
-        display: none;
     }
 
     /* Access section */
