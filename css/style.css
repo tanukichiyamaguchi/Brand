@@ -123,6 +123,7 @@ img, video, iframe {
 /* グローバルoverflow対策 */
 section, article, div, main, footer, header {
     max-width: 100%;
+    min-width: 0;
 }
 
 /* アンカーリンクでヘッダー下に隠れるのを防止 */
@@ -145,24 +146,6 @@ button {
 
 ul, ol {
     list-style: none;
-}
-
-/* =====================================================
-   Section Dividers - Visual rhythm between sections
-   ===================================================== */
-.introduction::after,
-.continuity::after,
-.gallery::after,
-.faq::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(90deg, var(--color-primary-lighter), var(--color-gold-light));
-    margin: 0 auto;
-    position: relative;
-    bottom: calc(-1 * var(--space-5xl));
-    opacity: 0.5;
 }
 
 /* =====================================================
@@ -1960,6 +1943,8 @@ ul, ol {
 
 .introduction-content {
     padding-left: var(--space-xl);
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .introduction-text {
@@ -2076,6 +2061,7 @@ ul, ol {
     text-align: center;
     border-bottom: 1px solid var(--color-gray-100);
     vertical-align: middle;
+    overflow-wrap: anywhere;
 }
 
 .comparison-table tbody tr:last-child td {
@@ -2521,6 +2507,11 @@ ul, ol {
     align-items: center;
 }
 
+.eyebrow-golden-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
 .eyebrow-golden-label,
 .eyebrow-bone-label,
 .eyebrow-wax-label,
@@ -2600,6 +2591,15 @@ ul, ol {
     box-shadow: var(--shadow-lg);
 }
 
+/* 画像が読み込めない場合の空白対策 - aspect-ratioで高さ制御 */
+.eyebrow-golden-image img,
+.eyebrow-wax-image img,
+.continuity-serum-image img {
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    background: var(--color-cream);
+}
+
 /* Bone Structure Block */
 .eyebrow-bone {
     margin-bottom: var(--space-4xl);
@@ -2610,6 +2610,7 @@ ul, ol {
     border-radius: var(--radius-xl);
     padding: var(--space-3xl);
     color: var(--color-white);
+    overflow: hidden;
 }
 
 .eyebrow-bone-label {
@@ -2631,6 +2632,7 @@ ul, ol {
     color: rgba(255, 255, 255, 0.9);
     margin-bottom: var(--space-2xl);
     max-width: 800px;
+    overflow-wrap: anywhere;
 }
 
 .eyebrow-bone-grid {
@@ -2645,6 +2647,8 @@ ul, ol {
     border-radius: var(--radius-lg);
     padding: var(--space-lg);
     text-align: center;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .bone-type-label {
@@ -2659,6 +2663,7 @@ ul, ol {
     font-size: 0.8125rem;
     line-height: 1.8;
     color: rgba(255, 255, 255, 0.85);
+    overflow-wrap: anywhere;
 }
 
 .eyebrow-bone-note {
@@ -2701,6 +2706,11 @@ ul, ol {
     margin-bottom: var(--space-lg);
 }
 
+.eyebrow-wax-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
 .eyebrow-wax-text > p {
     font-size: 0.9375rem;
     line-height: 2;
@@ -2719,6 +2729,12 @@ ul, ol {
     display: flex;
     gap: var(--space-md);
     align-items: flex-start;
+    min-width: 0;
+}
+
+.wax-benefit > div {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .wax-benefit-icon {
@@ -2754,6 +2770,7 @@ ul, ol {
     padding: var(--space-3xl);
     border: 1px solid var(--color-gray-100);
     text-align: center;
+    overflow: hidden;
 }
 
 .eyebrow-domestic-title {
@@ -2770,6 +2787,7 @@ ul, ol {
     color: var(--color-gray-500);
     max-width: 700px;
     margin: 0 auto var(--space-2xl);
+    overflow-wrap: anywhere;
 }
 
 .eyebrow-domestic-points {
@@ -2783,6 +2801,13 @@ ul, ol {
     display: flex;
     gap: var(--space-md);
     align-items: flex-start;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.domestic-point > div {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .domestic-point-number {
@@ -2851,6 +2876,8 @@ ul, ol {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
+    min-width: 0;
+    overflow: hidden;
 }
 
 .set-benefit:hover {
@@ -2870,18 +2897,26 @@ ul, ol {
     height: 100%;
 }
 
+.set-benefit-content {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
 .set-benefit-content h4 {
     font-family: var(--font-serif);
     font-size: 1rem;
     font-weight: 600;
     color: var(--color-gray-600);
     margin-bottom: var(--space-sm);
+    word-break: keep-all;
+    overflow-wrap: break-word;
 }
 
 .set-benefit-content p {
     font-size: 0.875rem;
     line-height: 1.8;
     color: var(--color-gray-400);
+    overflow-wrap: anywhere;
 }
 
 .set-recommend-cta {
@@ -3406,13 +3441,6 @@ ul, ol {
         padding: var(--space-3xl) 0;
     }
 
-    /* Section dividers - adjust offset for mobile padding */
-    .introduction::after,
-    .continuity::after,
-    .gallery::after,
-    .faq::after {
-        bottom: calc(-1 * var(--space-3xl));
-    }
 
 
     /* Introduction / Concept section */
@@ -3692,6 +3720,12 @@ ul, ol {
 
     .eyebrow-wax-image {
         order: -1;
+    }
+
+    /* 画像が読み込めない場合、空のコンテナを非表示 */
+    .eyebrow-wax-image:empty,
+    .eyebrow-golden-image:empty {
+        display: none;
     }
 
     .eyebrow-wax-title {
@@ -4117,13 +4151,7 @@ ul, ol {
         padding: var(--space-2xl) 0;
     }
 
-    /* Section dividers - adjust offset for 480px padding */
-    .introduction::after,
-    .continuity::after,
-    .gallery::after,
-    .faq::after {
-        bottom: calc(-1 * var(--space-2xl));
-    }
+
 
     /* Section header margin - tighten on small screens */
     .section-header {
@@ -4730,12 +4758,7 @@ ul, ol {
         padding: var(--space-xl) 0;
     }
 
-    .introduction::after,
-    .continuity::after,
-    .gallery::after,
-    .faq::after {
-        bottom: calc(-1 * var(--space-xl));
-    }
+
 }
 
 /* =====================================================
