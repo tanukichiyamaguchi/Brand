@@ -125,6 +125,11 @@ section, article, div, main, footer, header {
     max-width: 100%;
 }
 
+/* アンカーリンクでヘッダー下に隠れるのを防止 */
+section[id] {
+    scroll-margin-top: 80px;
+}
+
 a {
     color: inherit;
     text-decoration: none;
@@ -140,6 +145,24 @@ button {
 
 ul, ol {
     list-style: none;
+}
+
+/* =====================================================
+   Section Dividers - Visual rhythm between sections
+   ===================================================== */
+.introduction::after,
+.continuity::after,
+.gallery::after,
+.faq::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-primary-lighter), var(--color-gold-light));
+    margin: 0 auto;
+    position: relative;
+    bottom: calc(-1 * var(--space-5xl));
+    opacity: 0.5;
 }
 
 /* =====================================================
@@ -184,6 +207,7 @@ ul, ol {
     color: var(--color-gray-400);
     max-width: 600px;
     margin: 0 auto;
+    line-height: 2;
 }
 
 .section-header {
@@ -811,6 +835,27 @@ ul, ol {
     box-shadow:
         0 6px 0 var(--color-gray-200),
         0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Softer CTA for mid-page sections - reduces decision fatigue */
+.btn.btn-soft {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    box-shadow: none;
+    transform: none;
+}
+
+.btn.btn-soft:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(58, 34, 138, 0.25);
+}
+
+.btn.btn-soft:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(58, 34, 138, 0.2);
 }
 
 /* Button Shine Effect */
@@ -2140,7 +2185,7 @@ ul, ol {
    ===================================================== */
 .continuity {
     padding: var(--space-5xl) 0;
-    background-color: var(--color-white);
+    background: linear-gradient(180deg, var(--color-white) 0%, var(--color-off-white) 100%);
 }
 
 /* Philosophy Block (従来との違い) */
@@ -2945,7 +2990,7 @@ ul, ol {
    ===================================================== */
 .faq {
     padding: var(--space-5xl) 0;
-    background-color: var(--color-white);
+    background: linear-gradient(180deg, var(--color-off-white) 0%, var(--color-white) 100%);
 }
 
 .faq-list {
@@ -3359,6 +3404,14 @@ ul, ol {
     .treatment-flow,
     .faq {
         padding: var(--space-3xl) 0;
+    }
+
+    /* Section dividers - adjust offset for mobile padding */
+    .introduction::after,
+    .continuity::after,
+    .gallery::after,
+    .faq::after {
+        bottom: calc(-1 * var(--space-3xl));
     }
 
 
@@ -4064,6 +4117,14 @@ ul, ol {
         padding: var(--space-2xl) 0;
     }
 
+    /* Section dividers - adjust offset for 480px padding */
+    .introduction::after,
+    .continuity::after,
+    .gallery::after,
+    .faq::after {
+        bottom: calc(-1 * var(--space-2xl));
+    }
+
     /* Section header margin - tighten on small screens */
     .section-header {
         margin-bottom: var(--space-xl);
@@ -4667,6 +4728,13 @@ ul, ol {
     .final-cta,
     .visual-break {
         padding: var(--space-xl) 0;
+    }
+
+    .introduction::after,
+    .continuity::after,
+    .gallery::after,
+    .faq::after {
+        bottom: calc(-1 * var(--space-xl));
     }
 }
 
