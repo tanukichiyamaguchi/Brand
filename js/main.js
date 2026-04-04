@@ -37,19 +37,22 @@
     // Header Scroll Effect
     // ==============================================
     function initHeaderScroll() {
-        let lastScroll = 0;
         const scrollThreshold = 100;
+        let ticking = false;
 
         window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-
-            if (currentScroll > scrollThreshold) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const currentScroll = window.pageYOffset;
+                    if (currentScroll > scrollThreshold) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
-
-            lastScroll = currentScroll;
         }, { passive: true });
     }
 
@@ -175,103 +178,6 @@
     }
 
     // ==============================================
-    // Parallax Effect
-    // ==============================================
-    function initParallax() {
-        const parallaxElements = document.querySelectorAll('[data-parallax]');
-
-        if (parallaxElements.length === 0) return;
-
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-
-            parallaxElements.forEach(el => {
-                const speed = el.getAttribute('data-parallax') || 0.5;
-                const offset = scrolled * speed;
-                el.style.transform = `translateY(${offset}px)`;
-            });
-        }, { passive: true });
-    }
-
-    // ==============================================
-    // Menu Hover Effects
-    // ==============================================
-    function initMenuEffects() {
-        const menuItems = document.querySelectorAll('.menu-item');
-
-        menuItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-4px)';
-            });
-
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
-    }
-
-    // ==============================================
-    // Gallery Lightbox (Basic)
-    // ==============================================
-    function initGallery() {
-        const galleryItems = document.querySelectorAll('.gallery-item');
-
-        galleryItems.forEach(item => {
-            item.addEventListener('click', function() {
-                // For future: implement lightbox
-                console.log('Gallery item clicked');
-            });
-        });
-    }
-
-    // ==============================================
-    // Button Ripple Effect
-    // ==============================================
-    function initButtonEffects() {
-        const buttons = document.querySelectorAll('.btn');
-
-        buttons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const ripple = document.createElement('span');
-                ripple.style.cssText = `
-                    position: absolute;
-                    background: rgba(255, 255, 255, 0.3);
-                    border-radius: 50%;
-                    width: 100px;
-                    height: 100px;
-                    transform: translate(-50%, -50%) scale(0);
-                    left: ${x}px;
-                    top: ${y}px;
-                    animation: ripple 0.6s ease-out;
-                    pointer-events: none;
-                `;
-
-                this.appendChild(ripple);
-
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            });
-        });
-
-        // Add ripple animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: translate(-50%, -50%) scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    // ==============================================
     // FAQ Accordion
     // ==============================================
     function initFAQ() {
@@ -296,30 +202,6 @@
                     item.classList.add('active');
                     question.setAttribute('aria-expanded', 'true');
                 }
-            });
-        });
-    }
-
-    // ==============================================
-    // Testimonials Slider (Basic)
-    // ==============================================
-    function initTestimonialsSlider() {
-        const slider = document.querySelector('.testimonials-slider');
-        if (!slider) return;
-
-        // For future: implement carousel/slider functionality
-        // Currently using CSS grid for display
-    }
-
-    // ==============================================
-    // Form Validation (for future use)
-    // ==============================================
-    function initFormValidation() {
-        const forms = document.querySelectorAll('form');
-
-        forms.forEach(form => {
-            form.addEventListener('submit', function(e) {
-                // Add validation logic here
             });
         });
     }
@@ -352,28 +234,7 @@
     }
 
     // ==============================================
-    // Counter Animation
-    // ==============================================
-    function animateCounter(element, target, duration = 2000) {
-        const start = 0;
-        const increment = target / (duration / 16);
-        let current = start;
-
-        const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-                element.textContent = Math.floor(current);
-                requestAnimationFrame(updateCounter);
-            } else {
-                element.textContent = target;
-            }
-        };
-
-        updateCounter();
-    }
-
-    // ==============================================
-    // Scroll Progress Indicator
+    // Scroll Progress Indicator (GPU optimized)
     // ==============================================
     function initScrollProgress() {
         const progressBar = document.createElement('div');
@@ -389,14 +250,22 @@
             transform-origin: left;
             transform: scaleX(0);
             will-change: transform;
+            pointer-events: none;
         `;
         document.body.appendChild(progressBar);
 
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = scrollTop / docHeight;
-            progressBar.style.transform = `scaleX(${progress})`;
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const scrollTop = window.pageYOffset;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+                    progressBar.style.transform = `scaleX(${progress})`;
+                    ticking = false;
+                });
+                ticking = true;
+            }
         }, { passive: true });
     }
 
@@ -456,35 +325,6 @@
     }
 
     // ==============================================
-    // Performance: Debounce Function
-    // ==============================================
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    // ==============================================
-    // Performance: Throttle Function
-    // ==============================================
-    function throttle(func, limit) {
-        let inThrottle;
-        return function(...args) {
-            if (!inThrottle) {
-                func.apply(this, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
-    }
-
-    // ==============================================
     // Initialize All Functions
     // ==============================================
     function init() {
@@ -497,19 +337,11 @@
         initMobileNav();
         initSmoothScroll();
         initVideoBackground();
-        initParallax();
-        initMenuEffects();
-        initGallery();
-        initButtonEffects();
         initFAQ();
-        initTestimonialsSlider();
         initLazyLoading();
         initScrollProgress();
         updateCopyright();
         initAccessibility();
-
-        // Log initialization
-        console.log('KATE stage LASH website initialized');
     }
 
     // Run initialization when DOM is ready
