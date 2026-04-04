@@ -88,7 +88,6 @@
 
 html {
     font-size: 16px;
-    overflow-x: hidden;
     max-width: 100%;
 }
 
@@ -1955,10 +1954,10 @@ ul, ol {
 }
 
 .introduction-lead {
-    font-size: 1.125rem !important;
+    font-size: 1.125rem;
     font-weight: 500;
     color: var(--color-primary);
-    line-height: 1.8 !important;
+    line-height: 1.8;
 }
 
 .introduction-highlight {
@@ -2155,7 +2154,7 @@ ul, ol {
     margin-top: var(--space-xl);
     padding-top: var(--space-xl);
     border-top: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--color-white) !important;
+    color: var(--color-white);
 }
 
 .comparison-message-highlight strong {
@@ -3027,11 +3026,11 @@ ul, ol {
 .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
+    transition: max-height 0.4s ease;
 }
 
 .faq-item.active .faq-answer {
-    max-height: 300px;
+    max-height: 500px;
     padding-bottom: var(--space-xl);
 }
 
@@ -3268,20 +3267,12 @@ ul, ol {
         word-break: keep-all;
         overflow-wrap: break-word;
         /* Prevent fixed CTA buttons from overlapping footer content */
-        padding-bottom: 100px;
+        padding-bottom: 120px;
     }
 
     .container {
         padding: 0 var(--space-md);
         box-sizing: border-box;
-        max-width: 100%;
-    }
-
-    /* すべての要素のoverflow制御 */
-    section,
-    header,
-    footer {
-        overflow-x: hidden;
         max-width: 100%;
     }
 
@@ -3452,7 +3443,7 @@ ul, ol {
     }
 
     .comparison-table thead th.comparison-ours::before {
-        font-size: 0.5rem;
+        font-size: 0.625rem;
         padding: 2px 4px;
     }
 
@@ -3934,7 +3925,7 @@ ul, ol {
     }
 
     .introduction-lead {
-        font-size: 1rem !important;
+        font-size: 1rem;
     }
 
     .introduction-highlight {
@@ -4051,11 +4042,34 @@ ul, ol {
         padding: 3px 10px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
+
+    /* モバイルGPU負荷軽減 */
+    .feature-card {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .header.scrolled {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background-color: rgba(255, 255, 255, 0.99);
+    }
+
+    /* モバイルでの常時アニメーション全停止 - スクロール性能改善 */
+    .fixed-bingo-btn,
+    .fixed-line-btn,
+    .fixed-bingo-shine,
+    .fixed-line-btn-shine::before,
+    .btn-shine,
+    .fixed-line-bubble {
+        animation: none;
+    }
 }
 
 @media (max-width: 480px) {
     body {
-        padding-bottom: 80px;
+        padding-bottom: 110px;
     }
 
     /* Section padding - reduce from 4rem to 3rem on small phones */
@@ -4101,7 +4115,7 @@ ul, ol {
     }
 
     .hero-tagline {
-        font-size: 0.55rem;
+        font-size: 0.6875rem;
         letter-spacing: 0.05em;
         line-height: 1.6;
     }
@@ -4194,11 +4208,11 @@ ul, ol {
     }
 
     .fixed-line-text {
-        font-size: 0.65rem;
+        font-size: 0.75rem;
     }
 
     .fixed-line-bubble {
-        font-size: 0.6rem;
+        font-size: 0.6875rem;
         top: -28px;
         padding: 3px 8px;
         font-weight: 800;
@@ -4215,7 +4229,7 @@ ul, ol {
     }
 
     .fixed-bingo-text {
-        font-size: 0.65rem;
+        font-size: 0.75rem;
     }
 
     /* アクセスセクション */
@@ -4259,7 +4273,7 @@ ul, ol {
 
     .comparison-table {
         min-width: auto;
-        font-size: 0.625rem;
+        font-size: 0.6875rem;
     }
 
     .comparison-table thead th,
@@ -4268,13 +4282,13 @@ ul, ol {
     }
 
     .comparison-table td.comparison-item {
-        font-size: 0.6rem;
+        font-size: 0.6875rem;
         min-width: auto;
     }
 
     .comparison-table td.comparison-general small,
     .comparison-table td.comparison-ours small {
-        font-size: 0.5rem;
+        font-size: 0.625rem;
     }
 
     .comparison-message {
@@ -4479,7 +4493,7 @@ ul, ol {
     }
 
     .introduction-lead {
-        font-size: 0.9375rem !important;
+        font-size: 0.9375rem;
     }
 
     .introduction-highlight {
@@ -4509,7 +4523,7 @@ ul, ol {
     }
 
     .menu-item-badge {
-        font-size: 0.5625rem;
+        font-size: 0.6875rem;
         padding: 4px 10px;
     }
 
@@ -4592,7 +4606,7 @@ ul, ol {
 
     .comparison-table {
         min-width: auto;
-        font-size: 0.5625rem;
+        font-size: 0.625rem;
     }
 
     .set-benefit {
@@ -4733,32 +4747,4 @@ ul, ol {
     will-change: transform;
 }
 
-/* =====================================================
-   Mobile Backdrop-filter Performance
-   backdrop-filter: blur() is expensive on mobile GPUs
-   ===================================================== */
-@media (max-width: 768px) {
-    .feature-card {
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        background: rgba(255, 255, 255, 0.15);
-    }
-
-    .header.scrolled {
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        background-color: rgba(255, 255, 255, 0.99);
-    }
-
-    /* モバイルでの常時アニメーション削減 - スクロール性能改善 */
-    .fixed-bingo-shine,
-    .fixed-line-btn-shine::before,
-    .btn-shine {
-        animation: none;
-    }
-
-    .fixed-line-bubble {
-        animation: none;
-    }
-}
 
