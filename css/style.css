@@ -877,6 +877,12 @@ ul, ol {
     box-shadow: var(--shadow-xl);
 }
 
+.concept-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .concept-image-1 {
     width: 65%;
     height: 70%;
@@ -1938,7 +1944,7 @@ ul, ol {
 
 .introduction-images {
     position: relative;
-    height: 600px;
+    height: 500px;
 }
 
 .introduction-content {
@@ -2591,13 +2597,15 @@ ul, ol {
     box-shadow: var(--shadow-lg);
 }
 
-/* 画像が読み込めない場合の空白対策 - aspect-ratioで高さ制御 */
-.eyebrow-golden-image img,
-.eyebrow-wax-image img,
-.continuity-serum-image img {
+/* 画像のアスペクト比制御 */
+.eyebrow-golden-image img {
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+
+.eyebrow-wax-image img {
     aspect-ratio: 4/3;
     object-fit: cover;
-    background: var(--color-cream);
 }
 
 /* Bone Structure Block */
