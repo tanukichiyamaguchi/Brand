@@ -90,7 +90,7 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     overflow-x: hidden;
-    max-width: 100vw;
+    max-width: 100%;
 }
 
 body {
@@ -108,7 +108,7 @@ body {
     /* 横スクロール防止 */
     overflow-x: hidden;
     width: 100%;
-    max-width: 100vw;
+    max-width: 100%;
     min-width: 320px;
 }
 
@@ -3271,16 +3271,28 @@ ul, ol {
         overflow-wrap: break-word;
         /* Prevent fixed CTA buttons from overlapping footer content */
         padding-bottom: 100px;
+        /* 横はみ出し完全防止 */
+        overflow-x: clip;
     }
 
     .container {
         padding: 0 var(--space-md);
         box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: hidden;
     }
 
-    /* すべてのセクションのoverflow制御 */
-    section {
+    /* すべての要素のoverflow制御 */
+    section,
+    header,
+    footer {
         overflow-x: hidden;
+        max-width: 100%;
+    }
+
+    /* ヘッダー内パディング縮小 */
+    .header-inner {
+        padding: 0 var(--space-md);
     }
 
     /* hero section */
@@ -3412,8 +3424,8 @@ ul, ol {
     }
 
     .comparison-table-wrapper {
-        margin: 0 calc(-1 * var(--space-md));
-        padding: 0 var(--space-md);
+        margin: 0;
+        padding: 0;
         margin-bottom: var(--space-3xl);
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
@@ -3426,7 +3438,9 @@ ul, ol {
 
     .comparison-table {
         font-size: 0.7rem;
-        min-width: 400px;
+        min-width: auto;
+        width: 100%;
+        table-layout: auto;
     }
 
     .comparison-table thead th,
@@ -3436,8 +3450,9 @@ ul, ol {
 
     .comparison-table thead th:first-child,
     .comparison-table td.comparison-item {
-        min-width: 60px;
-        max-width: 70px;
+        min-width: auto;
+        max-width: none;
+        width: 20%;
         word-break: keep-all;
     }
 
@@ -4046,6 +4061,7 @@ ul, ol {
 @media (max-width: 480px) {
     body {
         padding-bottom: 80px;
+        overflow-x: clip;
     }
 
     /* Section padding - reduce from 4rem to 3rem on small phones */
@@ -4243,12 +4259,12 @@ ul, ol {
 
     /* Comparison section 480px */
     .comparison-table-wrapper {
-        margin: 0 calc(-1 * var(--space-md));
-        padding: 0 var(--space-md);
+        margin: 0;
+        padding: 0;
     }
 
     .comparison-table {
-        min-width: 340px;
+        min-width: auto;
         font-size: 0.625rem;
     }
 
@@ -4259,7 +4275,7 @@ ul, ol {
 
     .comparison-table td.comparison-item {
         font-size: 0.6rem;
-        min-width: 50px;
+        min-width: auto;
     }
 
     .comparison-table td.comparison-general small,
@@ -4581,7 +4597,7 @@ ul, ol {
     }
 
     .comparison-table {
-        min-width: 290px;
+        min-width: auto;
         font-size: 0.5625rem;
     }
 
