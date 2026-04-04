@@ -20,6 +20,7 @@
     // Preloader
     // ==============================================
     function initPreloader() {
+        if (!preloader) return;
         window.addEventListener('load', () => {
             setTimeout(() => {
                 preloader.classList.add('hidden');
@@ -37,6 +38,7 @@
     // Header Scroll Effect
     // ==============================================
     function initHeaderScroll() {
+        if (!header) return;
         const scrollThreshold = 100;
         let ticking = false;
 
@@ -60,6 +62,7 @@
     // Mobile Navigation
     // ==============================================
     function initMobileNav() {
+        if (!hamburger || !nav) return;
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             nav.classList.toggle('active');
