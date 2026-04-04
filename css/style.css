@@ -559,6 +559,7 @@ ul, ol {
     color: var(--color-white);
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
     padding: var(--space-sm) var(--space-lg);
+    min-height: 44px;
     border-radius: var(--radius-full);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
@@ -737,6 +738,7 @@ ul, ol {
     transition: all var(--transition-base);
     position: relative;
     overflow: hidden;
+    min-height: 44px;
 }
 
 .btn-inner {
@@ -1153,6 +1155,7 @@ ul, ol {
     color: var(--color-primary);
     margin-top: var(--space-md);
     padding: var(--space-sm) var(--space-lg);
+    min-height: 44px;
     border: 1px solid var(--color-primary);
     border-radius: var(--radius-full);
     transition: all var(--transition-base);
@@ -1678,6 +1681,7 @@ ul, ol {
     background: linear-gradient(180deg, #FF69B4 0%, #FF1493 50%, #DB1490 100%);
     border-radius: var(--radius-md);
     padding: var(--space-sm) var(--space-md);
+    min-height: 44px;
     box-shadow:
         0 3px 0 #A00060,
         0 4px 12px rgba(255, 20, 147, 0.4),
@@ -1756,6 +1760,7 @@ ul, ol {
     background: linear-gradient(180deg, #00D000 0%, #00B000 50%, #009000 100%);
     border-radius: var(--radius-md);
     padding: var(--space-sm) var(--space-md);
+    min-height: 44px;
     box-shadow:
         0 3px 0 #006600,
         0 4px 12px rgba(0, 150, 0, 0.4),
@@ -2988,6 +2993,7 @@ ul, ol {
     align-items: center;
     gap: var(--space-lg);
     padding: var(--space-xl) 0;
+    min-height: 44px;
     background: none;
     border: none;
     cursor: pointer;
@@ -3879,12 +3885,10 @@ ul, ol {
     }
 
     .menu-item-description {
-        font-size: 0.8125rem;
+        font-size: 0.875rem;
     }
 
     .menu-item-book {
-        font-size: 0.75rem;
-        padding: var(--space-sm) var(--space-md);
         min-height: 44px;
     }
 
@@ -3926,12 +3930,12 @@ ul, ol {
     }
 
     .faq-answer p {
-        font-size: 0.8125rem;
+        font-size: 0.875rem;
     }
 
     /* Introduction text */
     .introduction-text p {
-        font-size: 0.875rem;
+        font-size: 0.9375rem;
     }
 
     .introduction-lead {
@@ -4194,9 +4198,10 @@ ul, ol {
     }
 
     .fixed-line-bubble {
-        font-size: 0.55rem;
+        font-size: 0.6rem;
         top: -28px;
-        padding: 2px 8px;
+        padding: 3px 8px;
+        font-weight: 800;
     }
 
     .fixed-bingo-btn {
@@ -4470,7 +4475,7 @@ ul, ol {
 
     /* Introduction section 480px */
     .introduction-text p {
-        font-size: 0.8125rem;
+        font-size: 0.875rem;
     }
 
     .introduction-lead {
@@ -4490,7 +4495,7 @@ ul, ol {
     }
 
     .faq-answer p {
-        font-size: 0.8125rem;
+        font-size: 0.875rem;
     }
 
     .faq-icon {
@@ -4529,7 +4534,7 @@ ul, ol {
 
     /* Final CTA 480px */
     .final-cta-text {
-        font-size: 0.8125rem;
+        font-size: 0.875rem;
     }
 
     .final-cta-note {

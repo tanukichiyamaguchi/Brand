@@ -382,18 +382,21 @@
             position: fixed;
             top: 0;
             left: 0;
+            width: 100%;
             height: 3px;
             background: linear-gradient(90deg, #6B3FA0, #C9A962);
             z-index: 9999;
-            transition: width 0.1s ease;
+            transform-origin: left;
+            transform: scaleX(0);
+            will-change: transform;
         `;
         document.body.appendChild(progressBar);
 
         window.addEventListener('scroll', () => {
             const scrollTop = window.pageYOffset;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (scrollTop / docHeight) * 100;
-            progressBar.style.width = `${progress}%`;
+            const progress = scrollTop / docHeight;
+            progressBar.style.transform = `scaleX(${progress})`;
         }, { passive: true });
     }
 
