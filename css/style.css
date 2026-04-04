@@ -100,7 +100,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     /* 禁則処理 */
-    word-break: keep-all;
     overflow-wrap: break-word;
     line-break: strict;
     /* 横スクロール防止 */
@@ -196,7 +195,6 @@ ul, ol {
 .section-header {
     text-align: center;
     margin-bottom: var(--space-4xl);
-    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -955,7 +953,6 @@ ul, ol {
     text-align: center;
     transition: transform var(--transition-base), box-shadow var(--transition-base);
     overflow: hidden;
-    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -1133,7 +1130,6 @@ ul, ol {
     padding: var(--space-xl);
     box-shadow: var(--shadow-sm);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
-    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -1161,7 +1157,6 @@ ul, ol {
     font-size: 1.125rem;
     font-weight: 500;
     color: var(--color-gray-600);
-    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -1260,7 +1255,6 @@ ul, ol {
 .menu-cta-content {
     position: relative;
     z-index: 1;
-    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -1395,7 +1389,6 @@ ul, ol {
     box-shadow: var(--shadow-md);
     transition: transform var(--transition-base), box-shadow var(--transition-base);
     overflow: hidden;
-    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -1572,7 +1565,6 @@ ul, ol {
     max-width: 700px;
     margin: 0 auto;
     padding: 0 var(--space-xl);
-    word-break: keep-all;
     overflow-wrap: break-word;
 }
 
@@ -3369,7 +3361,7 @@ ul, ol {
     }
 
     body {
-        word-break: keep-all;
+        word-break: normal;
         overflow-wrap: break-word;
         /* Prevent fixed CTA buttons from overlapping footer content */
         padding-bottom: 120px;
@@ -3416,7 +3408,6 @@ ul, ol {
 
     .hero-description {
         font-size: 0.9rem;
-        word-break: keep-all;
     }
 
     .nav {
@@ -4249,7 +4240,7 @@ ul, ol {
     .feature-text,
     .menu-item-description,
     .testimonial-text {
-        word-break: keep-all;
+        word-break: normal;
         overflow-wrap: break-word;
     }
 
