@@ -3270,11 +3270,11 @@ ul, ol {
         word-break: keep-all;
         overflow-wrap: break-word;
         /* Prevent fixed CTA buttons from overlapping footer content */
-        padding-bottom: 120px;
+        padding-bottom: 100px;
     }
 
     .container {
-        padding: 0 var(--space-lg);
+        padding: 0 var(--space-md);
         box-sizing: border-box;
     }
 
@@ -3290,7 +3290,7 @@ ul, ol {
     }
 
     .hero-content {
-        padding: 0 var(--space-md);
+        padding: 0 var(--space-xs);
     }
 
     .hero-title {
@@ -3362,6 +3362,7 @@ ul, ol {
     /* Section header mobile */
     .section-header {
         padding: 0;
+        margin-bottom: var(--space-2xl);
     }
 
     .section-label {
@@ -3378,28 +3379,12 @@ ul, ol {
         display: none;
     }
 
-    /* Section header spacing - 6rem is too much on mobile */
-    .section-header {
-        margin-bottom: var(--space-2xl);
-    }
-
     /* Section padding - reduce 8rem to 4rem on mobile */
-    .introduction {
-        padding: var(--space-3xl) 0;
-    }
-
-    .gallery {
-        padding: var(--space-3xl) 0;
-    }
-
-    .testimonials {
-        padding: var(--space-3xl) 0;
-    }
-
-    .continuity {
-        padding: var(--space-3xl) 0;
-    }
-
+    .introduction,
+    .gallery,
+    .testimonials,
+    .continuity,
+    .treatment-flow,
     .faq {
         padding: var(--space-3xl) 0;
     }
@@ -3427,8 +3412,8 @@ ul, ol {
     }
 
     .comparison-table-wrapper {
-        margin: 0 calc(-1 * var(--space-lg));
-        padding: 0 var(--space-lg);
+        margin: 0 calc(-1 * var(--space-md));
+        padding: 0 var(--space-md);
         margin-bottom: var(--space-3xl);
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
@@ -3441,7 +3426,7 @@ ul, ol {
 
     .comparison-table {
         font-size: 0.7rem;
-        min-width: 500px;
+        min-width: 400px;
     }
 
     .comparison-table thead th,
@@ -4059,6 +4044,10 @@ ul, ol {
 }
 
 @media (max-width: 480px) {
+    body {
+        padding-bottom: 80px;
+    }
+
     /* Section padding - reduce from 4rem to 3rem on small phones */
     .introduction,
     .features,
@@ -4068,6 +4057,7 @@ ul, ol {
     .eyebrow,
     .set-recommend,
     .comparison,
+    .treatment-flow,
     .menu,
     .faq,
     .access,
@@ -4258,7 +4248,7 @@ ul, ol {
     }
 
     .comparison-table {
-        min-width: 460px;
+        min-width: 340px;
         font-size: 0.625rem;
     }
 
@@ -4591,7 +4581,7 @@ ul, ol {
     }
 
     .comparison-table {
-        min-width: 400px;
+        min-width: 290px;
         font-size: 0.5625rem;
     }
 
