@@ -1052,6 +1052,34 @@ ul, ol {
     color: var(--color-primary);
 }
 
+/* Visual Break within Introduction */
+.visual-break-intro {
+    margin-top: var(--space-4xl);
+    text-align: center;
+}
+
+.visual-break-intro .visual-break-image {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.visual-break-intro .visual-break-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.visual-break-intro .visual-break-quote {
+    margin-top: var(--space-xl);
+    font-family: var(--font-serif);
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+}
+
 /* =====================================================
    Menu Section
    ===================================================== */
