@@ -4172,7 +4172,7 @@ ul, ol {
 
 @media (max-width: 480px) {
     body {
-        padding-bottom: 110px;
+        padding-bottom: 130px;
     }
 
     /* Section padding - reduce from 4rem to 3rem on small phones */
@@ -4667,8 +4667,19 @@ ul, ol {
         padding: 0 var(--space-sm);
     }
 
+    /* Hero */
     .hero-title {
         font-size: clamp(1.2rem, 6vw, 1.6rem);
+    }
+
+    .hero-title-line {
+        word-break: normal;
+        line-break: auto;
+    }
+
+    .hero-tagline {
+        word-break: normal;
+        letter-spacing: 0.05em;
     }
 
     .hero-description {
@@ -4676,13 +4687,14 @@ ul, ol {
     }
 
     .hero-bullet-list li {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
     }
 
     .section-title {
         font-size: clamp(1.1rem, 5vw, 1.5rem);
     }
 
+    /* ボタン */
     .btn-primary {
         font-size: 0.8rem;
         padding: var(--space-sm) var(--space-md);
@@ -4693,10 +4705,38 @@ ul, ol {
         padding: var(--space-sm) var(--space-md);
         font-size: 0.8rem;
         min-height: 44px;
+        width: 100%;
     }
 
+    .btn-inner {
+        word-break: normal;
+    }
+
+    /* Introduction */
+    .introduction-text p,
+    .introduction-lead {
+        line-height: 1.8;
+    }
+
+    .introduction-images {
+        height: 250px;
+    }
+
+    .concept-signature {
+        gap: var(--space-md);
+    }
+
+    .signature-line {
+        width: 40px;
+    }
+
+    .signature-text {
+        font-size: 0.75rem;
+    }
+
+    /* 5つのこだわり */
     .feature-card {
-        padding: var(--space-sm);
+        padding: var(--space-md);
     }
 
     .feature-title {
@@ -4705,21 +4745,37 @@ ul, ol {
 
     .feature-text {
         font-size: 0.75rem;
+        word-break: normal;
+        overflow-wrap: break-word;
     }
 
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    /* 比較テーブル */
     .comparison-table {
         min-width: auto;
-        font-size: 0.625rem;
+        font-size: 0.75rem;
     }
 
-    .set-benefit {
-        padding: var(--space-sm);
-    }
-
+    /* 継続ケア */
     .continuity-serum-content {
         padding: var(--space-sm);
     }
 
+    .continuity-philosophy-inner {
+        padding: var(--space-sm);
+    }
+
+    .philosophy-desc,
+    .continuity-cta-text,
+    .continuity-cycle-desc {
+        line-height: 1.6;
+    }
+
+    /* 眉毛セクション */
     .eyebrow-domestic-inner {
         padding: var(--space-sm);
     }
@@ -4728,16 +4784,46 @@ ul, ol {
         padding: var(--space-sm);
     }
 
-    .continuity-philosophy-inner {
-        padding: var(--space-sm);
+    /* セット推奨 */
+    .set-benefit {
+        padding: var(--space-md);
     }
 
+    .set-recommend-lead {
+        line-height: 1.6;
+    }
+
+    /* メニュー */
     .menu-item {
-        padding: var(--space-sm);
+        padding: var(--space-md);
     }
 
     .menu-cta {
         padding: var(--space-lg) var(--space-sm);
+    }
+
+    /* 施術の流れ */
+    .flow-step {
+        max-width: 260px;
+    }
+
+    .flow-step-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .flow-step-arrow {
+        margin: 4px 0;
+    }
+
+    /* FAQ */
+    .faq-question {
+        font-size: 0.875rem;
+    }
+
+    /* Final CTA */
+    .final-cta .btn-xl {
+        width: 100%;
     }
 }
 
