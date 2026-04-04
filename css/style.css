@@ -3490,7 +3490,9 @@ ul, ol {
     .introduction-text br,
     .introduction-highlight br,
     .comparison-message p br,
-    .feature-text br {
+    .feature-text br,
+    .visual-break-quote br,
+    .eyebrow-golden-title br {
         display: none;
     }
 
@@ -4658,9 +4660,9 @@ ul, ol {
 }
 
 /* =====================================================
-   Extra Small Screens (360px and below)
+   Extra Small Screens (375px and below - iPhone SE/標準サイズ)
    ===================================================== */
-@media (max-width: 360px) {
+@media (max-width: 375px) {
     .container {
         padding: 0 var(--space-sm);
     }
