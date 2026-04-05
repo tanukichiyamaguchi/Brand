@@ -3623,6 +3623,8 @@ ul, ol {
 
     .continuity-philosophy-title {
         font-size: 1.125rem;
+        word-break: keep-all;
+        overflow-wrap: break-word;
     }
 
     .continuity-philosophy-grid {
@@ -3676,6 +3678,8 @@ ul, ol {
 
     .continuity-serum-title {
         font-size: 1rem;
+        word-break: keep-all;
+        overflow-wrap: break-word;
     }
 
     .continuity-serum-price {
@@ -3727,6 +3731,8 @@ ul, ol {
 
     .eyebrow-golden-title {
         font-size: 1.125rem;
+        word-break: keep-all;
+        overflow-wrap: break-word;
     }
 
     .eyebrow-golden-desc {
@@ -3753,6 +3759,8 @@ ul, ol {
 
     .eyebrow-bone-title {
         font-size: 1.125rem;
+        word-break: keep-all;
+        overflow-wrap: break-word;
     }
 
     .eyebrow-bone-desc {
@@ -3799,6 +3807,8 @@ ul, ol {
 
     .eyebrow-wax-title {
         font-size: 1.125rem;
+        word-break: keep-all;
+        overflow-wrap: break-word;
     }
 
     .eyebrow-wax-text > p {
@@ -3824,6 +3834,8 @@ ul, ol {
 
     .eyebrow-domestic-title {
         font-size: 1.125rem;
+        word-break: keep-all;
+        overflow-wrap: break-word;
     }
 
     .eyebrow-domestic-desc {
@@ -4809,7 +4821,27 @@ ul, ol {
         line-height: 1.6;
     }
 
+    /* 継続ケアタイトル */
+    .continuity-philosophy-title {
+        font-size: 0.9375rem;
+    }
+
+    .continuity-serum-title {
+        font-size: 0.875rem;
+    }
+
+    .continuity-cycle-title {
+        font-size: 0.9375rem;
+    }
+
     /* 眉毛セクション */
+    .eyebrow-golden-title,
+    .eyebrow-bone-title,
+    .eyebrow-wax-title,
+    .eyebrow-domestic-title {
+        font-size: 0.875rem;
+    }
+
     .eyebrow-domestic-inner {
         padding: var(--space-sm);
     }
