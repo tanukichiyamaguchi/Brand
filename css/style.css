@@ -4715,7 +4715,13 @@ ul, ol {
     /* Introduction */
     .introduction-text p,
     .introduction-lead {
-        line-height: 1.8;
+        font-size: 0.8125rem;
+        line-height: 1.7;
+    }
+
+    .introduction-highlight {
+        font-size: 0.875rem;
+        line-height: 1.7;
     }
 
     .introduction-images {
@@ -4772,6 +4778,12 @@ ul, ol {
     .philosophy-desc,
     .continuity-cta-text,
     .continuity-cycle-desc {
+        font-size: 0.8125rem;
+        line-height: 1.6;
+    }
+
+    .continuity-serum-features span {
+        font-size: 0.8125rem;
         line-height: 1.6;
     }
 
@@ -4790,6 +4802,12 @@ ul, ol {
     }
 
     .set-recommend-lead {
+        font-size: 0.8125rem;
+        line-height: 1.6;
+    }
+
+    .set-recommend-cta-text {
+        font-size: 0.8125rem;
         line-height: 1.6;
     }
 
@@ -4816,12 +4834,28 @@ ul, ol {
         margin: 4px 0;
     }
 
+    /* テスティモニアル */
+    .testimonial-text {
+        font-size: 0.8125rem;
+        line-height: 1.6;
+    }
+
     /* FAQ */
     .faq-question {
         font-size: 0.875rem;
     }
 
+    .faq-answer {
+        font-size: 0.8125rem;
+        line-height: 1.6;
+    }
+
     /* Final CTA */
+    .final-cta-text {
+        font-size: 0.8125rem;
+        line-height: 1.6;
+    }
+
     .final-cta .btn-xl {
         width: 100%;
     }
