@@ -694,6 +694,23 @@ ul, ol {
     gap: var(--space-md);
 }
 
+.hero-cta-reassure {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-md) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.02em;
+}
+.hero-cta-reassure li::before {
+    content: '✓ ';
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
 .hero-cta-note {
     font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.7);
@@ -4249,6 +4266,11 @@ ul, ol {
     .menu-category-title {
         word-break: keep-all;
         overflow-wrap: break-word;
+    }
+
+    .hero-cta-reassure {
+        font-size: 0.75rem;
+        align-items: center;
     }
 
     .hero-cta .btn {
