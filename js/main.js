@@ -225,6 +225,26 @@
     }
 
     // ==============================================
+    // FAQ Accordion (single-open behavior)
+    // ==============================================
+    function initFaqAccordion() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        if (faqItems.length === 0) return;
+
+        faqItems.forEach(item => {
+            item.addEventListener('toggle', function() {
+                if (this.open) {
+                    faqItems.forEach(other => {
+                        if (other !== this && other.open) {
+                            other.open = false;
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+    // ==============================================
     // Button Ripple Effect
     // ==============================================
     function initButtonEffects() {
@@ -470,6 +490,7 @@
         initGallery();
         initButtonEffects();
         initTestimonialsSlider();
+        initFaqAccordion();
         initLazyLoading();
         initScrollProgress();
         updateCopyright();
