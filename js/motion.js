@@ -38,6 +38,7 @@
         initCounters();
         initTableStagger();
         initTimelineSpine();
+        initLashLines();
         initParallax();
     });
 
@@ -230,6 +231,42 @@
                 start: 'top 70%',
                 once: true,
                 onEnter: function () { item.classList.add('is-active'); }
+            });
+        });
+    }
+
+    // ----------------------------------------------
+    // ラッシュライン: まつ毛カーブがstroke描画される
+    // ----------------------------------------------
+    function initLashLines() {
+        if (typeof ScrollTrigger === 'undefined') return;
+
+        document.querySelectorAll('[data-lash]').forEach(function (wrap) {
+            var arc = wrap.querySelector('.lash-arc');
+            var hairs = wrap.querySelectorAll('.lash-hair');
+            if (!arc) return;
+
+            var arcLen = arc.getTotalLength();
+            gsap.set(arc, { strokeDasharray: arcLen, strokeDashoffset: arcLen });
+            hairs.forEach(function (h) {
+                var len = h.getTotalLength();
+                gsap.set(h, { strokeDasharray: len, strokeDashoffset: len });
+            });
+
+            ScrollTrigger.create({
+                trigger: wrap,
+                start: 'top 82%',
+                once: true,
+                onEnter: function () {
+                    var tl = gsap.timeline();
+                    tl.to(arc, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.inOut' })
+                      .to(hairs, {
+                          strokeDashoffset: 0,
+                          duration: 0.5,
+                          ease: 'power2.out',
+                          stagger: 0.08
+                      }, '-=0.35');
+                }
             });
         });
     }

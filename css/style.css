@@ -200,6 +200,36 @@ h1, h2, h3, h4, .section-title {
     margin-bottom: 0.5em;
 }
 
+/* =====================================================
+   Lash Line - まつ毛カーブのシグネチャーSVG
+   ===================================================== */
+.lash-line {
+    display: flex;
+    justify-content: center;
+    margin: var(--space-3xl) auto var(--space-md);
+    color: var(--c-champagne);
+}
+
+.lash-line svg {
+    width: min(280px, 64vw);
+    height: auto;
+    overflow: visible;
+}
+
+.lash-line-light {
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0 auto var(--space-lg);
+}
+
+/* Motion無効環境では最初から描画済み */
+@media (prefers-reduced-motion: reduce) {
+    .lash-arc,
+    .lash-hair {
+        stroke-dasharray: none !important;
+        stroke-dashoffset: 0 !important;
+    }
+}
+
 img, video, iframe {
     max-width: 100%;
     height: auto;
@@ -890,38 +920,28 @@ ul, ol {
     font-size: 1.125rem;
 }
 
-/* 3D Button Effect */
+/* CTA Button Shadow - 押し出し3Dを廃し、上品な単影に統一 */
 .btn-3d {
-    box-shadow:
-        0 4px 0 var(--color-primary-darker),
-        0 6px 20px rgba(107, 63, 160, 0.3);
+    box-shadow: 0 8px 24px rgba(37, 26, 59, 0.18);
     transform: translateY(0);
 }
 
 .btn-3d:hover {
     transform: translateY(-2px);
-    box-shadow:
-        0 6px 0 var(--color-primary-darker),
-        0 10px 30px rgba(107, 63, 160, 0.4);
+    box-shadow: 0 12px 32px rgba(37, 26, 59, 0.24);
 }
 
 .btn-3d:active {
-    transform: translateY(2px);
-    box-shadow:
-        0 2px 0 var(--color-primary-darker),
-        0 4px 10px rgba(107, 63, 160, 0.3);
+    transform: translateY(1px);
+    box-shadow: 0 4px 12px rgba(37, 26, 59, 0.18);
 }
 
 .btn-white.btn-3d {
-    box-shadow:
-        0 4px 0 var(--color-gray-200),
-        0 6px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
 .btn-white.btn-3d:hover {
-    box-shadow:
-        0 6px 0 var(--color-gray-200),
-        0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.24);
 }
 
 /* Softer CTA for mid-page sections - reduces decision fatigue */
@@ -1331,18 +1351,14 @@ ul, ol {
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
     padding: 6px 14px;
     border-radius: var(--radius-full);
-    box-shadow:
-        0 3px 0 var(--color-primary-darker),
-        0 4px 12px rgba(58, 34, 138, 0.4);
+    box-shadow: 0 4px 12px rgba(37, 26, 59, 0.25);
     z-index: 10;
 }
 
 .menu-item-badge-gold {
     background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
     color: var(--color-white);
-    box-shadow:
-        0 3px 0 #8B7329,
-        0 4px 12px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 4px 12px rgba(169, 139, 80, 0.35);
 }
 
 /* Menu CTA */
@@ -5040,3 +5056,25 @@ body {
 }
 
 
+
+
+/* =====================================================
+   Editorial Photo Treatment - 写真は2px角の編集的な佇まい
+   ===================================================== */
+.concept-image,
+.visual-break-image,
+.continuity-serum-image,
+.eyebrow-golden-image,
+.eyebrow-wax-image,
+.gallery-item {
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.concept-image img,
+.visual-break-image img,
+.continuity-serum-image img,
+.eyebrow-golden-image img,
+.eyebrow-wax-image img {
+    border-radius: 0;
+}
