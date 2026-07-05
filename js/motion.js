@@ -35,6 +35,9 @@
     mm.add('(prefers-reduced-motion: no-preference)', function () {
         initHeroTimeline();
         initReveals();
+        initCounters();
+        initTableStagger();
+        initTimelineSpine();
         initParallax();
     });
 
@@ -141,6 +144,92 @@
                         autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.09
                     });
                 }
+            });
+        });
+    }
+
+    // ----------------------------------------------
+    // 数字カウントアップ（37日・380時間・4%）
+    // ----------------------------------------------
+    function initCounters() {
+        if (typeof ScrollTrigger === 'undefined') return;
+
+        document.querySelectorAll('.js-count').forEach(function (el) {
+            var end = parseInt(el.dataset.end, 10);
+            if (isNaN(end)) return;
+            var obj = { v: 0 };
+            ScrollTrigger.create({
+                trigger: el,
+                start: 'top 85%',
+                once: true,
+                onEnter: function () {
+                    gsap.to(obj, {
+                        v: end,
+                        duration: 1.6,
+                        ease: 'power2.out',
+                        snap: { v: 1 },
+                        onUpdate: function () { el.textContent = obj.v; }
+                    });
+                }
+            });
+        });
+    }
+
+    // ----------------------------------------------
+    // 比較テーブル行stagger + KATE列ハイライト
+    // ----------------------------------------------
+    function initTableStagger() {
+        if (typeof ScrollTrigger === 'undefined') return;
+
+        var table = document.querySelector('.comparison-table');
+        if (!table) return;
+        var rows = table.querySelectorAll('tbody tr');
+        if (!rows.length) return;
+
+        gsap.set(rows, { autoAlpha: 0, y: 20 });
+        ScrollTrigger.create({
+            trigger: table,
+            start: 'top 80%',
+            once: true,
+            onEnter: function () {
+                gsap.to(rows, {
+                    autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.09,
+                    onComplete: function () {
+                        table.classList.add('is-revealed');
+                    }
+                });
+            }
+        });
+    }
+
+    // ----------------------------------------------
+    // まつ育タイムラインの背骨線（scrub描画+ドット点灯）
+    // ----------------------------------------------
+    function initTimelineSpine() {
+        if (typeof ScrollTrigger === 'undefined') return;
+
+        var spine = document.querySelector('.timeline-spine');
+        var timeline = document.querySelector('.continuity-timeline');
+        if (!spine || !timeline) return;
+
+        gsap.fromTo(spine, { scaleY: 0 }, {
+            scaleY: 1,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: timeline,
+                start: 'top 72%',
+                end: 'bottom 62%',
+                scrub: 0.6
+            }
+        });
+
+        // 各項目は背骨の進行に合わせて点灯
+        timeline.querySelectorAll('.timeline-item').forEach(function (item) {
+            ScrollTrigger.create({
+                trigger: item,
+                start: 'top 70%',
+                once: true,
+                onEnter: function () { item.classList.add('is-active'); }
             });
         });
     }
