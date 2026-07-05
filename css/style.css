@@ -8,33 +8,66 @@
    CSS Custom Properties (Design Tokens)
    ===================================================== */
 :root {
-    /* Deep Royal Purple Color Palette */
-    --color-primary: #3A228A;
-    --color-primary-light: #5A42AA;
-    --color-primary-lighter: #7A62CA;
-    --color-primary-dark: #2A1870;
-    --color-primary-darker: #1A0850;
+    /* =====================================
+       Brand Core — Ink Violet × Ecru × Champagne
+       ===================================== */
+    --c-ink: #251A3B;        /* 墨紫。見出し・ダーク背景 */
+    --c-ink-soft: #322559;   /* ダーク背景の照明側 */
+    --c-plum: #4A3480;       /* ブランド継承パープル */
+    --c-plum-soft: #8B7BB8;  /* 補助アクセント */
 
-    /* Premium Accent Colors */
-    --color-gold: #D4AF37;
-    --color-gold-light: #E5C865;
-    --color-gold-dark: #B8962E;
+    /* Ground */
+    --c-ecru: #F7F4EF;       /* ベース背景（温かい生成り） */
+    --c-ecru-deep: #EFEAE2;  /* セクション交互背景 */
+
+    /* Accent */
+    --c-champagne: #C9A96A;  /* 線・数字専用ゴールド */
+    --c-champagne-light: #D9BF8C;
+    --c-champagne-dark: #A98B50;
+    --c-rose: #C94F6D;       /* CTA専用 */
+    --c-rose-dark: #B03E5B;
+    --c-line-green: #06C755; /* LINE公式 */
+
+    /* Text */
+    --c-text: #322A45;
+    --c-text-sub: #6B6280;
+    --c-text-on-dark: #EDE9F4;
+
+    /* ===== 旧トークン（新パレットへのエイリアス） ===== */
+    --color-primary: var(--c-plum);
+    --color-primary-light: var(--c-plum-soft);
+    --color-primary-lighter: #A99BCB;
+    --color-primary-dark: var(--c-ink);
+    --color-primary-darker: #1B1230;
+
+    --color-gold: var(--c-champagne);
+    --color-gold-light: var(--c-champagne-light);
+    --color-gold-dark: var(--c-champagne-dark);
 
     /* Neutral Colors */
     --color-white: #FFFFFF;
-    --color-off-white: #F8F7FC;
-    --color-cream: #F3F1F9;
-    --color-gray-100: #E5E3ED;
-    --color-gray-200: #CCC9D8;
-    --color-gray-300: #9E98B3;
-    --color-gray-400: #706787;
-    --color-gray-500: #4A415E;
-    --color-gray-600: #332B45;
+    --color-off-white: var(--c-ecru);
+    --color-cream: var(--c-ecru-deep);
+    --color-gray-100: #E9E5DE;
+    --color-gray-200: #CFC9D6;
+    --color-gray-300: #8F86A3;
+    --color-gray-400: var(--c-text-sub);
+    --color-gray-500: #4C4260;
+    --color-gray-600: var(--c-text);
     --color-black: #150F20;
 
     /* Typography */
     --font-serif: 'Cormorant Garamond', 'Noto Serif JP', serif;
     --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Type Scale（視認性最優先・最小13px） */
+    --fs-hero: clamp(1.9rem, 8.5vw, 3rem);
+    --fs-h2: clamp(1.6rem, 6.5vw, 2.25rem);
+    --fs-h3: clamp(1.25rem, 4.8vw, 1.5rem);
+    --fs-lead: clamp(1.0625rem, 4vw, 1.1875rem);
+    --fs-body: 1rem;
+    --fs-note: 0.8125rem;
+    --fs-stat: clamp(3rem, 14vw, 4.5rem);
 
     /* Spacing */
     --space-xs: 0.25rem;
@@ -111,6 +144,59 @@ body {
 
 body.no-scroll {
     overflow: hidden;
+}
+
+/* =====================================================
+   日本語組版ユーティリティ（改行完全制御）
+   ===================================================== */
+/* BudouXが<wbr>を挿入した要素: 文節単位でのみ折り返す */
+.is-typeset {
+    word-break: keep-all;
+    overflow-wrap: anywhere; /* 許容改行点ゼロの場合のみ発動する安全弁 */
+    line-break: strict;
+}
+
+/* 見出し用: 手動フレーズ単位折り返し */
+.u-phrase {
+    display: inline-block;
+}
+
+/* 数値・価格・固有名詞: 絶対に分断しない */
+.u-nobr {
+    white-space: nowrap;
+}
+
+/* 見出しの行長バランス（対応ブラウザのみ、非対応は無害） */
+h1, h2, h3, .section-title, .section-subtitle {
+    text-wrap: balance;
+}
+
+/* リード文・キャッチコピー: 末行の孤立語防止 */
+.introduction-lead, .visual-break-quote, .final-cta-text {
+    text-wrap: pretty;
+}
+
+/* 和文見出しの詰め組み（高級感） */
+h1, h2, h3, h4, .section-title {
+    font-feature-settings: "palt";
+}
+
+/* 和欧混植: 数字はCormorantで組む */
+.u-num {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.u-unit {
+    font-size: 0.55em;
+    margin-left: 0.1em;
+}
+
+/* 段落内の小見出し（旧 <strong>…</strong><br> パターンの置き換え） */
+.text-block-lead {
+    display: block;
+    margin-bottom: 0.5em;
 }
 
 img, video, iframe {
@@ -763,10 +849,12 @@ ul, ol {
 .btn-inner {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--space-sm);
     position: relative;
     z-index: 1;
     text-align: center;
+    white-space: nowrap; /* ボタンラベルは絶対に折り返さない */
     flex-wrap: wrap;
     justify-content: center;
     word-break: keep-all;
@@ -1217,6 +1305,13 @@ ul, ol {
     background: var(--color-primary);
 }
 
+.menu-item-note {
+    display: block;
+    font-size: var(--fs-note);
+    color: var(--c-text-sub);
+    margin-top: 0.35em;
+}
+
 .menu-category-note {
     font-size: 0.8125rem;
     color: var(--color-gray-400);
@@ -1599,6 +1694,25 @@ ul, ol {
     line-height: 2;
     color: rgba(255, 255, 255, 0.9);
     margin-bottom: var(--space-2xl);
+}
+
+/* 約束の列挙リスト（旧<br>4行の置き換え） */
+.final-cta-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto var(--space-lg);
+    max-width: 36em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.final-cta-list li {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.92);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
 }
 
 
@@ -2018,11 +2132,57 @@ ul, ol {
     line-height: 1.8;
 }
 
+/* 失敗体験の列挙リスト */
+.introduction-pain-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35em;
+}
+
+.introduction-pain-list li {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    line-height: 1.7;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+}
+
 .introduction-highlight {
-    background: linear-gradient(135deg, rgba(58, 34, 138, 0.04) 0%, rgba(212, 175, 55, 0.06) 100%);
+    background: linear-gradient(135deg, rgba(74, 52, 128, 0.04) 0%, rgba(201, 169, 106, 0.08) 100%);
     padding: var(--space-lg);
     border-radius: var(--radius-md);
     border-left: 3px solid var(--color-gold);
+}
+
+/* 強みの列挙リスト（旧<br>3行の置き換え） */
+.introduction-highlight-list {
+    list-style: none;
+    margin: 0 0 var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+}
+
+.introduction-highlight-list li {
+    position: relative;
+    padding-left: 1.2em;
+    line-height: 1.7;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+}
+
+.introduction-highlight-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 0.55em;
+    height: 1px;
+    background: var(--c-champagne);
 }
 
 .introduction-highlight strong {
@@ -2217,7 +2377,9 @@ ul, ol {
 }
 
 .comparison-message-highlight strong {
+    display: block;
     color: var(--color-gold);
+    margin-bottom: 0.35em;
 }
 
 /* =====================================================
@@ -3482,36 +3644,8 @@ ul, ol {
         max-width: 100%;
     }
 
-    .section-subtitle br {
-        display: none;
-    }
-
-    /* モバイルでの不自然な改行を防止 - デスクトップ向けbrを非表示 */
-    .section-title br,
-    .feature-title br,
-    .hero-description br,
-    .eyebrow-golden-title br,
-    .eyebrow-wax-title br,
-    .eyebrow-bone-title br,
-    .eyebrow-domestic-title br,
-    .continuity-cta-text br,
-    .continuity-cycle-desc br,
-    .continuity-serum-title br,
-    .set-recommend-lead br,
-    .set-recommend-cta-text br,
-    .comparison-message-highlight br,
-    .philosophy-desc br,
-    .final-cta-title br,
-    .final-cta-text br,
-    .introduction-lead br,
-    .introduction-text br,
-    .introduction-highlight br,
-    .comparison-message p br,
-    .feature-text br,
-    .visual-break-quote br,
-    .eyebrow-golden-title br {
-        display: none;
-    }
+    /* 見出しの<br>は意図的な2行折りのため維持する。
+       本文中の<br>は撤去済みで、改行はBudouX（js/typeset.js）が制御する */
 
     /* Section padding - reduce 8rem to 4rem on mobile */
     .introduction,
@@ -3559,11 +3693,22 @@ ul, ol {
         white-space: normal;
     }
 
+    /* 縮小せず横スクロール＋先頭列固定で13px以上を維持 */
     .comparison-table {
-        font-size: 0.75rem;
-        min-width: auto;
+        font-size: 0.8125rem;
+        min-width: 560px;
         width: 100%;
         table-layout: auto;
+    }
+
+    .comparison-table .comparison-item,
+    .comparison-table thead th:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: var(--color-white);
+        box-shadow: 2px 0 4px rgba(37, 26, 59, 0.06);
+        word-break: keep-all;
     }
 
     .comparison-table thead th,
@@ -4268,12 +4413,6 @@ ul, ol {
         padding: var(--space-md);
     }
 
-    .feature-text,
-    .menu-item-description,
-    .testimonial-text {
-        word-break: normal;
-        overflow-wrap: break-word;
-    }
 
     .menu-category-title {
         word-break: keep-all;
@@ -4409,13 +4548,12 @@ ul, ol {
     }
 
     .comparison-table {
-        min-width: auto;
-        font-size: 0.6875rem;
+        font-size: 0.8125rem;
     }
 
     .comparison-table thead th,
     .comparison-table tbody td {
-        padding: var(--space-xs) var(--space-xs);
+        padding: var(--space-sm) var(--space-sm);
     }
 
     .comparison-table td.comparison-item {
@@ -4742,9 +4880,6 @@ ul, ol {
         width: 100%;
     }
 
-    .btn-inner {
-        word-break: normal;
-    }
 
     /* Introduction */
     .introduction-text p,
@@ -4784,9 +4919,7 @@ ul, ol {
     }
 
     .feature-text {
-        font-size: 0.75rem;
-        word-break: normal;
-        overflow-wrap: break-word;
+        font-size: 0.8125rem;
     }
 
     .feature-icon {
@@ -4796,8 +4929,7 @@ ul, ol {
 
     /* 比較テーブル */
     .comparison-table {
-        min-width: auto;
-        font-size: 0.75rem;
+        font-size: 0.8125rem;
     }
 
     /* 継続ケア */
