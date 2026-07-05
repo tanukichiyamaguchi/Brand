@@ -21,17 +21,27 @@
     // ==============================================
     function initPreloader() {
         if (!preloader) return;
-        window.addEventListener('load', () => {
+
+        // 「load完了 or 2秒タイムアウトの早い方」+ 最短400ms表示
+        const MIN_DISPLAY = 400;
+        const TIMEOUT = 2000;
+        const start = performance.now();
+        let done = false;
+
+        function hide() {
+            if (done) return;
+            done = true;
+            const elapsed = performance.now() - start;
             setTimeout(() => {
                 preloader.classList.add('hidden');
                 document.body.classList.remove('no-scroll');
+                // hero入場タイムライン等のトリガー（js/motion.jsが購読）
+                document.dispatchEvent(new CustomEvent('preloader:done'));
+            }, Math.max(0, MIN_DISPLAY - elapsed));
+        }
 
-                // Trigger hero animations after preloader
-                setTimeout(() => {
-                    initAOS();
-                }, 200);
-            }, 1800);
-        });
+        window.addEventListener('load', hide);
+        setTimeout(hide, TIMEOUT);
     }
 
     // ==============================================
@@ -115,37 +125,16 @@
     }
 
     // ==============================================
-    // AOS (Animate on Scroll) - Custom Implementation
-    // ==============================================
-    function initAOS() {
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px 0px -10% 0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const delay = entry.target.getAttribute('data-aos-delay') || 0;
-                    setTimeout(() => {
-                        entry.target.classList.add('aos-animate');
-                    }, parseInt(delay));
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('[data-aos]').forEach(el => {
-            observer.observe(el);
-        });
-    }
-
-    // ==============================================
     // Video Background Fallback
     // ==============================================
     function initVideoBackground() {
         if (heroVideo) {
+            // LCP保護: preload="none"のため、ページload後に読み込み開始
+            window.addEventListener('load', () => {
+                heroVideo.load();
+                heroVideo.play().catch(() => {});
+            }, { once: true });
+
             // Add loading state
             heroVideo.addEventListener('loadstart', () => {
                 heroVideo.parentElement.classList.add('loading');

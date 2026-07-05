@@ -3224,30 +3224,6 @@ body {
 }
 
 /* =====================================================
-   Animations (AOS-like)
-   横方向のtransformは使用しない（オーバーフローの原因になるため）
-   ===================================================== */
-[data-aos] {
-    opacity: 0;
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-[data-aos="fade-up"],
-[data-aos="fade-right"],
-[data-aos="fade-left"] {
-    transform: translateY(30px);
-}
-
-[data-aos="fade"] {
-    transform: none;
-}
-
-[data-aos].aos-animate {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* =====================================================
    Responsive Design
    ===================================================== */
 @media (max-width: 1024px) {
@@ -4885,11 +4861,12 @@ body {
         scroll-behavior: auto;
     }
 
-    /* AOS: show elements immediately without animation */
-    [data-aos] {
+    /* Reveal: show elements immediately without animation */
+    [data-animate] {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
+        clip-path: none !important;
     }
 
     /* Preloader: show immediately, no fancy entrance */
