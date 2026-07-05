@@ -210,6 +210,38 @@
     }
 
     // ==============================================
+    // CTA Dock - hero通過後に表示、final-cta表示中は退避
+    // ==============================================
+    function initCtaDock() {
+        const dock = document.getElementById('ctaDock');
+        if (!dock || !('IntersectionObserver' in window)) return;
+
+        const hero = document.querySelector('.hero');
+        const finalCta = document.querySelector('.final-cta');
+        let heroVisible = true;
+        let finalCtaVisible = false;
+
+        function update() {
+            dock.classList.toggle('is-hidden', heroVisible || finalCtaVisible);
+        }
+
+        if (hero) {
+            dock.classList.add('is-hidden');
+            new IntersectionObserver((entries) => {
+                heroVisible = entries[0].isIntersecting;
+                update();
+            }, { threshold: 0.25 }).observe(hero);
+        }
+
+        if (finalCta) {
+            new IntersectionObserver((entries) => {
+                finalCtaVisible = entries[0].isIntersecting;
+                update();
+            }, { threshold: 0.15 }).observe(finalCta);
+        }
+    }
+
+    // ==============================================
     // Lazy Loading Images
     // ==============================================
     function initLazyLoading() {
@@ -341,6 +373,7 @@
         initSmoothScroll();
         initVideoBackground();
         initFAQ();
+        initCtaDock();
         initLazyLoading();
         initScrollProgress();
         updateCopyright();

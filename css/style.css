@@ -24,6 +24,7 @@
     --c-champagne: #C9A96A;  /* 線・数字専用ゴールド */
     --c-champagne-light: #D9BF8C;
     --c-champagne-dark: #A98B50;
+    --c-champagne-text: #82683A; /* 白背景上のゴールド文字用（4.5:1確保） */
     --c-rose: #C94F6D;       /* CTA専用 */
     --c-rose-dark: #B03E5B;
     --c-line-green: #06C755; /* LINE公式 */
@@ -586,7 +587,7 @@ ul, ol {
 }
 
 .logo-sub {
-    font-size: 0.625rem;
+    font-size: 0.75rem;
     letter-spacing: 0.1em;
     color: rgba(255, 255, 255, 0.7);
     transition: color var(--transition-base);
@@ -788,7 +789,7 @@ ul, ol {
     flex-direction: column;
     gap: 4px;
     font-size: 0.8125rem;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--c-text-on-dark);
     letter-spacing: 0.02em;
 }
 .hero-cta-reassure li::before {
@@ -798,8 +799,8 @@ ul, ol {
 }
 
 .hero-cta-note {
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .hero-scroll {
@@ -1027,7 +1028,7 @@ ul, ol {
 .features {
     position: relative;
     padding: var(--space-5xl) 0;
-    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-primary-light) 100%);
+    background: radial-gradient(120% 80% at 50% 0%, var(--c-ink-soft) 0%, var(--c-ink) 60%);
     overflow: hidden;
 }
 
@@ -1050,9 +1051,9 @@ ul, ol {
 }
 
 .feature-card {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(201, 169, 106, 0.25);
     border-radius: var(--radius-lg);
     padding: var(--space-2xl);
     text-align: center;
@@ -1097,8 +1098,8 @@ ul, ol {
 
 .feature-text {
     font-size: 0.875rem;
-    line-height: 2;
-    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.9;
+    color: var(--c-text-on-dark);
 }
 
 .feature-text strong {
@@ -1294,7 +1295,7 @@ ul, ol {
     color: var(--color-primary);
     margin-top: var(--space-md);
     padding: var(--space-sm) var(--space-lg);
-    min-height: 44px;
+    min-height: 48px;
     border: 1px solid var(--color-primary);
     border-radius: var(--radius-full);
     transition: all var(--transition-base);
@@ -1323,7 +1324,7 @@ ul, ol {
     position: absolute;
     top: -12px;
     right: var(--space-lg);
-    font-size: 0.625rem;
+    font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     color: var(--color-white);
@@ -1719,7 +1720,7 @@ ul, ol {
 
 .final-cta-note {
     font-size: 0.8125rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.9);
     margin-top: var(--space-lg);
 }
 
@@ -1750,12 +1751,12 @@ ul, ol {
 }
 
 .footer-logo .logo-sub {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.72);
 }
 
 .footer-tagline {
     font-size: 0.8125rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.72);
     margin-top: var(--space-md);
 }
 
@@ -1781,7 +1782,7 @@ ul, ol {
 
 .footer-links-group a {
     font-size: 0.8125rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.78);
     transition: color var(--transition-base);
 }
 
@@ -1796,265 +1797,85 @@ ul, ol {
 
 .copyright {
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.65);
 }
 
 /* =====================================================
-   Fixed CTA Container - 右下縦並び配置
+   CTA Dock - ボトム固定ドック（視認性優先・省スペース）
    ===================================================== */
-.fixed-cta-container {
+.cta-dock {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    inset: auto 0 0 0;
     z-index: var(--z-fixed);
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 8px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(247, 244, 239, 0.92);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(37, 26, 59, 0.08);
+    transform: translateY(0);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cta-dock.is-hidden {
+    transform: translateY(110%);
+}
+
+.cta-dock-btn {
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    padding: var(--space-xl);
-    pointer-events: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;
+    padding: 6px 10px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    letter-spacing: 0.02em;
+    color: var(--color-white);
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(37, 26, 59, 0.12);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.fixed-cta-container > * {
-    pointer-events: auto;
+.cta-dock-btn:active {
+    transform: scale(0.97);
 }
 
-.fixed-cta-right {
+.cta-dock-line {
+    background: var(--c-line-green);
+}
+
+.cta-dock-book {
+    background: var(--c-rose);
+}
+
+.cta-dock-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.cta-dock-label {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    gap: var(--space-md);
-    width: 170px;
+    align-items: flex-start;
+    line-height: 1.25;
 }
 
-@keyframes shine {
-    0% {
-        transform: translateX(-100%);
-    }
-    20%, 100% {
-        transform: translateX(200%);
-    }
+.cta-dock-sub {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    opacity: 0.9;
 }
 
-/* =====================================================
-   Fixed Bingo Button (Pink/Magenta)
-   ===================================================== */
-.fixed-bingo-btn {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-    background: linear-gradient(180deg, #FF69B4 0%, #FF1493 50%, #DB1490 100%);
-    border-radius: var(--radius-md);
-    padding: var(--space-sm) var(--space-md);
-    min-height: 44px;
-    box-shadow:
-        0 3px 0 #A00060,
-        0 4px 12px rgba(255, 20, 147, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
-    animation: pinkGlow 2s ease-in-out infinite;
-    overflow: hidden;
-    border: none;
-    text-decoration: none;
-    width: 100%;
+/* ドックに最終コンテンツが隠れないための余白 */
+body {
+    scroll-padding-bottom: 84px;
 }
-
-.fixed-bingo-btn:hover {
-    transform: translateY(-2px);
-    box-shadow:
-        0 5px 0 #A00060,
-        0 6px 16px rgba(255, 20, 147, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-}
-
-.fixed-bingo-btn:active {
-    transform: translateY(1px);
-    box-shadow:
-        0 1px 0 #A00060,
-        0 2px 6px rgba(255, 20, 147, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-}
-
-.fixed-bingo-shine {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateX(-100%);
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.4) 50%,
-        transparent 100%
-    );
-    animation: shine 3s ease-in-out infinite 0.5s;
-}
-
-.fixed-bingo-icon {
-    width: 18px;
-    height: 18px;
-    color: #FFFFFF;
-}
-
-.fixed-bingo-text {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #FFFFFF;
-    letter-spacing: 0.02em;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-@keyframes pinkGlow {
-    0%, 100% {
-        opacity: 0.85;
-    }
-    50% {
-        opacity: 1;
-    }
-}
-
-/* =====================================================
-   Fixed LINE Button
-   ===================================================== */
-.fixed-line-btn {
-    position: relative;
-    background: linear-gradient(180deg, #00D000 0%, #00B000 50%, #009000 100%);
-    border-radius: var(--radius-md);
-    padding: var(--space-sm) var(--space-md);
-    min-height: 44px;
-    box-shadow:
-        0 3px 0 #006600,
-        0 4px 12px rgba(0, 150, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
-    animation: lineGlow 2s ease-in-out infinite;
-    box-sizing: border-box;
-    border: none;
-    text-decoration: none;
-    width: 100%;
-}
-
-.fixed-line-btn-shine {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.fixed-line-btn-shine::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateX(-100%);
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.4) 50%,
-        transparent 100%
-    );
-    animation: shine 3s ease-in-out infinite;
-}
-
-@keyframes lineGlow {
-    0%, 100% {
-        opacity: 0.85;
-    }
-    50% {
-        opacity: 1;
-    }
-}
-
-.fixed-line-bubble {
-    position: absolute;
-    top: -32px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--color-white);
-    color: #00B000;
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    padding: 3px 10px;
-    border-radius: var(--radius-full);
-    white-space: nowrap;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-    animation: bubbleBounce 2s ease-in-out infinite;
-    z-index: 2;
-}
-
-.fixed-line-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid var(--color-white);
-}
-
-@keyframes bubbleBounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(-4px); }
-}
-
-.fixed-line-btn:hover {
-    transform: translateY(-2px);
-    box-shadow:
-        0 5px 0 #006600,
-        0 6px 16px rgba(0, 150, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-}
-
-.fixed-line-btn:active {
-    transform: translateY(1px);
-    box-shadow:
-        0 1px 0 #006600,
-        0 2px 6px rgba(0, 150, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-}
-
-.fixed-line-btn-inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-    width: 100%;
-    position: relative;
-    z-index: 1;
-}
-
-.fixed-line-icon {
-    width: 22px;
-    height: 22px;
-    color: var(--color-white);
-}
-
-.fixed-line-text {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--color-white);
-    letter-spacing: 0.02em;
-}
-
 
 
 /* =====================================================
@@ -2204,10 +2025,24 @@ ul, ol {
 }
 
 /* Comparison Table */
+.comparison-scroll-hint {
+    display: none;
+    font-size: var(--fs-note);
+    color: var(--c-text-sub);
+    text-align: right;
+    margin-bottom: var(--space-sm);
+}
+
 .comparison-table-wrapper {
     margin-bottom: var(--space-4xl);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+    .comparison-scroll-hint {
+        display: block;
+    }
 }
 
 .comparison-table {
@@ -2253,7 +2088,7 @@ ul, ol {
     position: absolute;
     top: 0;
     right: var(--space-md);
-    font-size: 0.625rem;
+    font-size: 0.75rem;
     font-weight: 400;
     letter-spacing: 0.1em;
     padding: var(--space-xs) var(--space-sm);
@@ -2298,7 +2133,7 @@ ul, ol {
 .comparison-table td.comparison-general small {
     display: block;
     font-size: 0.75rem;
-    color: var(--color-gray-300);
+    color: var(--c-text-sub);
     margin-top: var(--space-xs);
 }
 
@@ -2316,7 +2151,7 @@ ul, ol {
 .comparison-table td.comparison-ours small {
     display: block;
     font-size: 0.75rem;
-    color: var(--color-gold-dark);
+    color: var(--c-champagne-text);
     margin-top: var(--space-xs);
     font-weight: 500;
 }
@@ -2479,7 +2314,7 @@ ul, ol {
 
 .philosophy-item-bad .philosophy-result {
     background: rgba(0, 0, 0, 0.05);
-    color: var(--color-gray-400);
+    color: var(--color-gray-500);
 }
 
 .philosophy-item-good .philosophy-result {
@@ -2656,7 +2491,7 @@ ul, ol {
 
 .timeline-period small {
     display: block;
-    font-size: 0.6875rem;
+    font-size: 0.8125rem;
     font-weight: 400;
     opacity: 0.9;
     margin-top: var(--space-xs);
@@ -2824,7 +2659,7 @@ ul, ol {
 }
 
 .eyebrow-bone-inner {
-    background: linear-gradient(135deg, var(--color-primary-darker) 0%, var(--color-primary) 100%);
+    background: radial-gradient(120% 80% at 50% 0%, var(--c-ink-soft) 0%, var(--c-ink) 100%);
     border-radius: var(--radius-xl);
     padding: var(--space-3xl);
     color: var(--color-white);
@@ -2880,7 +2715,7 @@ ul, ol {
 .bone-type p {
     font-size: 0.8125rem;
     line-height: 1.8;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--c-text-on-dark);
     overflow-wrap: anywhere;
 }
 
@@ -3262,7 +3097,7 @@ ul, ol {
     align-items: center;
     gap: var(--space-lg);
     padding: var(--space-xl) 0;
-    min-height: 44px;
+    min-height: 48px;
     background: none;
     border: none;
     cursor: pointer;
@@ -3516,10 +3351,6 @@ ul, ol {
         margin: var(--space-sm) 0;
     }
 
-    .fixed-cta-right {
-        width: 160px;
-    }
-
     .eyebrow-golden-content {
         grid-template-columns: 1fr;
         gap: var(--space-2xl);
@@ -3542,8 +3373,8 @@ ul, ol {
     body {
         word-break: normal;
         overflow-wrap: break-word;
-        /* Prevent fixed CTA buttons from overlapping footer content */
-        padding-bottom: 120px;
+        /* CTAドックに最終行が隠れないための余白 */
+        padding-bottom: 88px;
     }
 
     .container {
@@ -3725,7 +3556,7 @@ ul, ol {
     }
 
     .comparison-table thead th.comparison-ours::before {
-        font-size: 0.625rem;
+        font-size: 0.75rem;
         padding: 2px 4px;
     }
 
@@ -4239,34 +4070,6 @@ ul, ol {
         padding: var(--space-3xl) 0;
     }
 
-    /* Fixed CTA buttons */
-    .fixed-cta-container {
-        bottom: var(--space-md);
-        padding: 0 var(--space-md);
-    }
-
-    .fixed-cta-right {
-        width: 155px;
-    }
-
-    .fixed-line-icon {
-        width: 20px;
-        height: 20px;
-    }
-
-    .fixed-line-text {
-        font-size: 0.75rem;
-    }
-
-    .fixed-bingo-icon {
-        width: 16px;
-        height: 16px;
-    }
-
-    .fixed-bingo-text {
-        font-size: 0.75rem;
-    }
-
 
     /* CTA buttons - reduce oversized horizontal padding for mobile */
     .btn-xl {
@@ -4312,14 +4115,6 @@ ul, ol {
         font-weight: 500;
     }
 
-    /* CRO: LINE bubble - ensure visibility/readability on mobile */
-    .fixed-line-bubble {
-        font-size: 0.625rem;
-        font-weight: 800;
-        padding: 3px 10px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
-
     /* モバイルGPU負荷軽減 */
     .feature-card {
         backdrop-filter: none;
@@ -4334,19 +4129,14 @@ ul, ol {
     }
 
     /* モバイルでの常時アニメーション全停止 - スクロール性能改善 */
-    .fixed-bingo-btn,
-    .fixed-line-btn,
-    .fixed-bingo-shine,
-    .fixed-line-btn-shine::before,
-    .btn-shine,
-    .fixed-line-bubble {
+    .btn-shine {
         animation: none;
     }
 }
 
 @media (max-width: 480px) {
     body {
-        padding-bottom: 130px;
+        padding-bottom: 88px;
     }
 
     /* Section padding - reduce from 4rem to 3rem on small phones */
@@ -4394,7 +4184,7 @@ ul, ol {
     }
 
     .hero-tagline {
-        font-size: 0.6875rem;
+        font-size: 0.8125rem;
         letter-spacing: 0.05em;
         line-height: 1.6;
     }
@@ -4465,51 +4255,6 @@ ul, ol {
         font-size: clamp(1.5rem, 6vw, 2rem);
     }
 
-    /* 固定CTAボタン */
-    .fixed-cta-container {
-        bottom: var(--space-sm);
-        padding: 0 var(--space-sm);
-    }
-
-    .fixed-cta-right {
-        width: 140px;
-    }
-
-    .fixed-line-btn {
-        padding: var(--space-sm) var(--space-sm);
-        min-height: 44px;
-    }
-
-    .fixed-line-icon {
-        width: 18px;
-        height: 18px;
-    }
-
-    .fixed-line-text {
-        font-size: 0.75rem;
-    }
-
-    .fixed-line-bubble {
-        font-size: 0.6875rem;
-        top: -28px;
-        padding: 3px 8px;
-        font-weight: 800;
-    }
-
-    .fixed-bingo-btn {
-        padding: var(--space-sm) var(--space-sm);
-        min-height: 44px;
-    }
-
-    .fixed-bingo-icon {
-        width: 14px;
-        height: 14px;
-    }
-
-    .fixed-bingo-text {
-        font-size: 0.75rem;
-    }
-
     /* アクセスセクション */
     .access-map iframe {
         height: 300px;
@@ -4557,13 +4302,12 @@ ul, ol {
     }
 
     .comparison-table td.comparison-item {
-        font-size: 0.6875rem;
-        min-width: auto;
+        font-size: 0.8125rem;
     }
 
     .comparison-table td.comparison-general small,
     .comparison-table td.comparison-ours small {
-        font-size: 0.625rem;
+        font-size: 0.75rem;
     }
 
     .comparison-message {
@@ -4650,7 +4394,7 @@ ul, ol {
     .domestic-point-number {
         width: 32px;
         height: 32px;
-        font-size: 0.6875rem;
+        font-size: 0.75rem;
     }
 
     .domestic-point strong {
@@ -4709,11 +4453,11 @@ ul, ol {
     }
 
     .philosophy-desc {
-        font-size: 0.75rem;
+        font-size: 0.8125rem;
     }
 
     .philosophy-label {
-        font-size: 0.6875rem;
+        font-size: 0.8125rem;
     }
 
     .philosophy-result {
@@ -4798,7 +4542,7 @@ ul, ol {
     }
 
     .menu-item-badge {
-        font-size: 0.6875rem;
+        font-size: 0.75rem;
         padding: 4px 10px;
     }
 
@@ -5075,12 +4819,7 @@ ul, ol {
     }
 
     body {
-        padding-bottom: 60px;
-    }
-
-    .fixed-cta-container {
-        padding: 0 var(--space-sm);
-        bottom: var(--space-xs);
+        padding-bottom: 88px;
     }
 
     .section-header {
@@ -5112,7 +4851,7 @@ ul, ol {
    ===================================================== */
 @media print {
     .header,
-    .fixed-cta-container,
+    .cta-dock,
     .hero-video-wrapper,
     .preloader {
         display: none;
@@ -5163,27 +4902,14 @@ ul, ol {
     }
 
     /* Disable button shine sweep */
-    .btn-shine,
-    .fixed-bingo-shine,
-    .fixed-line-btn-shine::before {
+    .btn-shine {
         display: none !important;
-    }
-
-    /* Disable fixed CTA glow pulsing */
-    .fixed-bingo-btn,
-    .fixed-line-btn {
-        animation: none !important;
     }
 
     /* Disable hero scroll line animation */
     .hero-scroll-line {
         animation: none !important;
         opacity: 1;
-    }
-
-    /* Disable bubble bounce */
-    .fixed-line-bubble {
-        animation: none !important;
     }
 
     /* Disable preloader background rotation */
@@ -5201,17 +4927,10 @@ ul, ol {
 /* =====================================================
    Will-change Hints - GPU Compositing for Animated Elements
    ===================================================== */
-.fixed-bingo-btn,
-.fixed-line-btn {
-    will-change: transform;
-}
-
 .hero-video-overlay {
     will-change: opacity;
 }
 
-.fixed-bingo-shine,
-.fixed-line-btn-shine::before,
 .btn-shine {
     will-change: transform;
 }
