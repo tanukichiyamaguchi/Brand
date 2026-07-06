@@ -20,36 +20,51 @@
     // Preloader
     // ==============================================
     function initPreloader() {
-        window.addEventListener('load', () => {
+        if (!preloader) return;
+
+        // 「load完了 or 2秒タイムアウトの早い方」+ 最短400ms表示
+        const MIN_DISPLAY = 400;
+        const TIMEOUT = 2000;
+        const start = performance.now();
+        let done = false;
+
+        function hide() {
+            if (done) return;
+            done = true;
+            const elapsed = performance.now() - start;
             setTimeout(() => {
                 preloader.classList.add('hidden');
                 document.body.classList.remove('no-scroll');
+                // hero入場タイムライン等のトリガー（js/motion.jsが購読）
+                document.dispatchEvent(new CustomEvent('preloader:done'));
+            }, Math.max(0, MIN_DISPLAY - elapsed));
+        }
 
-                // Trigger hero animations after preloader
-                setTimeout(() => {
-                    initAOS();
-                }, 200);
-            }, 1800);
-        });
+        window.addEventListener('load', hide);
+        setTimeout(hide, TIMEOUT);
     }
 
     // ==============================================
     // Header Scroll Effect
     // ==============================================
     function initHeaderScroll() {
-        let lastScroll = 0;
+        if (!header) return;
         const scrollThreshold = 100;
+        let ticking = false;
 
         window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-
-            if (currentScroll > scrollThreshold) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const currentScroll = window.pageYOffset;
+                    if (currentScroll > scrollThreshold) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
-
-            lastScroll = currentScroll;
         }, { passive: true });
     }
 
@@ -57,6 +72,7 @@
     // Mobile Navigation
     // ==============================================
     function initMobileNav() {
+        if (!hamburger || !nav) return;
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             nav.classList.toggle('active');
@@ -109,37 +125,16 @@
     }
 
     // ==============================================
-    // AOS (Animate on Scroll) - Custom Implementation
-    // ==============================================
-    function initAOS() {
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px 0px -10% 0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const delay = entry.target.getAttribute('data-aos-delay') || 0;
-                    setTimeout(() => {
-                        entry.target.classList.add('aos-animate');
-                    }, parseInt(delay));
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('[data-aos]').forEach(el => {
-            observer.observe(el);
-        });
-    }
-
-    // ==============================================
     // Video Background Fallback
     // ==============================================
     function initVideoBackground() {
         if (heroVideo) {
+            // LCP保護: preload="none"のため、ページload後に読み込み開始
+            window.addEventListener('load', () => {
+                heroVideo.load();
+                heroVideo.play().catch(() => {});
+            }, { once: true });
+
             // Add loading state
             heroVideo.addEventListener('loadstart', () => {
                 heroVideo.parentElement.classList.add('loading');
@@ -175,144 +170,64 @@
     }
 
     // ==============================================
-    // Parallax Effect
+    // FAQ Accordion
     // ==============================================
-    function initParallax() {
-        const parallaxElements = document.querySelectorAll('[data-parallax]');
-
-        if (parallaxElements.length === 0) return;
-
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-
-            parallaxElements.forEach(el => {
-                const speed = el.getAttribute('data-parallax') || 0.5;
-                const offset = scrolled * speed;
-                el.style.transform = `translateY(${offset}px)`;
-            });
-        }, { passive: true });
-    }
-
-    // ==============================================
-    // Menu Hover Effects
-    // ==============================================
-    function initMenuEffects() {
-        const menuItems = document.querySelectorAll('.menu-item');
-
-        menuItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-4px)';
-            });
-
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
-    }
-
-    // ==============================================
-    // Gallery Lightbox (Basic)
-    // ==============================================
-    function initGallery() {
-        const galleryItems = document.querySelectorAll('.gallery-item');
-
-        galleryItems.forEach(item => {
-            item.addEventListener('click', function() {
-                // For future: implement lightbox
-                console.log('Gallery item clicked');
-            });
-        });
-    }
-
-    // ==============================================
-    // FAQ Accordion (single-open behavior)
-    // ==============================================
-    function initFaqAccordion() {
+    function initFAQ() {
         const faqItems = document.querySelectorAll('.faq-item');
-        if (faqItems.length === 0) return;
 
         faqItems.forEach(item => {
-            item.addEventListener('toggle', function() {
-                if (this.open) {
-                    faqItems.forEach(other => {
-                        if (other !== this && other.open) {
-                            other.open = false;
-                        }
-                    });
+            const question = item.querySelector('.faq-question');
+            if (!question) return;
+
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // Close all other items
+                faqItems.forEach(other => {
+                    other.classList.remove('active');
+                    const btn = other.querySelector('.faq-question');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                });
+
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                    question.setAttribute('aria-expanded', 'true');
                 }
             });
         });
     }
 
     // ==============================================
-    // Button Ripple Effect
+    // CTA Dock - hero通過後に表示、final-cta表示中は退避
     // ==============================================
-    function initButtonEffects() {
-        const buttons = document.querySelectorAll('.btn');
+    function initCtaDock() {
+        const dock = document.getElementById('ctaDock');
+        if (!dock || !('IntersectionObserver' in window)) return;
 
-        buttons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+        const hero = document.querySelector('.hero');
+        const finalCta = document.querySelector('.final-cta');
+        let heroVisible = true;
+        let finalCtaVisible = false;
 
-                const ripple = document.createElement('span');
-                ripple.style.cssText = `
-                    position: absolute;
-                    background: rgba(255, 255, 255, 0.3);
-                    border-radius: 50%;
-                    width: 100px;
-                    height: 100px;
-                    transform: translate(-50%, -50%) scale(0);
-                    left: ${x}px;
-                    top: ${y}px;
-                    animation: ripple 0.6s ease-out;
-                    pointer-events: none;
-                `;
+        function update() {
+            dock.classList.toggle('is-hidden', heroVisible || finalCtaVisible);
+        }
 
-                this.appendChild(ripple);
+        if (hero) {
+            dock.classList.add('is-hidden');
+            new IntersectionObserver((entries) => {
+                heroVisible = entries[0].isIntersecting;
+                update();
+            }, { threshold: 0.25 }).observe(hero);
+        }
 
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            });
-        });
-
-        // Add ripple animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: translate(-50%, -50%) scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    // ==============================================
-    // Testimonials Slider (Basic)
-    // ==============================================
-    function initTestimonialsSlider() {
-        const slider = document.querySelector('.testimonials-slider');
-        if (!slider) return;
-
-        // For future: implement carousel/slider functionality
-        // Currently using CSS grid for display
-    }
-
-    // ==============================================
-    // Form Validation (for future use)
-    // ==============================================
-    function initFormValidation() {
-        const forms = document.querySelectorAll('form');
-
-        forms.forEach(form => {
-            form.addEventListener('submit', function(e) {
-                // Add validation logic here
-            });
-        });
+        if (finalCta) {
+            new IntersectionObserver((entries) => {
+                finalCtaVisible = entries[0].isIntersecting;
+                update();
+            }, { threshold: 0.15 }).observe(finalCta);
+        }
     }
 
     // ==============================================
@@ -343,28 +258,7 @@
     }
 
     // ==============================================
-    // Counter Animation
-    // ==============================================
-    function animateCounter(element, target, duration = 2000) {
-        const start = 0;
-        const increment = target / (duration / 16);
-        let current = start;
-
-        const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-                element.textContent = Math.floor(current);
-                requestAnimationFrame(updateCounter);
-            } else {
-                element.textContent = target;
-            }
-        };
-
-        updateCounter();
-    }
-
-    // ==============================================
-    // Scroll Progress Indicator
+    // Scroll Progress Indicator (GPU optimized)
     // ==============================================
     function initScrollProgress() {
         const progressBar = document.createElement('div');
@@ -373,18 +267,29 @@
             position: fixed;
             top: 0;
             left: 0;
+            width: 100%;
             height: 3px;
             background: linear-gradient(90deg, #6B3FA0, #C9A962);
             z-index: 9999;
-            transition: width 0.1s ease;
+            transform-origin: left;
+            transform: scaleX(0);
+            will-change: transform;
+            pointer-events: none;
         `;
         document.body.appendChild(progressBar);
 
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (scrollTop / docHeight) * 100;
-            progressBar.style.width = `${progress}%`;
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const scrollTop = window.pageYOffset;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+                    progressBar.style.transform = `scaleX(${progress})`;
+                    ticking = false;
+                });
+                ticking = true;
+            }
         }, { passive: true });
     }
 
@@ -405,7 +310,7 @@
     function initAccessibility() {
         // Skip to content link
         const skipLink = document.createElement('a');
-        skipLink.href = '#concept';
+        skipLink.href = '#introduction';
         skipLink.className = 'skip-link';
         skipLink.textContent = 'コンテンツにスキップ';
         skipLink.style.cssText = `
@@ -444,35 +349,6 @@
     }
 
     // ==============================================
-    // Performance: Debounce Function
-    // ==============================================
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    // ==============================================
-    // Performance: Throttle Function
-    // ==============================================
-    function throttle(func, limit) {
-        let inThrottle;
-        return function(...args) {
-            if (!inThrottle) {
-                func.apply(this, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
-    }
-
-    // ==============================================
     // Initialize All Functions
     // ==============================================
     function init() {
@@ -485,19 +361,12 @@
         initMobileNav();
         initSmoothScroll();
         initVideoBackground();
-        initParallax();
-        initMenuEffects();
-        initGallery();
-        initButtonEffects();
-        initTestimonialsSlider();
-        initFaqAccordion();
+        initFAQ();
+        initCtaDock();
         initLazyLoading();
         initScrollProgress();
         updateCopyright();
         initAccessibility();
-
-        // Log initialization
-        console.log('KATE stage LASH website initialized');
     }
 
     // Run initialization when DOM is ready
