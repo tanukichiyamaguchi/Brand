@@ -5,6 +5,27 @@
    ===================================================== */
 
 /* =====================================================
+   Webfonts — Shippori Mincho B1（和文ディスプレイ書体）
+   使用グリフのみのサブセットを自己ホスト（SIL OFL）。
+   GSAP/BudouXと同じくCDN非依存方針。
+   ===================================================== */
+@font-face {
+    font-family: 'Shippori Mincho B1';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../assets/fonts/shippori-mincho-b1-500-subset.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Shippori Mincho B1';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../assets/fonts/shippori-mincho-b1-600-subset.woff2') format('woff2');
+}
+
+/* =====================================================
    CSS Custom Properties (Design Tokens)
    ===================================================== */
 :root {
@@ -58,7 +79,7 @@
     --color-black: #150F20;
 
     /* Typography */
-    --font-serif: 'Cormorant Garamond', 'Noto Serif JP', serif;
+    --font-serif: 'Cormorant Garamond', 'Shippori Mincho B1', 'Noto Serif JP', serif;
     --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
 
     /* Type Scale（視認性最優先・最小13px） */
@@ -756,12 +777,14 @@ ul, ol {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        135deg,
-        rgba(75, 47, 112, 0.85) 0%,
-        rgba(107, 63, 160, 0.7) 50%,
-        rgba(139, 95, 192, 0.6) 100%
-    );
+    /* 墨紫の指向性スクリム: テキスト側(右)を沈め、施術の手元(左〜中央)を見せる */
+    background:
+        linear-gradient(to bottom, rgba(27, 18, 48, 0) 62%, rgba(27, 18, 48, 0.62) 100%),
+        linear-gradient(to left,
+            rgba(27, 18, 48, 0.88) 0%,
+            rgba(37, 26, 59, 0.72) 36%,
+            rgba(37, 26, 59, 0.38) 66%,
+            rgba(50, 37, 89, 0.14) 100%);
 }
 
 .hero-content {
@@ -782,11 +805,13 @@ ul, ol {
 
 .hero-title {
     font-family: var(--font-serif);
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    font-weight: 300;
-    line-height: 1.3;
+    font-size: clamp(2.5rem, 7vw, 4.375rem);
+    font-weight: 600;
+    line-height: 1.38;
+    letter-spacing: 0.02em;
     color: var(--color-white);
     margin-bottom: var(--space-xl);
+    text-shadow: 0 2px 24px rgba(27, 18, 48, 0.45);
     /* 禁則処理 */
     word-break: keep-all;
     overflow-wrap: break-word;
@@ -802,6 +827,9 @@ ul, ol {
     line-height: 2;
     color: rgba(255, 255, 255, 0.9);
     margin-bottom: var(--space-2xl);
+    max-width: 36em;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero-cta {
@@ -858,6 +886,123 @@ ul, ol {
 @keyframes scrollLine {
     0%, 100% { opacity: 0; transform: scaleY(0); transform-origin: top; }
     50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* =====================================================
+   Hero Phase6: シャンパンCTA・縦書き短冊・デスクトップ構図
+   ===================================================== */
+.hero-cta .btn-primary {
+    background: linear-gradient(135deg, var(--c-champagne-light) 0%, var(--c-champagne) 52%, var(--c-champagne-dark) 100%);
+    color: var(--c-ink);
+    font-weight: 700;
+}
+
+.hero-tanzaku {
+    display: none;
+}
+
+@media (max-width: 1023px) {
+    /* 中央積みレイアウトでは左右差のない縦方向スクリムに */
+    .hero-video-overlay {
+        background:
+            linear-gradient(to bottom,
+                rgba(27, 18, 48, 0.55) 0%,
+                rgba(37, 26, 59, 0.62) 42%,
+                rgba(27, 18, 48, 0.82) 100%);
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero {
+        justify-content: flex-end;
+    }
+
+    .hero-content {
+        text-align: left;
+        max-width: 680px;
+        margin-right: clamp(88px, 9vw, 150px);
+        padding: 0 0 32px;
+    }
+
+    .hero-description {
+        margin-left: 0;
+    }
+
+    .hero-cta {
+        align-items: flex-start;
+    }
+
+    .hero-bullet-list {
+        align-items: flex-start;
+    }
+
+    .hero-cta-reassure {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px 20px;
+    }
+
+    .hero-tanzaku {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3em;
+        position: absolute;
+        top: 50%;
+        right: clamp(24px, 3.4vw, 52px);
+        transform: translateY(-50%);
+        margin: 0;
+        font-family: var(--font-serif);
+        font-weight: 500;
+        font-size: 0.9375rem;
+        font-feature-settings: normal;
+        color: rgba(247, 244, 239, 0.94);
+        text-shadow: 0 1px 12px rgba(27, 18, 48, 0.5);
+        padding-top: 68px;
+        opacity: 0;
+        animation: tanzakuIn 1.4s ease 1.6s forwards;
+    }
+
+    .hero-tanzaku span {
+        display: block;
+        width: 1em;
+        line-height: 1;
+        text-align: center;
+    }
+
+    .hero-tanzaku::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1px;
+        height: 52px;
+        background: linear-gradient(to bottom, transparent, var(--c-champagne));
+    }
+}
+
+@keyframes tanzakuIn {
+    from { opacity: 0; transform: translateY(calc(-50% + 14px)); }
+    to   { opacity: 1; transform: translateY(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-tanzaku {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+/* SCROLLインジケーターとCTA注記の重なり防止 */
+.hero-scroll {
+    bottom: 22px;
+}
+
+@media (max-height: 780px) and (min-width: 769px) {
+    .hero-scroll {
+        display: none;
+    }
 }
 
 /* =====================================================
