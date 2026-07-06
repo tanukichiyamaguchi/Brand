@@ -34,12 +34,14 @@
     // ==============================================
     mm.add('(prefers-reduced-motion: no-preference)', function () {
         initHeroTimeline();
+        initSectionHeaders();
         initReveals();
         initCounters();
         initTableStagger();
         initTimelineSpine();
         initLashLines();
         initParallax();
+        initScrollProgress();
     });
 
     // ----------------------------------------------
@@ -49,26 +51,31 @@
         var heroEls = {
             tagline: document.querySelector('.hero-tagline'),
             titleLines: document.querySelectorAll('.hero-title-line'),
-            bullets: document.querySelectorAll('.hero-bullet-list li'),
-            desc: document.querySelector('.hero-description'),
             cta: document.querySelector('.hero-cta'),
             scroll: document.querySelector('.hero-scroll')
         };
         if (!heroEls.titleLines.length) return;
 
         // 初期状態をJSで設定（CSSでは隠さない）
-        gsap.set([heroEls.tagline, heroEls.desc, heroEls.cta, heroEls.scroll], { autoAlpha: 0, y: 16 });
-        gsap.set(heroEls.titleLines, { autoAlpha: 0, y: 28 });
-        gsap.set(heroEls.bullets, { autoAlpha: 0, y: 14 });
+        gsap.set([heroEls.tagline, heroEls.cta, heroEls.scroll], { autoAlpha: 0, y: 16 });
+        gsap.set(heroEls.titleLines, { autoAlpha: 0, y: 34, clipPath: 'inset(-15% 0 102% 0)' });
 
         function play() {
+            var heroVideo = document.querySelector('.hero-video');
             var tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.9 } });
+            // 映像がゆっくり据わる（シネマティックな入り）
+            if (heroVideo) {
+                tl.fromTo(heroVideo, { scale: 1.08 }, { scale: 1, duration: 3.0, ease: 'power2.out' }, 0);
+            }
             tl.to(heroEls.tagline, { autoAlpha: 1, y: 0 }, 0.15)
-              .to(heroEls.titleLines, { autoAlpha: 1, y: 0, stagger: 0.14 }, 0.3)
-              .to(heroEls.bullets, { autoAlpha: 1, y: 0, stagger: 0.08, duration: 0.7 }, 0.65)
-              .to(heroEls.desc, { autoAlpha: 1, y: 0 }, 0.85)
-              .to(heroEls.cta, { autoAlpha: 1, y: 0 }, 1.0)
-              .to(heroEls.scroll, { autoAlpha: 1, y: 0, duration: 0.6 }, 1.25);
+              // 見出しは行ごとに幕が上がるマスクリベール
+              .to(heroEls.titleLines, {
+                  autoAlpha: 1, y: 0, clipPath: 'inset(-15% 0 -18% 0)',
+                  duration: 1.15, ease: 'power4.out', stagger: 0.16
+              }, 0.3)
+              .set(heroEls.titleLines, { clearProps: 'clipPath' })
+              .to(heroEls.cta, { autoAlpha: 1, y: 0 }, 0.85)
+              .to(heroEls.scroll, { autoAlpha: 1, y: 0, duration: 0.6 }, 1.1);
         }
 
         if (document.body.classList.contains('no-scroll')) {
@@ -80,13 +87,45 @@
     }
 
     // ----------------------------------------------
+    // セクション見出し: ラベルの字間が締まり、
+    // 見出しが幕上げマスクで立ち上がる
+    // ----------------------------------------------
+    function initSectionHeaders() {
+        if (typeof ScrollTrigger === 'undefined') return;
+
+        document.querySelectorAll('.section-header').forEach(function (header) {
+            var label = header.querySelector('.section-label');
+            var title = header.querySelector('.section-title');
+            if (!title) return;
+
+            if (label) gsap.set(label, { autoAlpha: 0, y: 10, letterSpacing: '0.34em' });
+            gsap.set(title, { autoAlpha: 0, y: 30, clipPath: 'inset(-15% 0 104% 0)' });
+
+            ScrollTrigger.create({
+                trigger: header,
+                start: 'top 84%',
+                once: true,
+                onEnter: function () {
+                    var tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+                    if (label) tl.to(label, { autoAlpha: 1, y: 0, letterSpacing: '0.2em', duration: 0.9 }, 0);
+                    tl.to(title, {
+                        autoAlpha: 1, y: 0, clipPath: 'inset(-15% 0 -15% 0)', duration: 1.1
+                    }, 0.12)
+                      .set(title, { clearProps: 'clipPath' });
+                }
+            });
+        });
+    }
+
+    // ----------------------------------------------
     // 汎用reveal: data-animate="up|fade|clip|stagger"
     // ----------------------------------------------
     function initReveals() {
         if (typeof ScrollTrigger === 'undefined') return;
 
-        // 上方向フェード
+        // 上方向フェード（section-headerは専用演出に委譲）
         document.querySelectorAll('[data-animate="up"]').forEach(function (el) {
+            if (el.classList.contains('section-header')) return;
             gsap.set(el, { autoAlpha: 0, y: 24 });
             ScrollTrigger.create({
                 trigger: el,
@@ -169,7 +208,16 @@
                         duration: 1.6,
                         ease: 'power2.out',
                         snap: { v: 1 },
-                        onUpdate: function () { el.textContent = obj.v; }
+                        onUpdate: function () { el.textContent = obj.v; },
+                        onComplete: function () {
+                            // 数字が着地した瞬間のわずかな弾み
+                            var value = el.closest('.stat-value');
+                            if (value) {
+                                gsap.fromTo(value, { scale: 1 }, {
+                                    scale: 1.06, duration: 0.22, yoyo: true, repeat: 1, ease: 'power2.inOut'
+                                });
+                            }
+                        }
                     });
                 }
             });
@@ -304,5 +352,24 @@
                 }
             });
         }
+    }
+
+    // ----------------------------------------------
+    // ページ最上部のスクロール進捗（シャンパンの金線）
+    // ----------------------------------------------
+    function initScrollProgress() {
+        if (typeof ScrollTrigger === 'undefined') return;
+        var bar = document.querySelector('.scroll-progress');
+        if (!bar) return;
+
+        gsap.to(bar, {
+            scaleX: 1,
+            ease: 'none',
+            scrollTrigger: {
+                start: 0,
+                end: 'max',
+                scrub: 0.4
+            }
+        });
     }
 })();
