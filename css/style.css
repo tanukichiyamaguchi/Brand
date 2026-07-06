@@ -822,16 +822,6 @@ ul, ol {
     display: block;
 }
 
-.hero-description {
-    font-size: 1rem;
-    line-height: 2;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: var(--space-2xl);
-    max-width: 36em;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .hero-cta {
     display: flex;
     flex-direction: column;
@@ -840,27 +830,11 @@ ul, ol {
 }
 
 .hero-cta-reassure {
-    list-style: none;
-    padding: 0;
-    margin: var(--space-md) 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    margin: var(--space-sm) 0 0;
     font-size: 0.8125rem;
     color: var(--c-text-on-dark);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.06em;
 }
-.hero-cta-reassure li::before {
-    content: '✓ ';
-    color: var(--color-accent);
-    font-weight: 600;
-}
-
-.hero-cta-note {
-    font-size: 0.8125rem;
-    color: rgba(255, 255, 255, 0.9);
-}
-
 .hero-scroll {
     position: absolute;
     bottom: var(--space-2xl);
@@ -924,22 +898,8 @@ ul, ol {
         padding: 0 0 32px;
     }
 
-    .hero-description {
-        margin-left: 0;
-    }
-
     .hero-cta {
         align-items: flex-start;
-    }
-
-    .hero-bullet-list {
-        align-items: flex-start;
-    }
-
-    .hero-cta-reassure {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 4px 20px;
     }
 
     .hero-tanzaku {
@@ -2038,38 +1998,6 @@ body {
     scroll-padding-bottom: 84px;
 }
 
-
-/* =====================================================
-   Hero Bullets
-   ===================================================== */
-.hero-bullets {
-    margin-bottom: var(--space-xl);
-}
-
-.hero-bullet-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-sm);
-}
-
-.hero-bullet-list li {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    font-size: 0.9375rem;
-    color: rgba(255, 255, 255, 0.95);
-    letter-spacing: 0.05em;
-}
-
-.hero-bullet-list li::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    background: var(--color-gold);
-    border-radius: 50%;
-    flex-shrink: 0;
-}
 
 /* =====================================================
    Introduction Section (はじめての方へ)
@@ -3640,10 +3568,6 @@ body {
         white-space: normal;
     }
 
-    .hero-description {
-        font-size: 0.9rem;
-    }
-
     .nav {
         position: fixed;
         top: 0;
@@ -4310,11 +4234,6 @@ body {
         font-size: 0.8125rem;
     }
 
-    /* Hero bullets */
-    .hero-bullet-list li {
-        font-size: 0.8125rem;
-    }
-
     /* Final CTA */
     .final-cta {
         min-height: auto;
@@ -4341,16 +4260,6 @@ body {
         font-size: 1rem;
     }
 
-    /* CRO: Hero CTA note - improve contrast on video background */
-    .hero-cta-note {
-        font-size: 0.8125rem;
-        color: rgba(255, 255, 255, 0.95);
-        font-weight: 600;
-        background: rgba(0, 0, 0, 0.35);
-        padding: var(--space-xs) var(--space-md);
-        border-radius: var(--radius-full);
-        letter-spacing: 0.05em;
-    }
 
     /* CRO: Menu booking links - fill-width CTA style on mobile */
     .menu-item-book {
@@ -4453,10 +4362,6 @@ body {
         line-height: 1.6;
     }
 
-    .hero-bullet-list li {
-        font-size: 0.75rem;
-    }
-
     /* カード */
     .feature-card,
     .testimonial-card {
@@ -4475,7 +4380,6 @@ body {
 
     .hero-cta-reassure {
         font-size: 0.75rem;
-        align-items: center;
     }
 
     .hero-cta .btn {
@@ -4862,14 +4766,6 @@ body {
         letter-spacing: 0.05em;
     }
 
-    .hero-description {
-        font-size: 0.75rem;
-    }
-
-    .hero-bullet-list li {
-        font-size: 0.75rem;
-    }
-
     .section-title {
         font-size: clamp(1.1rem, 5vw, 1.5rem);
     }
@@ -5069,13 +4965,6 @@ body {
         padding: var(--space-md) var(--space-xs);
     }
 
-    .hero-description {
-        display: none;
-    }
-
-    .hero-bullets {
-        display: none;
-    }
 
     .nav {
         overflow-y: auto;

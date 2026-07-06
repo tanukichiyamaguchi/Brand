@@ -49,26 +49,21 @@
         var heroEls = {
             tagline: document.querySelector('.hero-tagline'),
             titleLines: document.querySelectorAll('.hero-title-line'),
-            bullets: document.querySelectorAll('.hero-bullet-list li'),
-            desc: document.querySelector('.hero-description'),
             cta: document.querySelector('.hero-cta'),
             scroll: document.querySelector('.hero-scroll')
         };
         if (!heroEls.titleLines.length) return;
 
         // 初期状態をJSで設定（CSSでは隠さない）
-        gsap.set([heroEls.tagline, heroEls.desc, heroEls.cta, heroEls.scroll], { autoAlpha: 0, y: 16 });
+        gsap.set([heroEls.tagline, heroEls.cta, heroEls.scroll], { autoAlpha: 0, y: 16 });
         gsap.set(heroEls.titleLines, { autoAlpha: 0, y: 28 });
-        gsap.set(heroEls.bullets, { autoAlpha: 0, y: 14 });
 
         function play() {
             var tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.9 } });
             tl.to(heroEls.tagline, { autoAlpha: 1, y: 0 }, 0.15)
               .to(heroEls.titleLines, { autoAlpha: 1, y: 0, stagger: 0.14 }, 0.3)
-              .to(heroEls.bullets, { autoAlpha: 1, y: 0, stagger: 0.08, duration: 0.7 }, 0.65)
-              .to(heroEls.desc, { autoAlpha: 1, y: 0 }, 0.85)
-              .to(heroEls.cta, { autoAlpha: 1, y: 0 }, 1.0)
-              .to(heroEls.scroll, { autoAlpha: 1, y: 0, duration: 0.6 }, 1.25);
+              .to(heroEls.cta, { autoAlpha: 1, y: 0 }, 0.7)
+              .to(heroEls.scroll, { autoAlpha: 1, y: 0, duration: 0.6 }, 0.95);
         }
 
         if (document.body.classList.contains('no-scroll')) {
