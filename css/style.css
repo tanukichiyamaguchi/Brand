@@ -2062,37 +2062,28 @@ body {
 }
 
 .introduction-highlight {
-    background: linear-gradient(135deg, rgba(74, 52, 128, 0.04) 0%, rgba(201, 169, 106, 0.08) 100%);
-    padding: var(--space-lg);
-    border-radius: var(--radius-md);
-    border-left: 3px solid var(--color-gold);
+    padding: var(--space-sm) 0;
+    border-top: 1px solid rgba(201, 169, 106, 0.55);
+    border-bottom: 1px solid rgba(201, 169, 106, 0.55);
 }
 
 /* 強みの列挙リスト（旧<br>3行の置き換え） */
 .introduction-highlight-list {
     list-style: none;
-    margin: 0 0 var(--space-md);
+    margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.6em;
 }
 
 .introduction-highlight-list li {
-    position: relative;
-    padding-left: 1.2em;
+    padding: 0.65em 0;
     line-height: 1.7;
     word-break: keep-all;
     overflow-wrap: anywhere;
 }
 
-.introduction-highlight-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.65em;
-    width: 0.55em;
-    height: 1px;
-    background: var(--c-champagne);
+.introduction-highlight-list li + li {
+    border-top: 1px solid rgba(37, 26, 59, 0.08);
 }
 
 .introduction-highlight strong {
@@ -2800,16 +2791,6 @@ body {
 .eyebrow-golden-points li strong {
     color: var(--color-primary);
     font-weight: 600;
-}
-
-.eyebrow-golden-note {
-    font-size: 0.9375rem;
-    line-height: 2;
-    color: var(--color-gray-600);
-    padding: var(--space-lg);
-    background: linear-gradient(135deg, rgba(58, 34, 138, 0.04) 0%, rgba(212, 175, 55, 0.06) 100%);
-    border-radius: var(--radius-md);
-    border-left: 3px solid var(--color-gold);
 }
 
 .eyebrow-golden-image img {
@@ -5111,4 +5092,57 @@ body {
 .eyebrow-golden-image img,
 .eyebrow-wax-image img {
     border-radius: 0;
+}
+
+/* =====================================================
+   Phase6b: スクロール進捗の金線 + ホバーの所作
+   ===================================================== */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, var(--c-champagne-dark), var(--c-champagne-light));
+    transform: scaleX(0);
+    transform-origin: left center;
+    z-index: 1200;
+    pointer-events: none;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .gallery-item img,
+    .concept-image img,
+    .continuity-serum-image img,
+    .eyebrow-golden-image img,
+    .eyebrow-wax-image img {
+        transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .gallery-item:hover img,
+    .concept-image:hover img,
+    .continuity-serum-image:hover img,
+    .eyebrow-golden-image:hover img,
+    .eyebrow-wax-image:hover img {
+        transform: scale(1.045);
+    }
+
+    .concept-image,
+    .continuity-serum-image,
+    .eyebrow-golden-image,
+    .eyebrow-wax-image {
+        overflow: hidden;
+    }
+
+    .faq-question {
+        transition: color 0.35s ease;
+    }
+
+    .menu-item-book {
+        transition: letter-spacing 0.35s ease, color 0.35s ease;
+    }
+
+    .menu-item-book:hover {
+        letter-spacing: 0.08em;
+    }
 }
