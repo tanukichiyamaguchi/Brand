@@ -22,8 +22,9 @@
     function initPreloader() {
         if (!preloader) return;
 
-        // 「load完了 or 2秒タイムアウトの早い方」+ 最短400ms表示
-        const MIN_DISPLAY = 400;
+        // 「load完了 or 2秒タイムアウトの早い方」+ 開幕演出の最短表示
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const MIN_DISPLAY = reduceMotion ? 200 : 1300;
         const TIMEOUT = 2000;
         const start = performance.now();
         let done = false;
@@ -194,6 +195,12 @@
                     item.classList.add('active');
                     question.setAttribute('aria-expanded', 'true');
                 }
+
+                // 開閉で文書高が変わるためScrollTriggerの位置を再計算
+                clearTimeout(initFAQ._t);
+                initFAQ._t = setTimeout(() => {
+                    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                }, 500);
             });
         });
     }
@@ -221,6 +228,11 @@
                 update();
             }, { threshold: 0.25 }).observe(hero);
         }
+
+        // 初期状態の適用後にtransitionを有効化（ロード時の一瞬のスライドを防ぐ）
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => dock.classList.add('is-ready'));
+        });
 
         if (finalCta) {
             new IntersectionObserver((entries) => {
@@ -258,42 +270,6 @@
     }
 
     // ==============================================
-    // Scroll Progress Indicator (GPU optimized)
-    // ==============================================
-    function initScrollProgress() {
-        const progressBar = document.createElement('div');
-        progressBar.className = 'scroll-progress';
-        progressBar.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #6B3FA0, #C9A962);
-            z-index: 9999;
-            transform-origin: left;
-            transform: scaleX(0);
-            will-change: transform;
-            pointer-events: none;
-        `;
-        document.body.appendChild(progressBar);
-
-        let ticking = false;
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    const scrollTop = window.pageYOffset;
-                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                    const progress = docHeight > 0 ? scrollTop / docHeight : 0;
-                    progressBar.style.transform = `scaleX(${progress})`;
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        }, { passive: true });
-    }
-
-    // ==============================================
     // Current Year for Copyright
     // ==============================================
     function updateCopyright() {
@@ -318,7 +294,7 @@
             top: -100%;
             left: 50%;
             transform: translateX(-50%);
-            background: #6B3FA0;
+            background: #191512;
             color: white;
             padding: 10px 20px;
             z-index: 10000;
@@ -364,7 +340,6 @@
         initFAQ();
         initCtaDock();
         initLazyLoading();
-        initScrollProgress();
         updateCopyright();
         initAccessibility();
     }
