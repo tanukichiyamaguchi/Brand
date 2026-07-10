@@ -1541,13 +1541,15 @@ ul, ol {
     transform: scale(1.05);
 }
 
+/* 写真は全て4:3の合成（Before/afterの焼き込み文字あり）。
+   トリミングすると文字が千切れるため、全ブレークポイントで4:3固定 */
 .gallery-item-large {
-    grid-row: span 2;
+    grid-row: span 1;
 }
 
 .gallery-item-large img {
-    height: 100%;
-    aspect-ratio: auto;
+    height: auto;
+    aspect-ratio: 4/3;
 }
 
 .gallery-overlay {
@@ -3759,6 +3761,10 @@ body {
         order: -1;
     }
 
+    .continuity-serum-image img {
+        max-width: min(420px, 82vw);
+    }
+
     .continuity-serum-features {
         gap: var(--space-sm);
     }
@@ -4148,7 +4154,8 @@ body {
     .gallery-item {
         flex: 0 0 78vw;
         scroll-snap-align: center;
-        aspect-ratio: 4 / 5;
+        /* 写真の実比率4:3に一致させ、焼き込み文字の千切れを防ぐ */
+        aspect-ratio: 4 / 3;
     }
 
     .gallery-item img,
