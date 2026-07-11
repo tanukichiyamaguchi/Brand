@@ -2297,7 +2297,7 @@ body {
 }
 
 .philosophy-item-good .philosophy-desc {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--c-text);
 }
 
 .philosophy-result {
@@ -2314,8 +2314,8 @@ body {
 }
 
 .philosophy-item-good .philosophy-result {
-    background: var(--color-gold);
-    color: var(--color-primary-darker);
+    background: linear-gradient(135deg, var(--c-champagne) 0%, var(--c-champagne-dark) 100%);
+    color: var(--color-white);
 }
 
 /* Serum Block */
@@ -2459,7 +2459,7 @@ body {
 
 @media (max-width: 768px) {
     .timeline-spine {
-        left: var(--space-lg);
+        display: none;
     }
 }
 
