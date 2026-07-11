@@ -40,6 +40,8 @@
         initTableStagger();
         initTimelineSpine();
         initLashLines();
+        initQuoteChars();
+        initFinalCta();
         initParallax();
         initScrollProgress();
     });
@@ -290,6 +292,8 @@
         if (typeof ScrollTrigger === 'undefined') return;
 
         document.querySelectorAll('[data-lash]').forEach(function (wrap) {
+            // final-ctaのlash-lineは専用タイムライン(initFinalCta)が所有
+            if (wrap.closest('.final-cta')) return;
             var arc = wrap.querySelector('.lash-arc');
             var hairs = wrap.querySelectorAll('.lash-hair');
             if (!arc) return;
@@ -352,6 +356,106 @@
                 }
             });
         }
+    }
+
+    // ----------------------------------------------
+    // visual-breakの一文: 1文字ずつのマスク立ち上がり
+    // （GSAP実行時のみ分割 → 未読込時は元の全文表示）
+    // ----------------------------------------------
+    function initQuoteChars() {
+        if (typeof ScrollTrigger === 'undefined') return;
+        var quote = document.querySelector('.visual-break-quote');
+        if (!quote || quote.dataset.charsReady) return;
+        quote.dataset.charsReady = '1';
+
+        var original = quote.textContent.replace(/\s+/g, '');
+        quote.setAttribute('aria-label', original);
+
+        var nodes = Array.prototype.slice.call(quote.childNodes);
+        quote.textContent = '';
+        nodes.forEach(function (node) {
+            if (node.nodeType === 3) {
+                node.textContent.split('').forEach(function (ch) {
+                    if (!ch.trim()) return;
+                    var outer = document.createElement('span');
+                    outer.className = 'q-ch';
+                    outer.setAttribute('aria-hidden', 'true');
+                    var inner = document.createElement('span');
+                    inner.className = 'q-ch-inner';
+                    inner.textContent = ch;
+                    outer.appendChild(inner);
+                    quote.appendChild(outer);
+                });
+            } else if (node.nodeName === 'BR') {
+                quote.appendChild(node);
+            }
+        });
+
+        var chars = quote.querySelectorAll('.q-ch-inner');
+        gsap.set(chars, { yPercent: 112 });
+        ScrollTrigger.create({
+            trigger: quote,
+            start: 'top 80%',
+            once: true,
+            onEnter: function () {
+                gsap.to(chars, {
+                    yPercent: 0, duration: 0.9, ease: 'power4.out', stagger: 0.035
+                });
+            }
+        });
+    }
+
+    // ----------------------------------------------
+    // final-cta: lash描画→見出し→リスト→ボタンの単一タイムライン
+    // ----------------------------------------------
+    function initFinalCta() {
+        if (typeof ScrollTrigger === 'undefined') return;
+        var section = document.querySelector('.final-cta');
+        if (!section) return;
+        var title = section.querySelector('.final-cta-title');
+        if (!title) return;
+        var items = section.querySelectorAll('.final-cta-list li');
+        var btn = section.querySelector('.btn');
+        var note = section.querySelector('.final-cta-note');
+        var lash = section.querySelector('[data-lash]');
+        var arc = lash && lash.querySelector('.lash-arc');
+        var hairs = lash ? lash.querySelectorAll('.lash-hair') : [];
+
+        gsap.set(title, { autoAlpha: 0, y: 26, clipPath: 'inset(-15% 0 104% 0)' });
+        if (items.length) gsap.set(items, { autoAlpha: 0, y: 18 });
+        if (btn) gsap.set(btn, { autoAlpha: 0, y: 16 });
+        if (note) gsap.set(note, { autoAlpha: 0 });
+        if (arc) {
+            var arcLen = arc.getTotalLength();
+            gsap.set(arc, { strokeDasharray: arcLen, strokeDashoffset: arcLen });
+            hairs.forEach(function (h) {
+                var len = h.getTotalLength();
+                gsap.set(h, { strokeDasharray: len, strokeDashoffset: len });
+            });
+        }
+
+        ScrollTrigger.create({
+            trigger: section,
+            start: 'top 72%',
+            once: true,
+            onEnter: function () {
+                var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+                if (arc) {
+                    tl.to(arc, { strokeDashoffset: 0, duration: 1.1, ease: 'power2.inOut' }, 0)
+                      .to(hairs, {
+                          strokeDashoffset: 0, duration: 0.5, ease: 'power2.out', stagger: 0.08
+                      }, 0.75);
+                }
+                tl.to(title, {
+                    autoAlpha: 1, y: 0, clipPath: 'inset(-15% 0 -15% 0)',
+                    duration: 1.05, ease: 'power4.out'
+                }, arc ? 0.9 : 0)
+                  .set(title, { clearProps: 'clipPath' });
+                if (items.length) tl.to(items, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.12 }, '-=0.5');
+                if (btn) tl.to(btn, { autoAlpha: 1, y: 0, duration: 0.7 }, '-=0.35');
+                if (note) tl.to(note, { autoAlpha: 1, duration: 0.6 }, '-=0.4');
+            }
+        });
     }
 
     // ----------------------------------------------
