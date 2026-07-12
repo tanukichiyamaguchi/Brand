@@ -20,23 +20,52 @@
 
     var mm = gsap.matchMedia();
 
-    // ==============================================
-    // Reduced Motion: 全静止・最終状態を即時表示
-    // ==============================================
-    mm.add('(prefers-reduced-motion: reduce)', function () {
-        document.querySelectorAll('.js-count').forEach(function (el) {
-            el.textContent = el.dataset.end || el.textContent;
-        });
-    });
+    // モバイルでは「ブロック丸ごと」ではなく中身を1つずつ見せる。
+    // 背の高いコンテナ（2〜3画面ぶん）はコンテナreveal対象から外し、
+    // 内側のアイテムが視界に入るたびに立ち上がる。
+    // ※ mm.addのコールバックは同期実行されるため、必ずこの定義を先に置く
+    var SPLIT_CONTAINERS = [
+        '.continuity-philosophy', '.continuity-serum', '.continuity-cycle',
+        '.menu-category', '.faq-list', '.set-recommend-content',
+        '.eyebrow-golden', '.eyebrow-bone', '.eyebrow-wax', '.eyebrow-domestic',
+        '.flow-steps'
+    ].join(', ');
+
+    var MOBILE_ITEMS = [
+        '.continuity-philosophy-title', '.philosophy-item',
+        '.continuity-serum-title', '.continuity-serum-price', '.continuity-serum-desc',
+        '.continuity-serum-features li', '.continuity-serum-image',
+        '.continuity-cycle-title', '.continuity-cycle-desc', '.timeline-item',
+        '.menu-category-title', '.menu-item',
+        '.faq-item',
+        '.set-benefit', '.set-recommend-cta',
+        '.eyebrow-golden-title', '.eyebrow-golden-text > p', '.eyebrow-golden-points li', '.eyebrow-golden-image',
+        '.eyebrow-bone-title', '.eyebrow-bone-desc', '.bone-type', '.eyebrow-bone-note',
+        '.eyebrow-wax-title', '.eyebrow-wax-text > p', '.eyebrow-wax-image', '.wax-benefit',
+        '.eyebrow-domestic-title', '.eyebrow-domestic-desc', '.domestic-point',
+        '.flow-step'
+    ].join(', ');
 
     // ==============================================
-    // Motion有効
-    // モバイルは「発火を遅く・動きを大きく・アイテム単位で逐次」に
-    // チューニングし、小さな画面でも演出が知覚できるようにする
+    // 幅×モーション設定をgsap.matchMediaの条件で管理
+    // （回転などでブレークポイントを跨いだら自動で作り直す）
     // ==============================================
-    mm.add('(prefers-reduced-motion: no-preference)', function () {
-        var isMobile = window.matchMedia('(max-width: 768px)').matches;
-        var P = isMobile ? {
+    mm.add({
+        reduce: '(prefers-reduced-motion: reduce)',
+        mobileW: '(max-width: 768px)'
+    }, function (ctx) {
+        var c = ctx.conditions;
+
+        if (c.reduce) {
+            // 全静止・最終状態を即時表示
+            document.querySelectorAll('.js-count').forEach(function (el) {
+                el.textContent = el.dataset.end || el.textContent;
+            });
+            return;
+        }
+
+        // モバイルは「発火を遅く・動きを大きく・アイテム単位で逐次」
+        var P = c.mobileW ? {
             mobile: true,
             upStart: 'top 86%',  upY: 32, upDur: 0.95,
             headerStart: 'top 86%', titleY: 36, titleDur: 1.2,
@@ -62,7 +91,11 @@
             finalStart: 'top 72%'
         };
 
-        initHeroTimeline();
+        // heroの入場は初回のみ（回転での再生を防ぐ。revertで表示状態には戻る）
+        if (!initHeroTimeline._done) {
+            initHeroTimeline();
+            initHeroTimeline._done = true;
+        }
         initSectionHeaders(P);
         initReveals(P);
         initMobileItems(P);
@@ -75,31 +108,6 @@
         initParallax();
         initScrollProgress();
     });
-
-    // モバイルでは「ブロック丸ごと」ではなく中身を1つずつ見せる。
-    // 背の高いコンテナ（2〜3画面ぶん）はコンテナreveal対象から外し、
-    // 内側のアイテムが視界に入るたびに立ち上がる。
-    var SPLIT_CONTAINERS = [
-        '.continuity-philosophy', '.continuity-serum', '.continuity-cycle',
-        '.menu-category', '.faq-list', '.set-recommend-content',
-        '.eyebrow-golden', '.eyebrow-bone', '.eyebrow-wax', '.eyebrow-domestic',
-        '.flow-steps'
-    ].join(', ');
-
-    var MOBILE_ITEMS = [
-        '.continuity-philosophy-title', '.philosophy-item',
-        '.continuity-serum-title', '.continuity-serum-price', '.continuity-serum-desc',
-        '.continuity-serum-features li', '.continuity-serum-image',
-        '.continuity-cycle-title', '.continuity-cycle-desc', '.timeline-item',
-        '.menu-category-title', '.menu-item',
-        '.faq-item',
-        '.set-benefit', '.set-recommend-cta',
-        '.eyebrow-golden-title', '.eyebrow-golden-desc', '.eyebrow-golden-points li', '.eyebrow-golden-image',
-        '.eyebrow-bone-title', '.eyebrow-bone-desc', '.bone-type', '.eyebrow-bone-note',
-        '.eyebrow-wax-title', '.eyebrow-wax-image', '.wax-benefit',
-        '.eyebrow-domestic-title', '.eyebrow-domestic-desc', '.domestic-point',
-        '.flow-step'
-    ].join(', ');
 
     function initMobileItems(P) {
         if (!P.mobile || typeof ScrollTrigger === 'undefined') return;
