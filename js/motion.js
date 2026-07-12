@@ -40,6 +40,7 @@
         '.faq-item',
         '.set-benefit', '.set-recommend-cta',
         '.eyebrow-golden-title', '.eyebrow-golden-text > p', '.eyebrow-golden-points li', '.eyebrow-golden-image',
+        '.eyebrow-promises li',
         '.eyebrow-bone-title', '.eyebrow-bone-desc', '.bone-type', '.eyebrow-bone-note',
         '.eyebrow-wax-title', '.eyebrow-wax-text > p', '.eyebrow-wax-image', '.wax-benefit',
         '.eyebrow-domestic-title', '.eyebrow-domestic-desc', '.domestic-point',

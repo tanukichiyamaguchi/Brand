@@ -5072,3 +5072,51 @@ body {
 .q-ch-inner {
     display: inline-block;
 }
+
+/* =====================================================
+   Phase8: ページの主張（ヒーロー直下の数字帯）
+   ===================================================== */
+.stat-thesis {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    background-color: var(--c-ecru);
+}
+
+.stat-thesis-lead {
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    color: var(--c-ink);
+    margin-bottom: var(--space-xl);
+    font-feature-settings: "palt";
+}
+
+/* 眉毛セクション: 3つの約束（罫線挟みの1行組み） */
+.eyebrow-promises {
+    list-style: none;
+    max-width: 720px;
+    margin: var(--space-2xl) auto 0;
+    padding: var(--space-sm) 0;
+    border-top: 1px solid rgba(201, 164, 92, 0.55);
+    border-bottom: 1px solid rgba(201, 164, 92, 0.55);
+}
+
+.eyebrow-promises li {
+    padding: 0.7em 0;
+    line-height: 1.8;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+}
+
+.eyebrow-promises li + li {
+    border-top: 1px solid rgba(40, 34, 23, 0.08);
+}
+
+.eyebrow-promises strong {
+    color: var(--c-champagne-text);
+    font-weight: 600;
+}
+
+.stat-thesis .stat-strip {
+    margin-top: 0;
+}
