@@ -20,31 +20,110 @@
 
     var mm = gsap.matchMedia();
 
-    // ==============================================
-    // Reduced Motion: 全静止・最終状態を即時表示
-    // ==============================================
-    mm.add('(prefers-reduced-motion: reduce)', function () {
-        document.querySelectorAll('.js-count').forEach(function (el) {
-            el.textContent = el.dataset.end || el.textContent;
-        });
-    });
+    // モバイルでは「ブロック丸ごと」ではなく中身を1つずつ見せる。
+    // 背の高いコンテナ（2〜3画面ぶん）はコンテナreveal対象から外し、
+    // 内側のアイテムが視界に入るたびに立ち上がる。
+    // ※ mm.addのコールバックは同期実行されるため、必ずこの定義を先に置く
+    var SPLIT_CONTAINERS = [
+        '.continuity-philosophy', '.continuity-serum', '.continuity-cycle',
+        '.menu-category', '.faq-list', '.set-recommend-content',
+        '.eyebrow-golden', '.eyebrow-bone', '.eyebrow-wax', '.eyebrow-domestic',
+        '.flow-steps'
+    ].join(', ');
+
+    var MOBILE_ITEMS = [
+        '.continuity-philosophy-title', '.philosophy-item',
+        '.continuity-serum-title', '.continuity-serum-price', '.continuity-serum-desc',
+        '.continuity-serum-features li', '.continuity-serum-image',
+        '.continuity-cycle-title', '.continuity-cycle-desc', '.timeline-item',
+        '.menu-category-title', '.menu-item',
+        '.faq-item',
+        '.set-benefit', '.set-recommend-cta',
+        '.eyebrow-golden-title', '.eyebrow-golden-text > p', '.eyebrow-golden-points li', '.eyebrow-golden-image',
+        '.eyebrow-bone-title', '.eyebrow-bone-desc', '.bone-type', '.eyebrow-bone-note',
+        '.eyebrow-wax-title', '.eyebrow-wax-text > p', '.eyebrow-wax-image', '.wax-benefit',
+        '.eyebrow-domestic-title', '.eyebrow-domestic-desc', '.domestic-point',
+        '.flow-step'
+    ].join(', ');
 
     // ==============================================
-    // Motion有効
+    // 幅×モーション設定をgsap.matchMediaの条件で管理
+    // （回転などでブレークポイントを跨いだら自動で作り直す）
     // ==============================================
-    mm.add('(prefers-reduced-motion: no-preference)', function () {
-        initHeroTimeline();
-        initSectionHeaders();
-        initReveals();
-        initCounters();
-        initTableStagger();
+    mm.add({
+        reduce: '(prefers-reduced-motion: reduce)',
+        mobileW: '(max-width: 768px)'
+    }, function (ctx) {
+        var c = ctx.conditions;
+
+        if (c.reduce) {
+            // 全静止・最終状態を即時表示
+            document.querySelectorAll('.js-count').forEach(function (el) {
+                el.textContent = el.dataset.end || el.textContent;
+            });
+            return;
+        }
+
+        // モバイルは「発火を遅く・動きを大きく・アイテム単位で逐次」
+        var P = c.mobileW ? {
+            mobile: true,
+            upStart: 'top 86%',  upY: 32, upDur: 0.95,
+            headerStart: 'top 86%', titleY: 36, titleDur: 1.2,
+            clipStart: 'top 84%', clipDur: 1.3,
+            staggerStart: 'top 84%', staggerGap: 0.12,
+            itemStart: 'top 88%', itemY: 28, itemDur: 0.85,
+            countStart: 'top 80%', countDur: 2.0,
+            tableStart: 'top 88%',
+            lashStart: 'top 84%', lashDur: 1.5,
+            quoteStart: 'top 82%', quoteStagger: 0.05,
+            finalStart: 'top 76%'
+        } : {
+            mobile: false,
+            upStart: 'top 85%',  upY: 24, upDur: 0.8,
+            headerStart: 'top 84%', titleY: 30, titleDur: 1.1,
+            clipStart: 'top 82%', clipDur: 1.1,
+            staggerStart: 'top 82%', staggerGap: 0.09,
+            itemStart: 'top 88%', itemY: 24, itemDur: 0.8,
+            countStart: 'top 85%', countDur: 1.6,
+            tableStart: 'top 80%',
+            lashStart: 'top 82%', lashDur: 1.2,
+            quoteStart: 'top 80%', quoteStagger: 0.035,
+            finalStart: 'top 72%'
+        };
+
+        // heroの入場は初回のみ（回転での再生を防ぐ。revertで表示状態には戻る）
+        if (!initHeroTimeline._done) {
+            initHeroTimeline();
+            initHeroTimeline._done = true;
+        }
+        initSectionHeaders(P);
+        initReveals(P);
+        initMobileItems(P);
+        initCounters(P);
+        initTableStagger(P);
         initTimelineSpine();
-        initLashLines();
-        initQuoteChars();
-        initFinalCta();
+        initLashLines(P);
+        initQuoteChars(P);
+        initFinalCta(P);
         initParallax();
         initScrollProgress();
     });
+
+    function initMobileItems(P) {
+        if (!P.mobile || typeof ScrollTrigger === 'undefined') return;
+
+        document.querySelectorAll(MOBILE_ITEMS).forEach(function (el) {
+            gsap.set(el, { autoAlpha: 0, y: P.itemY });
+            ScrollTrigger.create({
+                trigger: el,
+                start: P.itemStart,
+                once: true,
+                onEnter: function () {
+                    gsap.to(el, { autoAlpha: 1, y: 0, duration: P.itemDur, ease: 'power3.out' });
+                }
+            });
+        });
+    }
 
     // ----------------------------------------------
     // hero入場タイムライン（プリローダー退場後に開始）
@@ -92,7 +171,7 @@
     // セクション見出し: ラベルの字間が締まり、
     // 見出しが幕上げマスクで立ち上がる
     // ----------------------------------------------
-    function initSectionHeaders() {
+    function initSectionHeaders(P) {
         if (typeof ScrollTrigger === 'undefined') return;
 
         document.querySelectorAll('.section-header').forEach(function (header) {
@@ -101,17 +180,17 @@
             if (!title) return;
 
             if (label) gsap.set(label, { autoAlpha: 0, y: 10, letterSpacing: '0.34em' });
-            gsap.set(title, { autoAlpha: 0, y: 30, clipPath: 'inset(-15% 0 104% 0)' });
+            gsap.set(title, { autoAlpha: 0, y: P.titleY, clipPath: 'inset(-15% 0 104% 0)' });
 
             ScrollTrigger.create({
                 trigger: header,
-                start: 'top 84%',
+                start: P.headerStart,
                 once: true,
                 onEnter: function () {
                     var tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
                     if (label) tl.to(label, { autoAlpha: 1, y: 0, letterSpacing: '0.2em', duration: 0.9 }, 0);
                     tl.to(title, {
-                        autoAlpha: 1, y: 0, clipPath: 'inset(-15% 0 -15% 0)', duration: 1.1
+                        autoAlpha: 1, y: 0, clipPath: 'inset(-15% 0 -15% 0)', duration: P.titleDur
                     }, 0.12)
                       .set(title, { clearProps: 'clipPath' });
                 }
@@ -122,21 +201,23 @@
     // ----------------------------------------------
     // 汎用reveal: data-animate="up|fade|clip|stagger"
     // ----------------------------------------------
-    function initReveals() {
+    function initReveals(P) {
         if (typeof ScrollTrigger === 'undefined') return;
 
-        // 上方向フェード（section-headerは専用演出に委譲）
+        // 上方向フェード（section-headerは専用演出、
+        // モバイルでは背の高いコンテナをアイテム分解に委譲）
         document.querySelectorAll('[data-animate="up"]').forEach(function (el) {
             if (el.classList.contains('section-header')) return;
-            gsap.set(el, { autoAlpha: 0, y: 24 });
+            if (P.mobile && el.matches(SPLIT_CONTAINERS)) return;
+            gsap.set(el, { autoAlpha: 0, y: P.upY });
             ScrollTrigger.create({
                 trigger: el,
-                start: 'top 85%',
+                start: P.upStart,
                 once: true,
                 onEnter: function () {
                     el.style.willChange = 'transform, opacity';
                     gsap.to(el, {
-                        autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out',
+                        autoAlpha: 1, y: 0, duration: P.upDur, ease: 'power3.out',
                         onComplete: function () { el.style.willChange = 'auto'; }
                     });
                 }
@@ -148,7 +229,7 @@
             gsap.set(el, { autoAlpha: 0 });
             ScrollTrigger.create({
                 trigger: el,
-                start: 'top 85%',
+                start: P.upStart,
                 once: true,
                 onEnter: function () {
                     gsap.to(el, { autoAlpha: 1, duration: 1.0, ease: 'power2.out' });
@@ -163,11 +244,11 @@
             if (img) gsap.set(img, { scale: 1.12 });
             ScrollTrigger.create({
                 trigger: wrap,
-                start: 'top 82%',
+                start: P.clipStart,
                 once: true,
                 onEnter: function () {
-                    gsap.to(wrap, { clipPath: 'inset(0 0 0% 0)', duration: 1.1, ease: 'power4.inOut' });
-                    if (img) gsap.to(img, { scale: 1, duration: 1.5, ease: 'power2.out' });
+                    gsap.to(wrap, { clipPath: 'inset(0 0 0% 0)', duration: P.clipDur, ease: 'power4.inOut' });
+                    if (img) gsap.to(img, { scale: 1, duration: P.clipDur + 0.4, ease: 'power2.out' });
                 }
             });
         });
@@ -179,11 +260,11 @@
             gsap.set(children, { autoAlpha: 0, y: 20 });
             ScrollTrigger.create({
                 trigger: parent,
-                start: 'top 82%',
+                start: P.staggerStart,
                 once: true,
                 onEnter: function () {
                     gsap.to(children, {
-                        autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.09
+                        autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: P.staggerGap
                     });
                 }
             });
@@ -193,7 +274,7 @@
     // ----------------------------------------------
     // 数字カウントアップ（37日・380時間・4%）
     // ----------------------------------------------
-    function initCounters() {
+    function initCounters(P) {
         if (typeof ScrollTrigger === 'undefined') return;
 
         document.querySelectorAll('.js-count').forEach(function (el) {
@@ -202,12 +283,12 @@
             var obj = { v: 0 };
             ScrollTrigger.create({
                 trigger: el,
-                start: 'top 85%',
+                start: P.countStart,
                 once: true,
                 onEnter: function () {
                     gsap.to(obj, {
                         v: end,
-                        duration: 1.6,
+                        duration: P.countDur,
                         ease: 'power2.out',
                         snap: { v: 1 },
                         onUpdate: function () { el.textContent = obj.v; },
@@ -229,7 +310,7 @@
     // ----------------------------------------------
     // 比較テーブル行stagger + KATE列ハイライト
     // ----------------------------------------------
-    function initTableStagger() {
+    function initTableStagger(P) {
         if (typeof ScrollTrigger === 'undefined') return;
 
         var table = document.querySelector('.comparison-table');
@@ -238,9 +319,32 @@
         if (!rows.length) return;
 
         gsap.set(rows, { autoAlpha: 0, y: 20 });
+
+        if (P.mobile) {
+            // モバイル: テーブルは1.5画面ぶんあるため、行ごとに視界に入った時点で立ち上げる
+            var remaining = rows.length;
+            rows.forEach(function (row) {
+                ScrollTrigger.create({
+                    trigger: row,
+                    start: P.tableStart,
+                    once: true,
+                    onEnter: function () {
+                        gsap.to(row, {
+                            autoAlpha: 1, y: 0, duration: 0.75, ease: 'power3.out',
+                            onComplete: function () {
+                                remaining -= 1;
+                                if (remaining === 0) table.classList.add('is-revealed');
+                            }
+                        });
+                    }
+                });
+            });
+            return;
+        }
+
         ScrollTrigger.create({
             trigger: table,
-            start: 'top 80%',
+            start: P.tableStart,
             once: true,
             onEnter: function () {
                 gsap.to(rows, {
@@ -288,7 +392,7 @@
     // ----------------------------------------------
     // ラッシュライン: まつ毛カーブがstroke描画される
     // ----------------------------------------------
-    function initLashLines() {
+    function initLashLines(P) {
         if (typeof ScrollTrigger === 'undefined') return;
 
         document.querySelectorAll('[data-lash]').forEach(function (wrap) {
@@ -307,11 +411,11 @@
 
             ScrollTrigger.create({
                 trigger: wrap,
-                start: 'top 82%',
+                start: P.lashStart,
                 once: true,
                 onEnter: function () {
                     var tl = gsap.timeline();
-                    tl.to(arc, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.inOut' })
+                    tl.to(arc, { strokeDashoffset: 0, duration: P.lashDur, ease: 'power2.inOut' })
                       .to(hairs, {
                           strokeDashoffset: 0,
                           duration: 0.5,
@@ -362,7 +466,7 @@
     // visual-breakの一文: 1文字ずつのマスク立ち上がり
     // （GSAP実行時のみ分割 → 未読込時は元の全文表示）
     // ----------------------------------------------
-    function initQuoteChars() {
+    function initQuoteChars(P) {
         if (typeof ScrollTrigger === 'undefined') return;
         var quote = document.querySelector('.visual-break-quote');
         if (!quote || quote.dataset.charsReady) return;
@@ -395,11 +499,11 @@
         gsap.set(chars, { yPercent: 112 });
         ScrollTrigger.create({
             trigger: quote,
-            start: 'top 80%',
+            start: P.quoteStart,
             once: true,
             onEnter: function () {
                 gsap.to(chars, {
-                    yPercent: 0, duration: 0.9, ease: 'power4.out', stagger: 0.035
+                    yPercent: 0, duration: 0.9, ease: 'power4.out', stagger: P.quoteStagger
                 });
             }
         });
@@ -408,7 +512,7 @@
     // ----------------------------------------------
     // final-cta: lash描画→見出し→リスト→ボタンの単一タイムライン
     // ----------------------------------------------
-    function initFinalCta() {
+    function initFinalCta(P) {
         if (typeof ScrollTrigger === 'undefined') return;
         var section = document.querySelector('.final-cta');
         if (!section) return;
@@ -436,7 +540,7 @@
 
         ScrollTrigger.create({
             trigger: section,
-            start: 'top 72%',
+            start: P.finalStart,
             once: true,
             onEnter: function () {
                 var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
