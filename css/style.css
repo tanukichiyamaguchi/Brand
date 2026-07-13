@@ -5074,12 +5074,54 @@ body {
 }
 
 /* =====================================================
+   Phase8: ページの主張（ヒーロー直下の数字帯）
+   ===================================================== */
+.stat-thesis {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    background-color: var(--c-ecru);
+}
+
+.stat-thesis-lead {
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    color: var(--c-ink);
+    margin-bottom: var(--space-xl);
+    font-feature-settings: "palt";
+}
+
+/* 眉毛セクション: 3つの約束（罫線挟みの1行組み） */
+.eyebrow-promises {
+    list-style: none;
+    max-width: 720px;
+    margin: var(--space-2xl) auto 0;
+    padding: var(--space-sm) 0;
+    border-top: 1px solid rgba(201, 164, 92, 0.55);
+    border-bottom: 1px solid rgba(201, 164, 92, 0.55);
+}
+
+.eyebrow-promises li {
+    padding: 0.7em 0;
+    line-height: 1.8;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+}
+
+.eyebrow-promises li + li {
+    border-top: 1px solid rgba(40, 34, 23, 0.08);
+}
+
+.eyebrow-promises strong {
+    color: var(--c-champagne-text);
+    font-weight: 600;
+}
+
+.stat-thesis .stat-strip {
+    margin-top: 0;
    Ultra Polish Layer - refined hero proof, ornaments, cards
    ===================================================== */
 :root {
-    --glass-ivory: rgba(250, 249, 246, 0.12);
-    --glass-line: rgba(231, 215, 172, 0.34);
-    --shadow-luxe: 0 28px 80px rgba(18, 15, 10, 0.28);
 }
 
 .hero::before,
@@ -5136,49 +5178,6 @@ body {
 
 @media (min-width: 1024px) {
     .hero-emblem { margin-left: 0; }
-}
-
-.hero-proof {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1px;
-    width: min(560px, 100%);
-    margin: 0 auto var(--space-xl);
-    padding: 1px;
-    border: 1px solid var(--glass-line);
-    background: linear-gradient(135deg, rgba(231, 215, 172, 0.26), rgba(255, 255, 255, 0.06));
-    box-shadow: var(--shadow-luxe);
-    backdrop-filter: blur(16px);
-}
-
-.hero-proof li {
-    display: flex;
-    flex-direction: column;
-    gap: 0.12rem;
-    align-items: center;
-    justify-content: center;
-    min-height: 76px;
-    padding: 0.7rem 0.45rem;
-    background: linear-gradient(180deg, rgba(250, 249, 246, 0.14), rgba(250, 249, 246, 0.06));
-    color: var(--c-text-on-dark);
-}
-
-.hero-proof span {
-    font-size: 0.68rem;
-    letter-spacing: 0.18em;
-    color: rgba(243, 239, 230, 0.78);
-}
-
-.hero-proof strong {
-    font-family: var(--font-serif);
-    font-size: clamp(1.15rem, 3vw, 1.55rem);
-    font-weight: 500;
-    line-height: 1.1;
-    color: var(--c-champagne-light);
-}
-
-@media (min-width: 1024px) {
-    .hero-proof { margin-left: 0; }
 }
 
 .section-header::after {
@@ -5264,7 +5263,5 @@ body {
     .hero::after { display: none; }
     .hero-text-wrapper { padding: 0; }
     .hero-emblem { width: 64px; height: 64px; }
-    .hero-proof { grid-template-columns: 1fr; max-width: 310px; }
-    .hero-proof li { min-height: 54px; flex-direction: row; gap: 0.6rem; }
     .design-note { margin-top: calc(-1 * var(--space-lg)); }
 }
