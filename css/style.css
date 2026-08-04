@@ -87,13 +87,13 @@
     --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
 
     /* Type Scale（視認性最優先・最小13px） */
-    --fs-hero: clamp(2rem, 1.35rem + 3.2vw, 4.25rem);
-    --fs-h2: clamp(1.75rem, 1.4rem + 1.8vw, 3rem);
-    --fs-h3: clamp(1.3125rem, 1.2rem + 0.6vw, 1.75rem);
-    --fs-lead: clamp(1.0625rem, 1rem + 0.36vw, 1.3125rem);
-    --fs-body: clamp(1rem, 0.98rem + 0.09vw, 1.0625rem);
+    --fs-hero: clamp(2.125rem, 1.4rem + 3.9vw, 4.25rem);
+    --fs-h2: clamp(1.875rem, 1.45rem + 2.2vw, 3rem);
+    --fs-h3: clamp(1.375rem, 1.25rem + 0.8vw, 1.75rem);
+    --fs-lead: clamp(1.125rem, 1.05rem + 0.45vw, 1.3125rem);
+    --fs-body: clamp(1.0625rem, 1.02rem + 0.28vw, 1.125rem);
     --fs-note: 0.875rem;
-    --fs-stat: clamp(2.75rem, 2.1rem + 3.2vw, 5rem);
+    --fs-stat: clamp(3rem, 2.2rem + 4vw, 5rem);
 
     /* Spacing */
     --space-xs: 0.25rem;
@@ -854,7 +854,7 @@ ul, ol {
     color: var(--color-white);
     background: linear-gradient(135deg, var(--c-rose) 0%, var(--c-rose-dark) 100%);
     padding: var(--space-md) var(--space-xl);
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
 }
 
 .btn-white {
@@ -3417,7 +3417,6 @@ body {
     }
 
     .hero-tagline {
-        font-size: 0.7rem;
         letter-spacing: 0.1em;
         word-break: keep-all;
         overflow-wrap: break-word;
@@ -3472,7 +3471,6 @@ body {
     }
 
     .section-label {
-        font-size: 0.75rem;
         letter-spacing: 0.1em;
     }
 
@@ -3532,7 +3530,6 @@ body {
 
     /* 縮小せず横スクロール＋先頭列固定で13px以上を維持 */
     .comparison-table {
-        font-size: 0.8125rem;
         min-width: 560px;
         width: 100%;
         table-layout: auto;
@@ -3562,7 +3559,6 @@ body {
     }
 
     .comparison-table thead th.comparison-ours::before {
-        font-size: 0.75rem;
         padding: 2px 4px;
     }
 
@@ -3576,7 +3572,6 @@ body {
     }
 
     .comparison-message p {
-        font-size: 0.8125rem;
         line-height: 2;
     }
 
@@ -3619,11 +3614,9 @@ body {
     }
 
     .philosophy-desc {
-        font-size: 0.8125rem;
     }
 
     .philosophy-result {
-        font-size: 0.8125rem;
     }
 
     .continuity-serum-content {
@@ -3647,7 +3640,6 @@ body {
     }
 
     .continuity-serum-features li {
-        font-size: 0.8125rem;
         gap: var(--space-sm);
         line-height: 1.8;
     }
@@ -3682,7 +3674,6 @@ body {
     .timeline-period {
         width: auto;
         display: inline-block;
-        font-size: 0.8125rem;
     }
 
     .timeline-content h4 {
@@ -3690,7 +3681,6 @@ body {
     }
 
     .timeline-content p {
-        font-size: 0.8125rem;
     }
 
     .timeline-connector {
@@ -3724,7 +3714,6 @@ body {
     }
 
     .eyebrow-golden-desc {
-        font-size: 0.8125rem;
     }
 
     .eyebrow-golden-points {
@@ -3732,12 +3721,10 @@ body {
     }
 
     .eyebrow-golden-points li {
-        font-size: 0.8125rem;
     }
 
     .eyebrow-golden-note {
         padding: var(--space-md);
-        font-size: 0.8125rem;
     }
 
     .eyebrow-bone-inner {
@@ -3752,7 +3739,6 @@ body {
     }
 
     .eyebrow-bone-desc {
-        font-size: 0.8125rem;
     }
 
     .eyebrow-bone-grid {
@@ -3765,16 +3751,13 @@ body {
     }
 
     .bone-type-label {
-        font-size: 0.75rem;
     }
 
     .bone-type p {
-        font-size: 0.7rem;
         line-height: 1.6;
     }
 
     .eyebrow-bone-note {
-        font-size: 0.8125rem;
         text-align: left;
     }
 
@@ -3800,15 +3783,12 @@ body {
     }
 
     .eyebrow-wax-text > p {
-        font-size: 0.8125rem;
     }
 
     .wax-benefit strong {
-        font-size: 0.8125rem;
     }
 
     .wax-benefit p {
-        font-size: 0.75rem;
     }
 
     .wax-benefit-icon {
@@ -3827,7 +3807,6 @@ body {
     }
 
     .eyebrow-domestic-desc {
-        font-size: 0.8125rem;
     }
 
     .eyebrow-domestic-points {
@@ -3842,7 +3821,6 @@ body {
     .domestic-point-number {
         width: 36px;
         height: 36px;
-        font-size: 0.75rem;
     }
 
     .domestic-point strong {
@@ -3850,7 +3828,6 @@ body {
     }
 
     .domestic-point p {
-        font-size: 0.75rem;
     }
 
     /* Set recommend section */
@@ -3885,7 +3862,6 @@ body {
     }
 
     .set-benefit-content p {
-        font-size: 0.8125rem;
     }
 
     .set-recommend-cta {
@@ -3914,7 +3890,6 @@ body {
     }
 
     .flow-step-text {
-        font-size: 0.7rem;
     }
 
     .flow-step-arrow {
@@ -3945,7 +3920,6 @@ body {
     }
 
     .feature-text {
-        font-size: 0.8125rem;
     }
 
     .feature-text strong {
@@ -4090,18 +4064,12 @@ body {
         font-size: 0.875rem;
     }
 
-    /* Introduction text */
-    .introduction-text p {
-        font-size: 0.9375rem;
-    }
-
     .introduction-lead {
         font-size: 1rem;
     }
 
     .introduction-highlight {
         padding: var(--space-md);
-        font-size: 0.8125rem;
     }
 
     /* Final CTA */
@@ -4219,7 +4187,6 @@ body {
     }
 
     .hero-tagline {
-        font-size: 0.8125rem;
         letter-spacing: 0.05em;
         line-height: 1.6;
     }
@@ -4241,13 +4208,11 @@ body {
     }
 
     .hero-cta-reassure {
-        font-size: 0.75rem;
     }
 
     .hero-cta .btn {
         width: 100%;
         padding: var(--space-md) var(--space-lg);
-        font-size: 0.85rem;
     }
 
     .btn-xl {
@@ -4293,7 +4258,6 @@ body {
     /* gallery-grid: 画像のアスペクト比に従って自動高さ */
 
     .gallery-tag {
-        font-size: 0.7rem;
         padding: 4px 8px;
     }
 
@@ -4308,7 +4272,6 @@ body {
     }
 
     .copyright {
-        font-size: 0.7rem;
     }
 
     /* Comparison section 480px */
@@ -4318,7 +4281,6 @@ body {
     }
 
     .comparison-table {
-        font-size: 0.8125rem;
     }
 
     .comparison-table thead th,
@@ -4327,12 +4289,10 @@ body {
     }
 
     .comparison-table td.comparison-item {
-        font-size: 0.8125rem;
     }
 
     .comparison-table td.comparison-general small,
     .comparison-table td.comparison-ours small {
-        font-size: 0.75rem;
     }
 
     .comparison-message {
@@ -4344,7 +4304,6 @@ body {
     }
 
     .comparison-message p {
-        font-size: 0.75rem;
     }
 
     /* Eyebrow section 480px */
@@ -4354,11 +4313,9 @@ body {
 
     .eyebrow-golden-desc,
     .eyebrow-golden-points li {
-        font-size: 0.75rem;
     }
 
     .eyebrow-golden-note {
-        font-size: 0.75rem;
         padding: var(--space-sm);
     }
 
@@ -4371,7 +4328,6 @@ body {
     }
 
     .eyebrow-bone-desc {
-        font-size: 0.75rem;
     }
 
     .eyebrow-bone-grid {
@@ -4384,7 +4340,6 @@ body {
     }
 
     .eyebrow-bone-note {
-        font-size: 0.75rem;
         text-align: left;
     }
 
@@ -4393,15 +4348,12 @@ body {
     }
 
     .eyebrow-wax-text > p {
-        font-size: 0.75rem;
     }
 
     .wax-benefit strong {
-        font-size: 0.75rem;
     }
 
     .wax-benefit p {
-        font-size: 0.7rem;
     }
 
     .eyebrow-domestic-inner {
@@ -4413,21 +4365,17 @@ body {
     }
 
     .eyebrow-domestic-desc {
-        font-size: 0.75rem;
     }
 
     .domestic-point-number {
         width: 32px;
         height: 32px;
-        font-size: 0.75rem;
     }
 
     .domestic-point strong {
-        font-size: 0.8125rem;
     }
 
     .domestic-point p {
-        font-size: 0.7rem;
     }
 
     /* Set recommend section 480px */
@@ -4453,7 +4401,6 @@ body {
     }
 
     .set-benefit-content p {
-        font-size: 0.75rem;
     }
 
     .set-recommend-cta {
@@ -4478,15 +4425,12 @@ body {
     }
 
     .philosophy-desc {
-        font-size: 0.8125rem;
     }
 
     .philosophy-label {
-        font-size: 0.8125rem;
     }
 
     .philosophy-result {
-        font-size: 0.75rem;
         padding: var(--space-xs) var(--space-md);
     }
 
@@ -4503,7 +4447,6 @@ body {
     }
 
     .continuity-serum-features li {
-        font-size: 0.75rem;
     }
 
     .serum-feature-icon {
@@ -4516,7 +4459,6 @@ body {
     }
 
     .continuity-cycle-desc {
-        font-size: 0.75rem;
     }
 
     .continuity-cta {
@@ -4531,18 +4473,12 @@ body {
         font-size: 1rem;
     }
 
-    /* Introduction section 480px */
-    .introduction-text p {
-        font-size: 0.875rem;
-    }
-
     .introduction-lead {
         font-size: 0.9375rem;
     }
 
     .introduction-highlight {
         padding: var(--space-sm);
-        font-size: 0.75rem;
     }
 
     /* FAQ 480px */
@@ -4563,17 +4499,14 @@ body {
 
     /* Menu 480px */
     .menu-category-note {
-        font-size: 0.75rem;
     }
 
     .menu-item-badge {
-        font-size: 0.75rem;
         padding: 4px 10px;
     }
 
     /* Timeline 480px */
     .timeline-period {
-        font-size: 0.75rem;
         padding: var(--space-xs) var(--space-sm);
     }
 
@@ -4582,7 +4515,6 @@ body {
     }
 
     .timeline-content p {
-        font-size: 0.75rem;
     }
 
     .timeline-connector {
@@ -4596,7 +4528,6 @@ body {
     }
 
     .final-cta-note {
-        font-size: 0.75rem;
     }
 }
 
@@ -4621,14 +4552,12 @@ body {
 
     /* ボタン */
     .btn-primary {
-        font-size: 0.8rem;
         padding: var(--space-sm) var(--space-md);
         min-height: 44px;
     }
 
     .btn-xl {
         padding: var(--space-sm) var(--space-md);
-        font-size: 0.8rem;
         min-height: 44px;
         width: 100%;
     }
@@ -4637,7 +4566,6 @@ body {
     /* Introduction */
     .introduction-text p,
     .introduction-lead {
-        font-size: 0.8125rem;
         line-height: 1.7;
     }
 
@@ -4659,7 +4587,6 @@ body {
     }
 
     .signature-text {
-        font-size: 0.75rem;
     }
 
     /* 5つのこだわり */
@@ -4672,7 +4599,6 @@ body {
     }
 
     .feature-text {
-        font-size: 0.8125rem;
     }
 
     .feature-icon {
@@ -4682,7 +4608,6 @@ body {
 
     /* 比較テーブル */
     .comparison-table {
-        font-size: 0.8125rem;
     }
 
     /* 継続ケア */
@@ -4697,12 +4622,10 @@ body {
     .philosophy-desc,
     .continuity-cta-text,
     .continuity-cycle-desc {
-        font-size: 0.8125rem;
         line-height: 1.6;
     }
 
     .continuity-serum-features span {
-        font-size: 0.8125rem;
         line-height: 1.6;
     }
 
@@ -4741,12 +4664,10 @@ body {
     }
 
     .set-recommend-lead {
-        font-size: 0.8125rem;
         line-height: 1.6;
     }
 
     .set-recommend-cta-text {
-        font-size: 0.8125rem;
         line-height: 1.6;
     }
 
@@ -4775,7 +4696,6 @@ body {
 
     /* テスティモニアル */
     .testimonial-text {
-        font-size: 0.8125rem;
         line-height: 1.6;
     }
 
@@ -4785,13 +4705,11 @@ body {
     }
 
     .faq-answer {
-        font-size: 0.8125rem;
         line-height: 1.6;
     }
 
     /* Final CTA */
     .final-cta-text {
-        font-size: 0.8125rem;
         line-height: 1.6;
     }
 
@@ -5095,10 +5013,11 @@ body {
 
 .stat-thesis .stat-strip {
     margin-top: 0;
+}
+
+/* =====================================================
    Ultra Polish Layer - refined hero proof, ornaments, cards
    ===================================================== */
-:root {
-}
 
 .hero::before,
 .hero::after {
@@ -5252,23 +5171,6 @@ body {
     margin-top: var(--space-lg);
 }
 
-@media (max-width: 768px) {
-    .flow-step-text,
-    .eyebrow-golden-points li,
-    .eyebrow-promises li,
-    .comparison-message p,
-    .continuity-cycle-desc,
-    .continuity-serum-features li,
-    .timeline-content p,
-    .set-benefit-content p,
-    .introduction-highlight,
-    .gallery-tag,
-    .hero-tagline {
-        font-size: 0.8125rem;
-        line-height: 1.8;
-    }
-}
-
 .hero-title,
 .section-title,
 .final-cta-title,
@@ -5276,4 +5178,61 @@ body {
     font-feature-settings: "palt";
     font-kerning: normal;
     hanging-punctuation: allow-end;
+}
+
+/* =====================================================
+   Mobile Type 決定版 - 旧フェーズの縮小指定を後勝ちで是正
+   本文17px・リスト16px・UI14px床。チップ類のみ小サイズ許容
+   ===================================================== */
+@media (max-width: 768px) {
+    .philosophy-desc,
+    .timeline-content p,
+    .comparison-message p,
+    .continuity-cycle-desc,
+    .continuity-cta-text,
+    .testimonial-text,
+    .faq-answer p,
+    .final-cta-text,
+    .set-benefit-content p {
+        font-size: var(--fs-body);
+        line-height: 1.9;
+    }
+
+    .introduction-text .introduction-lead {
+        font-size: var(--fs-lead);
+        line-height: 2;
+    }
+
+    .introduction-highlight,
+    .continuity-serum-features li,
+    .eyebrow-promises li {
+        font-size: 1rem;
+        line-height: 1.9;
+    }
+
+    .eyebrow-golden-points li,
+    .feature-text,
+    .menu-item-description,
+    .flow-step-text {
+        font-size: 0.9375rem;
+        line-height: 1.85;
+    }
+
+    .hero-tagline,
+    .hero-cta-reassure,
+    .timeline-period,
+    .philosophy-result,
+    .comparison-table,
+    .comparison-item,
+    .final-cta-note,
+    .menu-category-note,
+    .stat-label {
+        font-size: 0.875rem;
+    }
+
+    .btn,
+    .btn-primary,
+    .btn-xl {
+        font-size: 0.9375rem;
+    }
 }
