@@ -1,46 +1,35 @@
 /* =====================================================
    KATE stage LASH - Japanese Typesetting (BudouX)
    本文テキストに<wbr>を挿入し、文節単位の自然な改行を実現する。
-   BudouX未読込・JS無効時はCSSのoverflow-wrap: break-wordで劣化なし。
+   BudouX未読込・JS無効時は通常の折り返しになるだけで、内容は欠けない。
    ===================================================== */
 (function () {
     'use strict';
 
-    // BudouXで処理する本文系要素（見出しは手動.u-phraseで制御するため対象外）
+    // BudouXで処理する本文系要素。見出しは <br> で手動制御するため対象外
     var TARGET_SELECTOR = [
         '.js-phrase',
-        '.section-subtitle',
-        '.introduction-text p',
-        '.introduction-lead',
-        '.feature-text',
-        '.comparison-table td',
-        '.comparison-message p',
-        '.philosophy-desc',
-        '.continuity-serum-desc',
-        '.continuity-serum-features span:last-child',
-        '.continuity-cycle-desc',
-        '.continuity-cta-text',
-        '.timeline-content p',
-        '.eyebrow-golden-desc',
-        '.eyebrow-golden-text > p',
-        '.eyebrow-golden-note',
-        '.eyebrow-bone-desc',
-        '.eyebrow-bone-note',
-        '.bone-type p',
-        '.eyebrow-wax-text > p',
-        '.wax-benefit p',
-        '.eyebrow-domestic-desc',
-        '.domestic-point p',
-        '.set-recommend-lead',
-        '.set-benefit-content p',
-        '.set-recommend-cta-text',
-        '.flow-step-text',
-        '.testimonial-text',
-        '.menu-item-description',
-        '.menu-cta-text',
-        '.faq-answer p',
-        '.final-cta-text',
-        '.footer-tagline'
+        '.promise__body',
+        '.step__ttl',
+        '.step__txt',
+        '.steps__list h3',
+        '.steps__list p',
+        '.benefits h3',
+        '.benefits p',
+        '.ratio__list span',
+        '.checks li',
+        '.chips li',
+        '.mitem__hd h4',
+        '.mopt span',
+        '.qa__q > span:nth-child(2)',
+        '.info dd',
+        '.cycle__desc',
+        '.care__lead',
+        '.close__list li',
+        '.close__note',
+        '.assure',
+        '.note-s',
+        '.foot__tag'
     ].join(', ');
 
     // 行頭に来てはいけない文字（BudouX出力への安全弁）
