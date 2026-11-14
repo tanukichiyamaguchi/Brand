@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#FAF9F6">
     <meta name="description" content="蒲田駅徒歩2分の眉毛サロン・まつ毛パーマ専門店 KATE stage LASH。通うほど自まつ毛が変わる「まつ育」サロン。パリジェンヌラッシュリフト¥8,800、骨格診断に基づくオーダーメイドデザイン。業界通常5倍の高品質薬剤使用。">
     <meta name="keywords" content="蒲田 まつ毛パーマ, 蒲田 眉毛, 眉毛サロン 蒲田, まつ毛サロン 蒲田, まつげパーマ 蒲田, 大田区 まつ毛パーマ, 大田区 眉毛サロン, パリジェンヌラッシュリフト 蒲田, ハリウッドブロウリフト 蒲田, 眉毛WAX 蒲田, まつげサロン 大田区, アイブロウ 蒲田, 蒲田駅 眉毛, 蒲田駅 まつげパーマ, まつ育 蒲田">
@@ -25,22 +25,28 @@
       gtag('config', 'G-29VF3FWBLH');
     </script>
 
-    <!-- LCP: heroポスターを最優先読み込み -->
-    <link rel="preload" as="image" href="images/hero-poster.webp" fetchpriority="high">
+    <!-- 演出用の初期非表示は .js が付いた時だけ有効。lp.js が5秒以内に起動しなければ解除して全文を表示する -->
+    <script>
+      (function (d) {
+        d.documentElement.className += ' js';
+        window.__lpGuard = setTimeout(function () { d.documentElement.classList.remove('js'); }, 5000);
+      })(document);
+    </script>
+
+    <!-- LCP: ファーストビューの写真と見出し書体を最優先で読み込む -->
+    <link rel="preload" as="image" href="images/hero-eyes.webp" fetchpriority="high">
+    <link rel="preload" href="assets/fonts/shippori-mincho-b1-800-subset.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- 予約導線への事前接続 -->
     <link rel="preconnect" href="https://beauty.hotpepper.jp">
 
-    <!-- Google Fonts（weight軸を使用分のみに削減） -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-
-    <!-- 和文ディスプレイ書体（自己ホスト・サブセット）: 見出しのLCPを安定させる -->
-    <link rel="preload" href="assets/fonts/shippori-mincho-b1-600-subset.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500..800;1,6..96,500..800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lp.css">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👁</text></svg>">
@@ -72,1381 +78,766 @@
     </script>
 </head>
 <body>
-    <div class="scroll-progress" aria-hidden="true"></div>
-    <!-- Preloader -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-inner">
-            <p class="preloader-name">
-                <span class="preloader-word" style="--delay: 0">KATE</span>
-                <span class="preloader-word" style="--delay: 1">stage</span>
-                <span class="preloader-word" style="--delay: 2">LASH</span>
-            </p>
-            <div class="preloader-line" aria-hidden="true"></div>
-            <p class="preloader-sub">蒲田西口店</p>
-        </div>
-    </div>
+<a class="skip" href="#about">本文へスキップ</a>
 
-    <!-- Header -->
-    <header class="header" id="header">
-        <div class="header-inner">
-            <a href="#" class="logo">
-                <span class="logo-main">KATE stage LASH</span>
-                <span class="logo-sub">蒲田西口店</span>
-            </a>
-            <nav class="nav" id="nav">
-                <ul class="nav-list">
-                    <li><a href="#introduction" class="nav-link">はじめての方へ</a></li>
-                    <li><a href="#eyebrow" class="nav-link">眉毛</a></li>
-                    <li><a href="#commitment" class="nav-link">こだわり</a></li>
-                    <li><a href="#menu" class="nav-link">Menu</a></li>
-                    <li><a href="#access" class="nav-link">Access</a></li>
-                </ul>
-                <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="nav-cta" target="_blank" rel="noopener">
-                    空席確認・予約
-                </a>
-            </nav>
-            <button class="hamburger" id="hamburger" aria-label="メニュー">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+<div class="shell">
+
+  <!-- PC 左パネル -->
+  <aside class="side side--l" aria-label="KATE stage LASH">
+    <p class="side__logo"><span class="logo logo--w"><span>KATE</span><i>stage</i><span>LASH</span></span></p>
+    <p class="side__catch">眉毛とまつ毛で、<br><b>目元</b>が変わる。</p>
+    <div class="lash side__lash" aria-hidden="true">
+      <svg viewBox="0 0 360 60" fill="none">
+        <path class="lash__arc" d="M16 48 C 110 18, 250 18, 344 48"/>
+        <path class="lash__hair" d="M76 30.5 Q 70 19 63 14"/>
+        <path class="lash__hair" d="M128 24.5 Q 124 13 118 7"/>
+        <path class="lash__hair" d="M180 22.5 Q 180 11 177 5"/>
+        <path class="lash__hair" d="M232 24.5 Q 236 13 242 7"/>
+        <path class="lash__hair" d="M284 30.5 Q 290 19 297 14"/>
+      </svg>
+    </div>
+    <div class="btns">
+      <a class="btn btn--book" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">
+        <span class="btn__txt"><small>当日予約OK・無理な勧誘なし</small>無料カウンセリングを予約する</span>
+        <span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></span>
+      </a>
+    </div>
+    <p class="side__note">蒲田駅西口から徒歩2分<br>9:00–20:00（最終受付 19:00）</p>
+  </aside>
+
+  <main class="lp" id="top">
+
+    <!-- ===== HEADER ===== -->
+    <header class="hd">
+      <div class="hd__bar">
+        <a class="logo logo--w" href="#top" aria-label="KATE stage LASH ページの先頭へ"><span>KATE</span><i>stage</i><span>LASH</span></a>
+        <div class="hd__act">
+          <a class="hd__cta" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">予約する<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+          <button class="hd__menu" type="button" data-index-open aria-controls="indexSheet" aria-expanded="false" aria-label="目次を開く"><span></span><span></span></button>
         </div>
+      </div>
     </header>
+    <div class="tags" aria-hidden="true"><div class="tags__track" data-tags="#パリジェンヌラッシュリフト|#まつ毛パーマ|#眉毛WAX|#ハリウッドブロウリフト|#メンズ眉毛|#まつ育セラム|#骨格×黄金比|#国産薬剤|#蒲田駅徒歩2分|#当日予約OK"></div></div>
 
-    <!-- ====================================================
-         1. Hero Section - 変化を訴求するファーストビュー
-         ==================================================== -->
-    <section class="hero" id="hero">
-        <div class="hero-video-wrapper">
-            <video class="hero-video" muted loop playsinline preload="none" poster="images/hero-poster.webp">
-                <source src="assets/hero-video.mp4" type="video/mp4">
-            </video>
-            <div class="hero-video-overlay"></div>
+    <!-- ===== FV ===== -->
+    <section class="fv">
+      <div class="fv__card">
+        <div class="fv__top">
+          <p class="fv__lead">＼ 蒲田駅 徒歩2分・眉とまつ毛の専門サロン ／</p>
+          <h1 class="fv__h1">
+            <span class="ln l1"><span>眉毛とまつ毛で、</span></span>
+            <span class="ln l2"><span><span class="gold">目元</span><span class="ga">が</span></span></span>
+            <span class="ln l3"><span>変わる。</span></span>
+          </h1>
         </div>
-        <div class="hero-content">
-            <div class="hero-text-wrapper">
-                <p class="hero-tagline">KATE stage LASH — 蒲田駅徒歩2分</p>
-                <h1 class="hero-title">
-                    <span class="hero-title-line">眉毛とまつ毛で、</span>
-                    <span class="hero-title-line">目元が変わる。</span>
-                </h1>
-                <div class="hero-cta">
-                    <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="btn btn-primary btn-3d" target="_blank" rel="noopener">
-                        <span class="btn-inner">
-                            無料カウンセリングを予約する
-                        </span>
-                        <span class="btn-shine"></span>
-                    </a>
-                    <p class="hero-cta-reassure">カウンセリング無料・当日予約OK・無理な勧誘なし</p>
-                </div>
-            </div>
+        <div class="fv__stage">
+          <div class="fv__zoom"><div class="fv__kb">
+            <img class="fv__img" src="images/hero-eyes.webp" alt="上向きのまつ毛と整った眉の目元" width="1200" height="800" fetchpriority="high">
+            <span class="ring fv__ring" aria-hidden="true"></span>
+          </div></div>
+          <div class="note" aria-hidden="true">
+            <div class="note__hd"><i></i><i></i><i></i><span>Design note</span></div>
+            <div class="note__row"><span class="note__p">◆</span>骨格 × 黄金比</div>
+            <div class="note__row typing" data-type="あなたの目元を測定中…">あなたの目元を測定中…</div>
+            <div class="note__row note__ok" data-type-done>✓ デザイン設計、完了</div>
+          </div>
+          <small class="img-note">※画像はイメージです</small>
         </div>
-        <div class="hero-scroll">
-            <span>Scroll</span>
-            <div class="hero-scroll-line"></div>
+        <div class="fv__label">
+          <span class="bar">眉とまつ毛の専門サロンが</span>
+          <span class="bar"><b>似合う目元</b>を設計します</span>
         </div>
-        <p class="hero-tanzaku"><span>眉</span><span>毛</span><span>と</span><span>ま</span><span>つ</span><span>毛</span><span>の</span><span>専</span><span>門</span><span>サ</span><span>ロ</span><span>ン</span></p>
+        <div class="band">
+          <span class="logo logo--w" aria-hidden="true"><span>KATE</span><i>stage</i><span>LASH</span></span>
+          <small>EYELASH &amp; EYEBROW<br>DESIGN SALON<br>KAMATA, TOKYO</small>
+        </div>
+      </div>
+      <div class="btns">
+        <a class="btn btn--book" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">
+          <span class="btn__txt"><small>当日予約OK・無理な勧誘なし</small>無料カウンセリングを予約する</span>
+          <span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></span>
+        </a>
+      </div>
+      <p class="assure">ホットペッパービューティーで空席を確認できます</p>
     </section>
 
-    <!-- ====================================================
-         2. はじめての方へ（Introduction）- 教育型セクション
-         ==================================================== -->
-    <section class="introduction" id="introduction">
-        <div class="container">
-            <div class="introduction-grid">
-                <div class="introduction-images">
-                    <div class="concept-image concept-image-1" data-animate="clip">
-                        <img src="images/concept-1.webp" alt="蒲田の眉毛サロン施術イメージ">
-                    </div>
-                    <div class="concept-image concept-image-2" data-animate="clip">
-                        <img src="images/concept-2.webp" alt="蒲田のまつ毛パーマサロン空間" loading="lazy">
-                    </div>
-                </div>
-                <div class="introduction-content" data-animate="up">
-                    <span class="section-label">For First Visitors</span>
-                    <h2 class="section-title">はじめての方へ</h2>
-                    <div class="introduction-text">
-                        <ul class="introduction-pain-list">
-                            <li>「眉毛の形がイメージと違った」</li>
-                            <li>「まつ毛パーマがすぐ取れた」</li>
-                            <li>「通うほどまつ毛が傷んでいく気がする」</li>
-                        </ul>
-                        <p class="introduction-lead">
-                            ——そんな経験、ありませんか？
-                        </p>
-                        <p>
-                            仕上がりも、持ちも、じつは施術の前に決まっています。<strong>カウンセリング・技術・薬剤</strong>——この3つに、私たちは妥協しません。
-                        </p>
-                        <ul class="introduction-highlight introduction-highlight-list">
-                            <li><strong>すべて国産の高品質薬剤</strong>を使用</li>
-                            <li><strong>380時間以上の研修</strong>を修了した技術者のみがデビュー</li>
-                            <li><strong>骨格×黄金比</strong>に基づく完全オーダーメイド設計</li>
-                        </ul>
-                    </div>
-                    <div class="concept-signature">
-                        <span class="signature-line"></span>
-                        <span class="signature-text">Your eyes, your beauty</span>
-                    </div>
-                </div>
-            </div>
-            <!-- Visual Break -->
-            <div class="visual-break-intro">
-                <div class="visual-break-image" data-animate="clip">
-                    <img src="images/visual-break.webp" alt="美しい目元のイメージ" loading="lazy">
-                </div>
-                <p class="visual-break-quote">目元が変われば、<br>世界が変わる。</p>
-            <div class="lash-line" data-lash aria-hidden="true">
-                <svg viewBox="0 0 360 56" fill="none" preserveAspectRatio="xMidYMid meet">
-                    <path class="lash-arc" d="M16 44 C 110 14, 250 14, 344 44" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M76 26.5 Q 70 15 63 10" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M128 20.5 Q 124 9 118 3" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M180 18.5 Q 180 7 177 1" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M232 20.5 Q 236 9 242 3" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M284 26.5 Q 290 15 297 10" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                </svg>
-            </div>
-            </div>
+    <div class="ticker" aria-hidden="true"><div class="ticker__track" data-ticker="Your eyes, your beauty"></div></div>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="sec about" id="about">
+      <div class="wrap">
+        <p class="eyebrow rv">About us</p>
+        <h2 class="about__ttl rv"><span class="logo"><span>KATE</span><i>stage</i><span>LASH</span></span><span class="about__q">とは？</span></h2>
+        <div class="bars rv">
+          <span class="bar">眉とまつ毛を</span>
+          <span class="bar"><b>黄金比</b>で設計する</span>
+          <span class="bar">目元の専門サロンです</span>
         </div>
+        <p class="about__lead rv">通うほど、きれいが育つ。</p>
+      </div>
+
+      <div class="gcar" data-carousel="gallery" id="gallery">
+        <p class="gcar__ttl rv"><span>Before / After</span>施術事例</p>
+        <div class="gcar__track" tabindex="0" aria-label="施術事例">
+          <article class="gcard">
+            <h3 class="gcard__tag">#パリジェンヌラッシュリフト</h3>
+            <div class="gcard__img"><img src="images/gallery-1.webp" alt="蒲田 パリジェンヌラッシュリフト施術事例" width="1200" height="900" loading="lazy"></div>
+            <div class="gcard__foot"><span class="gcard__en">Lash lift</span><span class="gcard__jp">まつ毛パーマ</span></div>
+          </article>
+          <article class="gcard">
+            <h3 class="gcard__tag">#眉毛WAX</h3>
+            <div class="gcard__img"><img src="images/gallery-2.webp" alt="蒲田 眉毛WAX施術事例" width="1200" height="900" loading="lazy"></div>
+            <div class="gcard__foot"><span class="gcard__en">Brow wax</span><span class="gcard__jp">美眉スタイリング</span></div>
+          </article>
+          <article class="gcard">
+            <h3 class="gcard__tag">#ハリウッドブロウリフト</h3>
+            <div class="gcard__img"><img src="images/gallery-3.webp" alt="蒲田 ハリウッドブロウリフト施術事例" width="1200" height="900" loading="lazy"></div>
+            <div class="gcard__foot"><span class="gcard__en">Brow lift</span><span class="gcard__jp">眉毛パーマ</span></div>
+          </article>
+          <article class="gcard">
+            <h3 class="gcard__tag">#セットメニュー</h3>
+            <div class="gcard__img"><img src="images/gallery-4.webp" alt="蒲田 まつ毛パーマ＋眉毛セット施術事例" width="1200" height="900" loading="lazy"></div>
+            <div class="gcard__foot"><span class="gcard__en">Lash &amp; brow</span><span class="gcard__jp">まつ毛パーマ＋眉毛</span></div>
+          </article>
+          <article class="gcard">
+            <h3 class="gcard__tag">#メンズ眉毛</h3>
+            <div class="gcard__img"><img src="images/gallery-5.webp" alt="蒲田 メンズ眉毛施術事例" width="601" height="400" loading="lazy"></div>
+            <div class="gcard__foot"><span class="gcard__en">Men's brow</span><span class="gcard__jp">メンズ眉毛</span></div>
+          </article>
+        </div>
+        <div class="dots" role="tablist" aria-label="施術事例を選ぶ"></div>
+        <p class="note-s">※仕上がりには個人差があります</p>
+      </div>
     </section>
 
-    <!-- ====================================================
-         2.5 一般サロンとの違い（Comparison）- 教育セクション
-         ==================================================== -->
-    <section class="comparison" id="comparison">
-        <div class="container">
-            <div class="section-header" data-animate="up">
-                <span class="section-label">Why Choose Us</span>
-                <h2 class="section-title">
-                    一般的なサロンと<br>何が違うのか
-                </h2>
-            </div>
+    <div class="ticker ticker--alt" aria-hidden="true"><div class="ticker__track" data-ticker="Why KATE stage LASH?"></div></div>
 
-            <!-- 比較テーブル -->
-            <p class="comparison-scroll-hint" aria-hidden="true">横にスワイプして比較 →</p>
-            <div class="comparison-table-wrapper" data-animate="up">
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th class="comparison-general">一般的なサロン</th>
-                            <th class="comparison-ours">KATE stage LASH</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="comparison-item">薬剤の品質</td>
-                            <td class="comparison-general">海外製の安価なもの<small>原価を抑えて効率重視</small></td>
-                            <td class="comparison-ours"><strong>すべて国産の高品質薬剤</strong><small>肌に優しく仕上がりも長持ち</small></td>
-                        </tr>
-                        <tr>
-                            <td class="comparison-item">カウンセリング</td>
-                            <td class="comparison-general">5〜10分で済ませがち<small>希望を聞くだけ</small></td>
-                            <td class="comparison-ours"><strong>あなたの骨格を分析し、黄金比で"似合う"を設計</strong><small>なりたい姿を一緒に設計</small></td>
-                        </tr>
-                        <tr>
-                            <td class="comparison-item">眉毛デザイン</td>
-                            <td class="comparison-general">なんとなく整える<small>流行に合わせるだけ</small></td>
-                            <td class="comparison-ours"><strong>黄金比×骨格診断で設計</strong><small>誰が見ても"似合う"と感じるバランスへ</small></td>
-                        </tr>
-                        <tr>
-                            <td class="comparison-item">技術者の研修</td>
-                            <td class="comparison-general">数十時間程度<small>早期デビュー重視</small></td>
-                            <td class="comparison-ours"><strong>380時間以上の徹底研修</strong><small>技術と接客の両方を習得</small></td>
-                        </tr>
-                        <tr>
-                            <td class="comparison-item">パーマの持ち</td>
-                            <td class="comparison-general">約16日で劣化が目立つ<small>すぐに落ちることも</small></td>
-                            <td class="comparison-ours"><strong>約37日間、自信の持てる仕上がりをキープ</strong><small>高品質薬剤だから実現</small></td>
-                        </tr>
-                        <tr>
-                            <td class="comparison-item">まつ毛へのダメージ</td>
-                            <td class="comparison-general">繰り返すと傷む<small>抜けやすく・細くなる</small></td>
-                            <td class="comparison-ours"><strong>通うほど育つ「まつ育」</strong><small>太く・長く・抜けにくく</small></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- 教育メッセージ -->
-            <div class="comparison-message" data-animate="up">
-                <div class="comparison-message-inner">
-                    <h3><span class="u-phrase">サロン選びで</span><span class="u-phrase">未来のまつ毛が変わる</span></h3>
-                    <p class="comparison-message-highlight js-phrase">
-                        <strong>まつ毛は「消耗品」ではありません。</strong>
-                        正しく選べば、通うほどに美しく育つ——それが、私たちが証明し続けていることです。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 数字で見る品質 -->
-            <div class="stat-strip" data-animate="fade">
-                <div class="stat">
-                    <span class="stat-value"><span class="js-count" data-end="37">0</span><span class="stat-unit">日</span></span>
-                    <span class="stat-label">パーマの持続期間</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-value"><span class="js-count" data-end="380">0</span><span class="stat-unit">時間</span></span>
-                    <span class="stat-label">技術者の研修時間</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-value"><span class="js-count" data-end="4">0</span><span class="stat-unit">%</span></span>
-                    <span class="stat-label">採用の通過率</span>
-                </div>
-            </div>
+    <!-- ===== WHY head ===== -->
+    <section class="whyhead tx-d" id="commitment">
+      <div class="wrap">
+        <p class="eyebrow rv">Why KATE</p>
+        <h2 class="h2 rv">なぜ、<span class="gold">仕上がり</span>が<br>違うのか。</h2>
+        <p class="whyhead__lead rv">カウンセリング・技術・薬剤。<br>この3つに、妥協しない。</p>
+        <div class="five rv">
+          <span class="logo"><span>KATE</span><i>stage</i><span>LASH</span></span>
+          <p><span class="marker">こだわりは、<strong class="gold">5</strong>つ。</span></p>
+          <div class="five__list" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
         </div>
+      </div>
     </section>
 
-    <!-- ====================================================
-         3. 5つのこだわり（Commitment）
-         ==================================================== -->
-    <section class="features" id="commitment">
-        <div class="features-bg"></div>
-        <div class="container">
-            <div class="section-header" data-animate="up">
-                <span class="section-label">Our Commitment</span>
-                <h2 class="section-title section-title-light">
-                    私たちの5つのこだわり
-                </h2>
+    <!-- ===== PROMISES ===== -->
+    <section class="promises" aria-label="5つのこだわり">
+      <div class="wrap">
+
+        <!-- 01 -->
+        <article class="promise" data-promise="0">
+          <p class="promise__no rv"><small>Commitment</small><b>01</b></p>
+          <p class="promise__worry rv">パーマのたびに、<br>まつ毛が傷みそう。</p>
+          <svg class="promise__arrow" viewBox="0 0 20 56" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="10" y1="2" x2="10" y2="40"/><path d="M4 40l6 10 6-10" fill="currentColor" stroke-linejoin="round"/></svg>
+          <h3 class="bars promise__gain rv"><span class="gain__so">だから</span><span class="bar">原価は、</span><span class="bar"><b>業界の5倍</b>。</span></h3>
+          <div class="koma k1" data-io="0.5" aria-hidden="true">
+            <span class="koma__cap">No.01<i>薬剤</i></span>
+            <div class="k1__bars">
+              <p class="k1__ttl">薬剤の原価</p>
+              <div class="k1__row"><span>一般的な水準</span><span class="k1__bar"><i style="--v:20%"></i></span></div>
+              <div class="k1__row"><span>当店</span><span class="k1__bar k1__bar--ours"><i style="--v:100%"></i></span><em>×5</em></div>
             </div>
-            <div class="features-grid">
-                <div class="feature-card" data-animate="up">
-                    <div class="feature-number">01</div>
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M32 8c-13.255 0-24 10.745-24 24 0 9.941 6.043 18.476 14.644 22.106"/>
-                            <path d="M32 8c13.255 0 24 10.745 24 24 0 9.941-6.043 18.476-14.644 22.106"/>
-                            <circle cx="32" cy="32" r="8"/>
-                            <path d="M20 20l24 24M44 20L20 44" stroke-width="0.5" opacity="0.3"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">業界通常5倍の原価<br>最高品質の薬剤</h3>
-                    <p class="feature-text">
-                        <strong class="text-block-lead">まつ毛にやさしく、しっかり続く</strong>
-                        使うのは、業界通常の5倍の原価をかけた薬剤だけ。
-                        まつ毛への負担を抑えながら、
-                        きれいなカールが約37日続きます。
-                    </p>
-                </div>
-                <div class="feature-card" data-animate="up">
-                    <div class="feature-number">02</div>
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M32 56c13.255 0 24-10.745 24-24S45.255 8 32 8 8 18.745 8 32s10.745 24 24 24z"/>
-                            <path d="M22 32c0-5.523 4.477-10 10-10s10 4.477 10 10"/>
-                            <circle cx="26" cy="28" r="2" fill="currentColor"/>
-                            <circle cx="38" cy="28" r="2" fill="currentColor"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">骨格診断から始まる<br>完全オーダーメイド設計</h3>
-                    <p class="feature-text">
-                        <strong class="text-block-lead">「なんとなく」では終わらせない</strong>
-                        目の形、骨格、生え方。ぜんぶ見てから、
-                        あなたに似合う一本をデザインします。
-                    </p>
-                </div>
-                <div class="feature-card" data-animate="up">
-                    <div class="feature-number">03</div>
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 44 C12 44, 22 20, 32 20 C42 20, 52 44, 52 44"/>
-                            <path d="M12 38 C12 38, 22 14, 32 14 C42 14, 52 38, 52 38" stroke-dasharray="4 4"/>
-                            <circle cx="32" cy="20" r="4" fill="currentColor" opacity="0.5"/>
-                            <path d="M32 20v24" stroke-dasharray="2 3"/>
-                            <path d="M24 44h16"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">380時間以上の<br>徹底した技術研修</h3>
-                    <p class="feature-text">
-                        <strong class="text-block-lead">デビューまで、最低380時間</strong>
-                        技術も、カウンセリングも、専門知識も。
-                        すべてを身につけてから、あなたの前に立ちます。
-                    </p>
-                </div>
-                <div class="feature-card" data-animate="up">
-                    <div class="feature-number">04</div>
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M32 8l6 18h18l-14 11 5 19-15-12-15 12 5-19L8 26h18z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">面接通過率わずか4%<br>厳選されたスタッフ</h3>
-                    <p class="feature-text">
-                        <strong class="text-block-lead">採用されるのは、100人中4人</strong>
-                        技術と、丁寧さと、人柄。
-                        その全部で選んだスタッフだけがお迎えします。
-                    </p>
-                </div>
-                <div class="feature-card" data-animate="up">
-                    <div class="feature-number">05</div>
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="32" cy="32" r="28"/>
-                            <path d="M32 18v14l10 6"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">通うほど美しくなる<br>「まつ育」システム</h3>
-                    <p class="feature-text">
-                        <strong class="text-block-lead">「育てる」から、通うほどきれい</strong>
-                        まつ毛の周期は約40日。そのリズムに合わせて
-                        重ねるほど、自まつ毛は太く、長く、抜けにくく。
-                    </p>
-                </div>
+            <div class="k1__keep"><small>カールの持続</small><b>約<span data-count="37">37</span>日</b></div>
+            <span class="seal"><b>国産</b><small>ALL</small></span>
+            <span class="koma__note">※持続には個人差があります</span>
+          </div>
+          <p class="promise__body rv">まつ毛にやさしく、カールは約37日。<br>薬剤は、すべて国産です。</p>
+        </article>
+
+        <!-- 02 -->
+        <article class="promise" data-promise="1">
+          <p class="promise__no rv"><small>Commitment</small><b>02</b></p>
+          <p class="promise__worry rv">自分に似合うデザインが、<br>わからない。</p>
+          <svg class="promise__arrow" viewBox="0 0 20 56" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="10" y1="2" x2="10" y2="40"/><path d="M4 40l6 10 6-10" fill="currentColor" stroke-linejoin="round"/></svg>
+          <h3 class="bars promise__gain rv"><span class="gain__so">だから</span><span class="bar"><b>骨格</b>から、</span><span class="bar">設計。</span></h3>
+          <div class="koma k2" data-io="0.5" aria-hidden="true">
+            <span class="koma__cap">No.02<i>設計</i></span>
+            <div class="k2__stage">
+            <svg class="k2__svg" viewBox="0 0 340 190" fill="none">
+              <path class="k2__brow" d="M96 70 C 132 44 190 34 238 46 C 251 51 260 60 264 70 C 252 62 240 57 228 56 C 184 50 136 58 100 78 Z"/>
+              <path class="k2__eye" d="M120 112 C 146 84 196 80 226 98 C 198 122 150 124 120 112 Z"/>
+              <circle class="k2__iris" cx="174" cy="102" r="14"/>
+              <circle class="k2__pupil" cx="174" cy="102" r="5"/>
+              <path class="k2__lash" d="M136 97 q-6 -5 -9 -12 M149 90 q-4 -6 -5 -14 M163 86 q-2 -7 -1 -15 M178 85 q0 -7 3 -14 M193 87 q2 -7 7 -13 M207 92 q4 -6 10 -10 M219 98 q5 -4 11 -6"/>
+              <path class="k2__nose" d="M92 150 c -2 12 4 22 16 22"/>
+              <line class="k2__g g1" x1="98" y1="172" x2="98" y2="56"/>
+              <line class="k2__g g2" x1="98" y1="172" x2="236" y2="38"/>
+              <line class="k2__g g3" x1="98" y1="172" x2="278" y2="62"/>
+              <circle class="k2__o" cx="98" cy="172" r="4"/>
+              <circle class="k2__d d1" cx="98" cy="76" r="5"/>
+              <circle class="k2__d d2" cx="228" cy="46" r="5"/>
+              <circle class="k2__d d3" cx="264" cy="70" r="5"/>
+            </svg>
+            <span class="k2__lbl l1">眉頭</span>
+            <span class="k2__lbl l2">眉山</span>
+            <span class="k2__lbl l3">眉尻</span>
+            <span class="k2__ratio">1 : 1.618</span>
             </div>
-        </div>
+          </div>
+          <p class="promise__body rv">目の形も、生え方も、ぜんぶ見てから。<br>“似合う”を、数値と感性で設計します。</p>
+        </article>
+
+        <!-- 03 -->
+        <article class="promise" data-promise="2">
+          <p class="promise__no rv"><small>Commitment</small><b>03</b></p>
+          <p class="promise__worry rv">担当者によって、<br>仕上がりが変わりそう。</p>
+          <svg class="promise__arrow" viewBox="0 0 20 56" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="10" y1="2" x2="10" y2="40"/><path d="M4 40l6 10 6-10" fill="currentColor" stroke-linejoin="round"/></svg>
+          <h3 class="bars promise__gain rv"><span class="gain__so">だから</span><span class="bar">研修は、</span><span class="bar"><b>380時間</b>以上。</span></h3>
+          <div class="koma k3" data-io="0.5" aria-hidden="true">
+            <span class="koma__cap">No.03<i>研修</i></span>
+            <div class="k3__gauge">
+              <svg viewBox="0 0 120 120" fill="none"><circle class="k3__track" cx="60" cy="60" r="50"/><circle class="k3__prog" cx="60" cy="60" r="50" transform="rotate(-90 60 60)"/></svg>
+              <p><b data-count="380">380</b><small>時間以上</small></p>
+            </div>
+            <div class="k3__rows">
+              <span class="k3__row"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5 5 9.5 10 3"/></svg></span>技術</span>
+              <span class="k3__row"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5 5 9.5 10 3"/></svg></span>接客</span>
+              <span class="k3__done">あなたの前へ</span>
+            </div>
+          </div>
+          <p class="promise__body rv">すべて身につけてから、<br>あなたの前へ。</p>
+        </article>
+
+        <!-- 04 -->
+        <article class="promise" data-promise="3">
+          <p class="promise__no rv"><small>Commitment</small><b>04</b></p>
+          <p class="promise__worry rv">技術だけでなく、<br>人柄も気になる。</p>
+          <svg class="promise__arrow" viewBox="0 0 20 56" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="10" y1="2" x2="10" y2="40"/><path d="M4 40l6 10 6-10" fill="currentColor" stroke-linejoin="round"/></svg>
+          <h3 class="bars promise__gain rv"><span class="gain__so">だから</span><span class="bar">採用率、</span><span class="bar"><b>4%</b>。</span></h3>
+          <div class="koma k4" data-io="0.5" aria-hidden="true">
+            <span class="koma__cap">No.04<i>採用</i></span>
+            <div class="k4__grid" data-dots="100" data-pick="4,31,57,89"></div>
+            <div class="k4__num"><b><span data-count="4">4</span><i>%</i></b><small>100人のうち、4人。</small></div>
+          </div>
+          <p class="promise__body rv">技術と、丁寧さと、人柄で。</p>
+        </article>
+
+        <!-- 05 -->
+        <article class="promise" data-promise="4">
+          <p class="promise__no rv"><small>Commitment</small><b>05</b></p>
+          <p class="promise__worry rv">その場かぎりのきれいで、<br>終わりたくない。</p>
+          <svg class="promise__arrow" viewBox="0 0 20 56" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="10" y1="2" x2="10" y2="40"/><path d="M4 40l6 10 6-10" fill="currentColor" stroke-linejoin="round"/></svg>
+          <h3 class="bars promise__gain rv"><span class="gain__so">だから</span><span class="bar"><b>まつ育</b>、</span><span class="bar">という発想。</span></h3>
+          <div class="koma k5" data-io="0.5" aria-hidden="true">
+            <span class="koma__cap">No.05<i>まつ育</i></span>
+            <div class="k5__dial">
+              <svg viewBox="0 0 120 120" fill="none"><circle class="k5__ticks" cx="60" cy="60" r="52"/><circle class="k5__prog" cx="60" cy="60" r="44" transform="rotate(-90 60 60)"/></svg>
+              <p><span><small>約</small><b data-count="40">40</b><small>日</small></span><small class="k5__sub">周期</small></p>
+            </div>
+            <div class="k5__chips"><span>施術</span><span>セラム</span><span>次のご来店</span></div>
+            <span class="koma__note">※効果には個人差があります</span>
+          </div>
+          <p class="promise__body rv">約40日の周期に合わせて重ねる、<br>育てるケア。</p>
+        </article>
+
+      </div>
     </section>
 
-    <!-- ====================================================
-         4. 継続ケアセクション（最重要）
-         ==================================================== -->
-    <section class="continuity" id="continuity">
-        <div class="container">
-            <div class="section-header" data-animate="up">
-                <span class="section-label">Continuous Care</span>
-                <h2 class="section-title">
-                    なぜ、通うほどに<br>美しくなるのか
-                </h2>
-            </div>
-
-            <!-- まつ育の考え方説明 -->
-            <div class="continuity-philosophy" data-animate="up">
-                <div class="continuity-philosophy-inner">
-                    <h3 class="continuity-philosophy-title">
-                        <span class="u-phrase">従来のサロンとの</span><span class="u-phrase">決定的な違い</span>
-                    </h3>
-                    <div class="continuity-philosophy-grid">
-                        <div class="philosophy-item philosophy-item-bad">
-                            <span class="philosophy-label">一般的なサロン</span>
-                            <p class="philosophy-desc">
-                                安価な薬剤を重ねるたび、まつ毛は少しずつ細く、短く。カールも取れやすくなっていきます。
-                            </p>
-                            <span class="philosophy-result">通うほど劣化する悪循環</span>
-                        </div>
-                        <div class="philosophy-item philosophy-item-good">
-                            <span class="philosophy-label">KATE stage LASH</span>
-                            <p class="philosophy-desc">
-                                高品質な薬剤と美容液で、施術のたびに「まつ育」。通うほどハリ・コシが育ち、仕上がりも持ちも良くなります。
-                            </p>
-                            <span class="philosophy-result">通うほど美しくなる好循環</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- セラム紹介 -->
-            <div class="continuity-serum" data-animate="up">
-                <div class="continuity-serum-content">
-                    <div class="continuity-serum-text">
-                        <h3 class="continuity-serum-title">
-                            「まつ育」の秘密兵器<br>
-                            <span class="continuity-serum-name">プレミアムまつ育セラム</span>
-                        </h3>
-                        <p class="continuity-serum-price">施術オプション +¥3,300（税込）</p>
-                        <p class="continuity-serum-desc">
-                            施術の間に塗るだけ。おうちのケアはそのままで、
-                            まつ毛にご褒美を。
-                        </p>
-                        <ul class="continuity-serum-features">
-                            <li>
-                                <span class="serum-feature-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                </span>
-                                <span><strong>まつ毛のハリ・コシをサポート</strong>し、健やかな目元へ導く</span>
-                            </li>
-                            <li>
-                                <span class="serum-feature-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                </span>
-                                <span><strong>まつ毛にツヤとボリューム感</strong>を与え、美しく整える</span>
-                            </li>
-                            <li>
-                                <span class="serum-feature-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                </span>
-                                <span><strong>パーマの持ちが向上</strong>し、次回施術もより美しく</span>
-                            </li>
-                            <li>
-                                <span class="serum-feature-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                </span>
-                                <span><strong>施術と同時に塗布</strong>するから、ケアの手間ゼロ</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="continuity-serum-image" data-animate="clip">
-                        <img src="images/serum.webp" alt="KATE stage LASHオリジナル プレミアムまつ育セラム" loading="lazy">
-                    </div>
-                </div>
-            </div>
-
-            <!-- 来店サイクル説明 -->
-            <div class="continuity-cycle" data-animate="up">
-                <h3 class="continuity-cycle-title"><span class="u-phrase">40日周期の</span><span class="u-phrase">理想的な来店サイクル</span></h3>
-                <p class="continuity-cycle-desc">
-                    まつ毛の生まれ変わりは、約40日周期。そのリズムに合わせて通うのが、いちばんの近道です。
-                </p>
-                <div class="continuity-timeline">
-                    <div class="timeline-spine" aria-hidden="true"></div>
-                    <div class="timeline-item">
-                        <div class="timeline-period">初回</div>
-                        <div class="timeline-content">
-                            <h4>骨格診断＋施術＋セラム塗布</h4>
-                            <p>まつ毛と骨格をじっくり診断して、あなたのデザインを決めます。セラムも初回から。</p>
-                        </div>
-                    </div>
-                    <div class="timeline-connector"></div>
-                    <div class="timeline-item">
-                        <div class="timeline-period">2回目<small>約40日後</small></div>
-                        <div class="timeline-content">
-                            <h4>まつ毛に「ハリ・コシ」を実感</h4>
-                            <p>「あれ、なんか違う」。鏡の前で気づく、最初の変化です。</p>
-                        </div>
-                    </div>
-                    <div class="timeline-connector"></div>
-                    <div class="timeline-item">
-                        <div class="timeline-period">3回目<small>約80日後</small></div>
-                        <div class="timeline-content">
-                            <h4>「まつ毛、変わりましたね」</h4>
-                            <p>まわりが気づくほどの変化。すっぴんの目元に、自信が生まれます。</p>
-                        </div>
-                    </div>
-                    <div class="timeline-connector"></div>
-                    <div class="timeline-item timeline-item-highlight">
-                        <div class="timeline-period">継続<small>40日ごと</small></div>
-                        <div class="timeline-content">
-                            <h4><span class="u-phrase">一生美しい自まつ毛を</span><span class="u-phrase">手に入れる</span></h4>
-                            <p>このきれいを、これからもずっと。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- セラムCTA -->
-            <div class="continuity-cta" data-animate="up">
-                <p class="continuity-cta-text">
-                    <span class="u-phrase">セラムなしの施術は「キープ」。</span><span class="u-phrase">セラムありの施術は「育成」。</span>
-                    <strong><span class="u-nobr">+¥3,300</span>で、3回後のまつ毛が変わります。</strong>
-                </p>
-                <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="btn btn-primary btn-soft" target="_blank" rel="noopener">
-                    <span class="btn-inner">まずは初回施術を予約する</span>
-                </a>
-            </div>
-            <div class="lash-line" data-lash aria-hidden="true">
-                <svg viewBox="0 0 360 56" fill="none" preserveAspectRatio="xMidYMid meet">
-                    <path class="lash-arc" d="M16 44 C 110 14, 250 14, 344 44" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M76 26.5 Q 70 15 63 10" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M128 20.5 Q 124 9 118 3" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M180 18.5 Q 180 7 177 1" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M232 20.5 Q 236 9 242 3" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M284 26.5 Q 290 15 297 10" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                </svg>
-            </div>
+    <!-- ===== STATEMENT ===== -->
+    <section class="sec must tx-d">
+      <div class="must__glow" aria-hidden="true"></div>
+      <div class="wrap must__seq" data-io="0.45">
+        <p class="must__lead">眉とまつ毛が、整うと。</p>
+        <p class="must__big" data-split><span class="ml">目元が変われば、</span><span class="ml ml--2"><span class="hot">世界</span>が変わる。</span></p>
+        <div class="must__stage">
+          <span class="ring must__ring" aria-hidden="true"></span>
+          <img class="must__img" src="images/statement-eye.webp" alt="金色の光に浮かぶ、上向きのまつ毛" width="880" height="880" decoding="async">
         </div>
+        <p class="must__logo"><span class="logo logo--w"><span>KATE</span><i>stage</i><span>LASH</span></span></p>
+        <div class="btns">
+          <a class="btn btn--book" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">
+            <span class="btn__txt"><small>当日予約OK・無理な勧誘なし</small>無料カウンセリングを予約する</span>
+            <span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></span>
+          </a>
+        </div>
+        <small class="img-note img-note--s">※画像はイメージです</small>
+      </div>
     </section>
 
-    <!-- ====================================================
-         4.5 眉毛スタイリングへのこだわり（Eyebrow）
-         ==================================================== -->
-    <section class="eyebrow" id="eyebrow">
-        <div class="container">
-            <div class="section-header" data-animate="up">
-                <span class="section-label">Eyebrow Styling</span>
-                <h2 class="section-title">
-                    なぜ、眉毛で<br>顔の印象が変わるのか
-                </h2>
-            </div>
-
-            <!-- 黄金比の説明 -->
-            <div class="eyebrow-golden" data-animate="up">
-                <div class="eyebrow-golden-content">
-                    <div class="eyebrow-golden-text">
-                        <h3 class="eyebrow-golden-title">
-                            <span class="eyebrow-golden-label">Golden Ratio</span>
-                            <span class="u-phrase">「黄金比」で導き出す</span><span class="u-phrase">あなただけの理想の眉</span>
-                        </h3>
-                        <p>
-                            顔の比率を細かく測り、黄金比で<strong>「似合う」位置・長さ・角度</strong>を導きます。感覚ではなく、根拠のある美眉です。
-                        </p>
-                        <ul class="eyebrow-golden-points">
-                            <li>
-                                <strong>眉頭の位置</strong>——小鼻の延長線上
-                            </li>
-                            <li>
-                                <strong>眉山の位置</strong>——黒目の外側〜目尻の間
-                            </li>
-                            <li>
-                                <strong>眉尻の位置</strong>——小鼻と目尻を結んだ延長線上
-                            </li>
-                            <li>
-                                <strong>眉の太さ</strong>——目の縦幅の1/2〜1/3
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="eyebrow-golden-image" data-animate="clip">
-                        <img src="images/golden-ratio.webp" alt="黄金比に基づく眉毛デザイン" loading="lazy">
-                    </div>
-                </div>
-            </div>
-
-            <!-- 骨格診断の説明 -->
-            <div class="eyebrow-bone" data-animate="up">
-                <div class="eyebrow-bone-inner">
-                    <h3 class="eyebrow-bone-title">
-                        <span class="eyebrow-bone-label">Bone Structure Analysis</span>
-                        <span class="u-phrase">骨格診断で</span><span class="u-phrase">「本当に似合う眉」を発見</span>
-                    </h3>
-                    <p class="eyebrow-bone-desc">
-                        同じ黄金比でも、似合う眉は骨格で変わります。額、頬骨、顎のライン。あなたの顔立ちに合わせて仕上げます。
-                    </p>
-                    <div class="eyebrow-bone-grid">
-                        <div class="bone-type">
-                            <span class="bone-type-label">丸顔タイプ</span>
-                            <p>眉山を少し高めに設定し、キリッとした印象をプラス。顔全体を引き締めます。</p>
-                        </div>
-                        <div class="bone-type">
-                            <span class="bone-type-label">面長タイプ</span>
-                            <p>平行眉で横のラインを強調。顔の縦長感をカバーし、柔らかい印象に。</p>
-                        </div>
-                        <div class="bone-type">
-                            <span class="bone-type-label">ベース顔タイプ</span>
-                            <p>眉山を緩やかに設定し、曲線を意識。エラの張りを目立たなくします。</p>
-                        </div>
-                        <div class="bone-type">
-                            <span class="bone-type-label">逆三角形タイプ</span>
-                            <p>眉尻を少し下げ、太めの眉に。シャープな印象を和らげます。</p>
-                        </div>
-                    </div>
-                    <p class="eyebrow-bone-note">
-                        <strong>黄金比 × 骨格 × なりたい印象。</strong>3つそろって、「あなたの眉」になります。
-                    </p>
-                </div>
-            </div>
-
-            <!-- WAX・間引きの必要性 -->
-            <div class="eyebrow-wax" data-animate="up">
-                <div class="eyebrow-wax-content">
-                    <div class="eyebrow-wax-image" data-animate="clip">
-                        <img src="images/eyebrow-wax.webp" alt="眉毛WAX施術の様子" loading="lazy">
-                    </div>
-                    <div class="eyebrow-wax-text">
-                        <h3 class="eyebrow-wax-title">
-                            <span class="eyebrow-wax-label">Why WAX?</span>
-                            <span class="u-phrase">なぜ「WAX脱毛」と</span><span class="u-phrase">「間引き」が必要なのか</span>
-                        </h3>
-                        <p>
-                            眉の印象を決めるのは、じつは<strong>「いらない毛」</strong>。自己処理では難しい産毛まで、WAXでまとめてオフします。
-                        </p>
-                        <div class="eyebrow-wax-benefits">
-                            <div class="wax-benefit">
-                                <span class="wax-benefit-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                </span>
-                                <div>
-                                    <strong>輪郭がくっきり</strong>
-                                    <p>ラインが際立ち、ぐっと垢抜けた印象に</p>
-                                </div>
-                            </div>
-                            <div class="wax-benefit">
-                                <span class="wax-benefit-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                </span>
-                                <div>
-                                    <strong>メイクがしやすい</strong>
-                                    <p>朝のアイブロウが、さっと決まる</p>
-                                </div>
-                            </div>
-                            <div class="wax-benefit">
-                                <span class="wax-benefit-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                </span>
-                                <div>
-                                    <strong>長持ちする</strong>
-                                    <p>毛根から抜くから、2〜3週間きれいが続く</p>
-                                </div>
-                            </div>
-                        </div>
-                        <p>
-                            濃い部分は1本ずつ<strong>「間引き」</strong>。ノーメイクでも整って見える、自然な立体感に。
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 国産薬剤へのこだわり -->
-            <div class="eyebrow-domestic" data-animate="up">
-                <div class="eyebrow-domestic-inner">
-                    <h3 class="eyebrow-domestic-title">
-                        <span class="eyebrow-domestic-label">Made in Japan</span>
-                        <span class="u-phrase">薬剤は、</span><span class="u-phrase">すべて国産。</span>
-                    </h3>
-                    <p class="eyebrow-domestic-desc">
-                        眉毛パーマ（HBL）の薬剤は、<strong>日本製の高品質なものだけ</strong>。安全性も、仕上がりも、持ちも違います。
-                    </p>
-                    <div class="eyebrow-domestic-points">
-                        <div class="domestic-point">
-                            <span class="domestic-point-number">01</span>
-                            <div>
-                                <strong>肌への優しさ</strong>
-                                <p>日本人の肌に合わせた低刺激処方。敏感肌の方も、まずはご相談ください。</p>
-                            </div>
-                        </div>
-                        <div class="domestic-point">
-                            <span class="domestic-point-number">02</span>
-                            <div>
-                                <strong>美しい仕上がり</strong>
-                                <p>ふんわり立体的な毛流れに整えます。</p>
-                            </div>
-                        </div>
-                        <div class="domestic-point">
-                            <span class="domestic-point-number">03</span>
-                            <div>
-                                <strong>長期間キープ</strong>
-                                <p>美しい毛流れが、約3〜4週間続きます。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- ===== VOICE ===== -->
+    <section class="sec voice" id="voice">
+      <div class="wrap">
+        <p class="eyebrow rv">Voice</p>
+        <h2 class="h2 rv">お客様の声</h2>
+      </div>
+      <div class="vcar" data-carousel="voice">
+        <div class="vcar__track" tabindex="0" aria-label="お客様の声">
+          <article class="vcard">
+            <p class="vcard__no">Voice 01<span class="vcard__stars" role="img" aria-label="5つ星">★★★★★</span></p>
+            <h3 class="vcard__h"><span>パーマが、</span><br><span>1ヶ月以上キープ。</span></h3>
+            <p class="vcard__body js-phrase">「以前のサロンではパーマが2週間で取れていたのに、ここでは1ヶ月以上キープ。3回通った今、友人から『まつ毛どうしたの？自分のまつ毛？』と驚かれました。朝のビューラーが不要になって、メイク時間が15分も短くなったのが地味に嬉しい。」</p>
+            <p class="vcard__who"><span class="vcard__ini" aria-hidden="true">M</span><span><b>M.K様（30代・会社員）</b><small>パリジェンヌラッシュリフト＋セラム</small></span></p>
+          </article>
+          <article class="vcard">
+            <p class="vcard__no">Voice 02<span class="vcard__stars" role="img" aria-label="5つ星">★★★★★</span></p>
+            <h3 class="vcard__h"><span>これが私の眉だ、</span><br><span>と思えました。</span></h3>
+            <p class="vcard__body js-phrase">「骨格から分析して"似合う眉"を提案してもらい、初めて『これが私の眉だ』と思えました。まつ毛パーマとセットで受けたら、目元の印象がガラッと変わって、お客様に『雰囲気変わりましたね』と言われることが増えました。自己投資として最高の選択です。」</p>
+            <p class="vcard__who"><span class="vcard__ini" aria-hidden="true">A</span><span><b>A.S様（20代・営業職）</b><small>まつ毛パーマ＋眉毛セット</small></span></p>
+          </article>
+          <article class="vcard">
+            <p class="vcard__no">Voice 03<span class="vcard__stars" role="img" aria-label="5つ星">★★★★★</span></p>
+            <h3 class="vcard__h"><span>押し売りが、</span><br><span>一切ない。</span></h3>
+            <p class="vcard__body js-phrase">「押し売りが一切ないのが本当にありがたい。年齢とともにまつ毛が細くなっていたのが、セラムとの併用で明らかにハリが出てきました。すっぴんでも『疲れてる？』と聞かれなくなって、鏡を見るのが楽しくなりました。」</p>
+            <p class="vcard__who"><span class="vcard__ini" aria-hidden="true">Y</span><span><b>Y.T様（40代・主婦）</b><small>パリジェンヌラッシュリフト</small></span></p>
+          </article>
         </div>
+        <div class="vcar__nav">
+          <button class="arrow" type="button" data-dir="-1" aria-label="前の声"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 2.5 4 6l3.5 3.5"/></svg></button>
+          <div class="dots" role="tablist" aria-label="お客様の声を選ぶ"></div>
+          <button class="arrow" type="button" data-dir="1" aria-label="次の声"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></button>
+        </div>
+        <p class="note-s">※個人の感想です。効果には個人差があります。</p>
+      </div>
     </section>
 
-    <!-- ====================================================
-         4.6 同時施術のすすめ（Set Menu）
-         ==================================================== -->
-    <section class="set-recommend" id="set-recommend">
-        <div class="container">
-            <div class="section-header" data-animate="up">
-                <span class="section-label">Best Combination</span>
-                <h2 class="section-title">
-                    眉毛×まつ毛の<br>「同時施術」をおすすめする理由
-                </h2>
-            </div>
+    <!-- ===== CARE（まつ育） ===== -->
+    <section class="sec care tx-i" id="continuity">
+      <div class="wrap">
+        <p class="eyebrow rv">Continuous care</p>
+        <h2 class="h2 rv">なぜ、通うほどに<br>美しくなるのか。</h2>
+        <p class="care__lead rv">まつ毛は「消耗品」ではありません。</p>
 
-            <div class="set-recommend-content" data-animate="up">
-                <div class="set-recommend-main">
-                    <div class="set-recommend-benefits">
-                        <div class="set-benefit">
-                            <div class="set-benefit-icon">
-                                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <circle cx="24" cy="24" r="20"/>
-                                    <path d="M16 24l6 6 10-12"/>
-                                </svg>
-                            </div>
-                            <div class="set-benefit-content">
-                                <h4>目元全体のバランスが整う</h4>
-                                <p>眉とまつ毛を一緒に整えるから、印象がちぐはぐになりません。</p>
-                            </div>
-                        </div>
-                        <div class="set-benefit">
-                            <div class="set-benefit-icon">
-                                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <circle cx="24" cy="24" r="20"/>
-                                    <path d="M24 14v10l7 7"/>
-                                </svg>
-                            </div>
-                            <div class="set-benefit-content">
-                                <h4>来店回数と時間を節約</h4>
-                                <p>1回の来店で目元が完成。忙しい毎日に、ちょうどいい。</p>
-                            </div>
-                        </div>
-                        <div class="set-benefit">
-                            <div class="set-benefit-icon">
-                                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <circle cx="24" cy="24" r="20"/>
-                                    <path d="M14 24h20M24 14v20"/>
-                                </svg>
-                            </div>
-                            <div class="set-benefit-content">
-                                <h4>セット価格でお得に</h4>
-                                <p>単品で受けるより、セット価格でお得に。</p>
-                            </div>
-                        </div>
-                        <div class="set-benefit">
-                            <div class="set-benefit-icon">
-                                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <circle cx="24" cy="24" r="20"/>
-                                    <path d="M24 4l4 8 8 1-6 5 2 8-8-4-8 4 2-8-6-5 8-1z"/>
-                                </svg>
-                            </div>
-                            <div class="set-benefit-content">
-                                <h4>朝のメイク時間が劇的に短縮</h4>
-                                <p>眉メイクもビューラーも、ほぼいらない朝へ。15〜20分の余裕が生まれます。</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="set-recommend-cta">
-                        <p class="set-recommend-cta-text">
-                            <strong class="text-block-lead">当店人気No.1のセットメニュー</strong>
-                        </p>
-                        <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="btn btn-primary btn-soft" target="_blank" rel="noopener">
-                            <span class="btn-inner">セットメニューを予約する</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <div class="vs">
+          <div class="vs__card rv">
+            <span class="vs__lbl">一般的なサロン</span>
+            <p>安価な薬剤の繰り返しは、<br>まつ毛の負担に。</p>
+            <span class="vs__res">負担が重なる悪循環</span>
+          </div>
+          <svg class="promise__arrow vs__arrow" viewBox="0 0 20 56" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="10" y1="2" x2="10" y2="40"/><path d="M4 40l6 10 6-10" fill="currentColor" stroke-linejoin="round"/></svg>
+          <div class="vs__card vs__card--ours rv">
+            <span class="vs__lbl"><span class="logo logo--w"><span>KATE</span><i>stage</i><span>LASH</span></span></span>
+            <p>高品質な薬剤と美容液で、<br>施術のたびに“まつ育ケア”。</p>
+            <span class="vs__res">通うほど、きれい。</span>
+          </div>
         </div>
+
+        <div class="serum rv">
+          <div class="serum__img"><img src="images/serum.webp" alt="KATE stage LASHオリジナル プレミアムまつ育セラム" width="981" height="1299" loading="lazy"></div>
+          <div class="serum__txt">
+            <p class="serum__en">Premium lash serum</p>
+            <h3 class="serum__name">プレミアム<br>まつ育セラム</h3>
+            <p class="serum__price">施術オプション<b>+¥3,300</b><small>（税込）</small></p>
+          </div>
+          <p class="serum__desc">施術の間に塗るだけ、<br>まつ毛にご褒美。</p>
+          <ul class="chips" data-io>
+            <li><b>ハリ・コシ</b>を、サポート。</li>
+            <li><b>ツヤとボリューム感</b>を、プラス。</li>
+            <li><b>パーマの持ち</b>を、サポート。</li>
+            <li><b>おうちケア</b>は、そのまま。</li>
+          </ul>
+        </div>
+
+        <div class="cycle">
+          <h3 class="cycle__ttl rv">リズムは、<span class="num gold">40</span>日。</h3>
+          <p class="cycle__desc rv">まつ毛の生まれ変わりに、合わせるだけ。</p>
+          <div class="rail">
+            <span class="rail__line" aria-hidden="true"><i></i></span>
+            <ol class="rail__steps">
+              <li class="step rv">
+                <span class="step__no" aria-hidden="true">1</span>
+                <div class="step__card"><p class="step__when">初回</p><h4 class="step__ttl">骨格診断＋施術＋セラム塗布</h4><p class="step__txt">デザインが決まる日。セラムも、初回から。</p></div>
+              </li>
+              <li class="step rv">
+                <span class="step__no" aria-hidden="true">2</span>
+                <div class="step__card"><p class="step__when">2回目<small>約40日後</small></p><h4 class="step__ttl">あれ、なんか違う。</h4><p class="step__txt">鏡の前で気づく、最初のハリ・コシ。</p></div>
+              </li>
+              <li class="step rv">
+                <span class="step__no" aria-hidden="true">3</span>
+                <div class="step__card"><p class="step__when">3回目<small>約80日後</small></p><h4 class="step__ttl">「まつ毛、変わりましたね」</h4><p class="step__txt">すっぴんの目元に、自信。</p></div>
+              </li>
+              <li class="step step--goal rv">
+                <span class="step__no" aria-hidden="true">∞</span>
+                <div class="step__card"><p class="step__when">継続<small>40日ごと</small></p><h4 class="step__ttl">このきれいを、ずっと。</h4></div>
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="care__cta rv">
+          <p>キープで終わらせない、<br>育てるケア。<b>+¥3,300</b></p>
+          <div class="btns">
+            <a class="btn btn--book btn--plain" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">
+              <span class="btn__txt">まずは初回施術を予約する</span>
+              <span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></span>
+            </a>
+          </div>
+        </div>
+        <p class="note-s">※効果・持続には個人差があります</p>
+      </div>
     </section>
 
-    <!-- ====================================================
-         5. 施術の流れ（Treatment Flow）
-         ==================================================== -->
-    <section class="treatment-flow" id="flow">
-        <div class="container">
-            <div class="section-header" data-animate="up">
-                <span class="section-label">Treatment Flow</span>
-                <h2 class="section-title">施術の流れ</h2>
-            </div>
-            <div class="flow-steps" data-animate="up">
-                <div class="flow-step">
-                    <div class="flow-step-number">01</div>
-                    <div class="flow-step-icon">
-                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="8" y="6" width="32" height="36" rx="4"/>
-                            <path d="M16 16h16M16 24h16M16 32h8"/>
-                        </svg>
-                    </div>
-                    <h4 class="flow-step-title">受付</h4>
-                    <p class="flow-step-text">ご来店いただきましたら、受付にてカルテをご記入いただきます。</p>
-                </div>
-                <div class="flow-step-arrow">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </div>
-                <div class="flow-step">
-                    <div class="flow-step-number">02</div>
-                    <div class="flow-step-icon">
-                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="24" cy="16" r="8"/>
-                            <path d="M8 40c0-8.837 7.163-16 16-16s16 7.163 16 16"/>
-                        </svg>
-                    </div>
-                    <h4 class="flow-step-title">カウンセリング</h4>
-                    <p class="flow-step-text">骨格・目元の状態を分析し、なりたい姿をヒアリング。最適なデザインをご提案します。</p>
-                </div>
-                <div class="flow-step-arrow">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </div>
-                <div class="flow-step">
-                    <div class="flow-step-number">03</div>
-                    <div class="flow-step-icon">
-                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M24 8v8M24 32v8M8 24h8M32 24h8"/>
-                            <circle cx="24" cy="24" r="12"/>
-                        </svg>
-                    </div>
-                    <h4 class="flow-step-title">クレンジング</h4>
-                    <p class="flow-step-text">目元のメイクや油分を丁寧に除去。施術のもちを良くするための大切な工程です。</p>
-                </div>
-                <div class="flow-step-arrow">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </div>
-                <div class="flow-step">
-                    <div class="flow-step-number">04</div>
-                    <div class="flow-step-icon">
-                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M6 24c6-12 30-12 36 0"/>
-                            <path d="M6 24c6 12 30 12 36 0"/>
-                            <circle cx="24" cy="24" r="6"/>
-                        </svg>
-                    </div>
-                    <h4 class="flow-step-title">施術</h4>
-                    <p class="flow-step-text">高品質薬剤を使用した丁寧な施術。お客様の状態に合わせて薬剤配合を調整します。</p>
-                </div>
-                <div class="flow-step-arrow">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </div>
-                <div class="flow-step">
-                    <div class="flow-step-number">05</div>
-                    <div class="flow-step-icon">
-                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M24 8c-8 0-16 12-16 24h32c0-12-8-24-16-24z"/>
-                            <path d="M24 8v-4M20 10l-2-3M28 10l2-3"/>
-                        </svg>
-                    </div>
-                    <h4 class="flow-step-title">セラム塗布</h4>
-                    <p class="flow-step-text">オリジナルのプレミアムまつ育セラムを塗布。施術と同時にまつ毛のケアを行います。</p>
-                </div>
-                <div class="flow-step-arrow">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </div>
-                <div class="flow-step">
-                    <div class="flow-step-number">06</div>
-                    <div class="flow-step-icon">
-                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M24 4l4 12h12l-10 7 4 13-10-8-10 8 4-13-10-7h12z"/>
-                        </svg>
-                    </div>
-                    <h4 class="flow-step-title">仕上げ・ご説明</h4>
-                    <p class="flow-step-text">仕上がりをご確認いただき、ご自宅でのケア方法や次回来店の目安をお伝えします。</p>
-                </div>
-            </div>
+    <!-- ===== EYEBROW ===== -->
+    <section class="sec brow tx-d" id="eyebrow">
+      <div class="wrap">
+        <p class="eyebrow rv">Eyebrow styling</p>
+        <h2 class="h2 rv">眉は、顔の額縁。</h2>
+        <div class="bars rv">
+          <span class="bar">感覚ではなく、</span>
+          <span class="bar"><b>黄金比</b>。</span>
         </div>
+
+        <figure class="ratio" data-io="0.55">
+          <img src="images/golden-ratio-eye.webp" alt="黄金比で眉の位置を導くイメージ" width="912" height="869" loading="lazy">
+          <svg class="ratio__svg" viewBox="0 0 760 724" fill="none" aria-hidden="true">
+            <line class="ratio__g g1" x1="286" y1="686" x2="270" y2="112"/>
+            <line class="ratio__g g2" x1="290" y1="676" x2="543" y2="90"/>
+            <line class="ratio__g g3" x1="290" y1="676" x2="647" y2="150"/>
+            <path class="ratio__t t1" d="M586 246 h14 M593 246 v80 M586 326 h14"/>
+            <path class="ratio__t t2" d="M366 92 h14 M373 92 v48 M366 140 h14"/>
+            <circle class="ratio__o" cx="290" cy="676" r="9"/>
+            <circle class="ratio__p p1" cx="270" cy="134" r="10"/>
+            <circle class="ratio__p p2" cx="540" cy="97" r="10"/>
+            <circle class="ratio__p p3" cx="643" cy="155" r="10"/>
+          </svg>
+          <span class="ratio__lbl l1">眉頭</span>
+          <span class="ratio__lbl l2">眉山</span>
+          <span class="ratio__lbl l3">眉尻</span>
+          <span class="ratio__lbl l4">太さ</span>
+          <figcaption>※画像はイメージです</figcaption>
+        </figure>
+
+        <p class="brow__lead rv">顔の比率を測り、<br><b>位置・長さ・角度</b>を導く。</p>
+        <ol class="ratio__list" data-io>
+          <li><b>眉頭</b><span>小鼻の延長線上</span></li>
+          <li><b>眉山</b><span>黒目の外側〜目尻の間</span></li>
+          <li><b>眉尻</b><span>小鼻と目尻を結んだ延長線上</span></li>
+          <li><b>太さ</b><span>目の縦幅の1/2〜1/3</span></li>
+        </ol>
+
+        <figure class="frame brow__wax rv"><img src="images/eyebrow-wax.webp" alt="眉毛WAXの施術風景" width="2048" height="1529" loading="lazy"></figure>
+        <ul class="checks" data-io>
+          <li><b>黄金比×骨格×なりたい印象</b>で、設計。</li>
+          <li><b>WAXと1本ずつの間引き</b>で、すっぴんも整う。</li>
+          <li>薬剤は、<b>すべて国産の低刺激処方</b>。</li>
+        </ul>
+      </div>
     </section>
 
-    <!-- ====================================================
-         6. 施術事例とお客様の声
-         ==================================================== -->
-    <section class="gallery" id="gallery">
-        <div class="container">
-            <div class="section-header" data-animate="up">
-                <span class="section-label">Before & After</span>
-                <h2 class="section-title">施術事例</h2>
-            </div>
-            <div class="gallery-grid" data-animate="up">
-                <div class="gallery-item gallery-item-large" data-animate="clip">
-                    <img src="images/gallery-1.webp" alt="蒲田 パリジェンヌラッシュリフト施術事例" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span class="gallery-tag">パリジェンヌラッシュリフト</span>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-2.webp" alt="蒲田 眉毛WAX施術事例" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span class="gallery-tag">眉毛WAX</span>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-3.webp" alt="蒲田 ハリウッドブロウリフト施術事例" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span class="gallery-tag">ハリウッドブロウリフト</span>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-4.webp" alt="蒲田 まつ毛パーマ＋眉毛セット施術事例" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span class="gallery-tag">セットメニュー</span>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-5.webp" alt="蒲田 メンズ眉毛施術事例" loading="lazy">
-                    <div class="gallery-overlay">
-                        <span class="gallery-tag">メンズ眉毛</span>
-                    </div>
-                </div>
-                <div class="gallery-item gallery-item-video">
-                    <video src="assets/gallery-video.mp4" poster="images/gallery-1.webp" preload="metadata"></video>
-                    <button class="gallery-play-btn" aria-label="施術動画を再生する">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+    <!-- ===== SET ===== -->
+    <section class="sec set" id="set-recommend">
+      <div class="wrap">
+        <p class="eyebrow rv">Best combination</p>
+        <h2 class="h2 rv">眉とまつ毛は、<br>いっしょに。</h2>
+        <div class="duo" data-io="0.7" aria-hidden="true">
+          <span class="duo__a">眉</span>
+          <span class="duo__b">まつ毛</span>
+          <span class="duo__c">目元</span>
         </div>
+        <ul class="benefits" data-io>
+          <li><h3>バランスが、そろう。</h3><p>印象が、ちぐはぐにならない。</p></li>
+          <li><h3>1回で、完成。</h3><p>忙しい毎日に、ちょうどいい。</p></li>
+          <li><h3>単品より、お得。</h3><p>セット価格で、ご用意。</p></li>
+          <li><h3>朝に、15〜20分の余裕。</h3><p>眉メイクもビューラーも、ほぼいらない。</p></li>
+        </ul>
+        <p class="set__no1 rv"><span class="marker">当店人気No.1のセットメニュー</span></p>
+        <div class="btns rv">
+          <a class="btn btn--book btn--plain" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">
+            <span class="btn__txt">セットメニューを予約する</span>
+            <span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></span>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-header" data-animate="up">
-                <span class="section-label">Client Stories</span>
-                <h2 class="section-title">お客様の声</h2>
-            </div>
-            <div class="testimonials-slider" data-animate="up">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">
-                        「以前のサロンではパーマが2週間で取れていたのに、ここでは1ヶ月以上キープ。
-                        3回通った今、友人から『まつ毛どうしたの？自分のまつ毛？』と驚かれました。
-                        朝のビューラーが不要になって、メイク時間が15分も短くなったのが地味に嬉しい。」
-                    </p>
-                    <div class="testimonial-author">
-                        <span class="author-initial">M</span>
-                        <div class="author-info">
-                            <span class="author-name">M.K様（30代・会社員）</span>
-                            <span class="author-menu">パリジェンヌラッシュリフト＋セラム</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">
-                        「骨格から分析して"似合う眉"を提案してもらい、初めて『これが私の眉だ』と思えました。
-                        まつ毛パーマとセットで受けたら、目元の印象がガラッと変わって、お客様に『雰囲気変わりましたね』と
-                        言われることが増えました。自己投資として最高の選択です。」
-                    </p>
-                    <div class="testimonial-author">
-                        <span class="author-initial">A</span>
-                        <div class="author-info">
-                            <span class="author-name">A.S様（20代・営業職）</span>
-                            <span class="author-menu">まつ毛パーマ＋眉毛セット</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">
-                        「押し売りが一切ないのが本当にありがたい。
-                        年齢とともにまつ毛が細くなっていたのが、セラムとの併用で明らかにハリが出てきました。
-                        すっぴんでも『疲れてる？』と聞かれなくなって、鏡を見るのが楽しくなりました。」
-                    </p>
-                    <div class="testimonial-author">
-                        <span class="author-initial">Y</span>
-                        <div class="author-info">
-                            <span class="author-name">Y.T様（40代・主婦）</span>
-                            <span class="author-menu">パリジェンヌラッシュリフト</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="ticker" aria-hidden="true"><div class="ticker__track" data-ticker="Menu &amp; Price"></div></div>
+
+    <!-- ===== MENU ===== -->
+    <section class="sec menu tx-i" id="menu">
+      <div class="wrap">
+        <p class="eyebrow rv">Menu &amp; price</p>
+        <h2 class="h2 rv">施術メニュー</h2>
+
+        <div class="koma feed" aria-hidden="true">
+          <span class="koma__cap">Style index<i>デザイン</i></span>
+          <span class="feed__badge">当日予約OK</span>
+          <div class="feed__row" data-dup><span><b>人気</b>パリジェンヌ</span><span>韓国風</span><span>ワンホン</span><span>まつげカール</span><span>まつ毛パーマ</span><span><b>人気</b>セットメニュー</span></div>
+          <div class="feed__row feed__row--rev" data-dup><span>眉毛WAX</span><span>アイブロウスタイリング</span><span><b>人気</b>ハリウッドブロウリフト</span><span>ナチュラル眉</span><span>メンズ眉毛</span></div>
         </div>
+
+        <div class="mcat rv">
+          <h3 class="mcat__ttl">まつ毛パーマ</h3>
+          <div class="mitem">
+            <span class="mitem__badge">人気No.1</span>
+            <div class="mitem__hd"><h4>パリジェンヌ／まつげパーマ</h4><p class="mitem__price">¥8,800<small>（税込）</small></p></div>
+            <p class="mitem__desc js-phrase">パリジェンヌ／韓国風／ワンホン／まつげパーマ／まつげカール／まつぱ／まつ毛パーマ。お好みのデザインに合わせてお選びいただけます。</p>
+            <a class="mitem__book" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">空席確認・予約する<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+          </div>
+        </div>
+
+        <div class="mcat rv">
+          <h3 class="mcat__ttl">セットメニュー</h3>
+          <div class="mitem mitem--pick">
+            <span class="mitem__badge mitem__badge--gold">人気セット</span>
+            <div class="mitem__hd"><h4>【SET】まつ毛パーマ＋眉毛＋間引き</h4><p class="mitem__price">¥14,800<small>（税込）</small></p></div>
+            <p class="mitem__desc js-phrase">まつげパーマ＋眉毛＋間引き。<span class="mitem__note">※眉毛は2週間以上放置した状態でお越しください。</span></p>
+            <a class="mitem__book" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">空席確認・予約する<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+          </div>
+          <div class="mitem mitem--pick">
+            <div class="mitem__hd"><h4>【SET】まつ毛パーマ＋HBL</h4><p class="mitem__price">¥13,800<small>（税込）</small></p></div>
+            <p class="mitem__desc js-phrase">間引きカット等は行わない施術です。まつ毛パーマはパリジェンヌとまつげパーマからお選びいただけます。<span class="mitem__note">※眉毛は2週間程放置した状態でお越しください。</span></p>
+            <a class="mitem__book" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">空席確認・予約する<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+          </div>
+        </div>
+
+        <div class="mcat rv">
+          <h3 class="mcat__ttl">美眉スタイリング</h3>
+          <div class="mitem">
+            <span class="mitem__badge">おすすめ</span>
+            <div class="mitem__hd"><h4>眉毛WAX＋間引き</h4><p class="mitem__price">¥6,800<small>（税込）</small></p></div>
+            <p class="mitem__desc js-phrase">眉毛＋間引き／アイブロウ／美眉／アイブロウスタイリング。骨格に合わせた似合わせデザインで即垢抜けを実現。</p>
+            <a class="mitem__book" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">空席確認・予約する<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+          </div>
+          <div class="mitem">
+            <div class="mitem__hd"><h4>HBL（ハリウッドブロウリフト）<small>※間引きカット無</small></h4><p class="mitem__price">¥9,900<small>（税込）</small></p></div>
+            <p class="mitem__desc js-phrase">HBL／眉毛パーマ／美眉／ハリウッドブロウリフト／ナチュラル眉。毛流れを自由自在に整え、立体感のある垢抜けた印象に。</p>
+            <a class="mitem__book" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">空席確認・予約する<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+          </div>
+          <div class="mitem">
+            <div class="mitem__hd"><h4>メンズ眉毛＋間引き</h4><p class="mitem__price">¥7,900<small>（税込）</small></p></div>
+            <p class="mitem__desc js-phrase">メンズのお客様はこちらをお選びください。清潔感のある整った眉毛で、第一印象をアップ。</p>
+            <a class="mitem__book" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">空席確認・予約する<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+          </div>
+        </div>
+
+        <div class="mcat rv">
+          <h3 class="mcat__ttl">オプションメニュー</h3>
+          <p class="mcat__note">※まつげメニューとセットでご予約ください</p>
+          <div class="mitem">
+            <span class="mitem__badge mitem__badge--gold">おすすめ</span>
+            <div class="mitem__hd"><h4>プレミアムまつ育セラム</h4><p class="mitem__price">¥3,300<small>（税込）</small></p></div>
+            <p class="mitem__desc js-phrase">当店オリジナルの美容液。施術と同時に塗布し、自まつ毛を内側から育てます。</p>
+          </div>
+          <ul class="mopt">
+            <li><span>間引き</span><b>¥1,100<small>（税込）</small></b></li>
+            <li><span>アイシャンプー</span><b>¥550<small>（税込）</small></b></li>
+            <li><span>マツエクオフ<small>（LEDは対応不可）</small></span><b>¥1,100<small>（税込）</small></b></li>
+            <li><span>アイメイクオフ</span><b>¥550<small>（税込）</small></b><p class="js-phrase">マスカラオフを行うとまつげパーマが大変上がりにくくなるため、お直しは対象外とさせていただきます。</p></li>
+          </ul>
+        </div>
+
+        <div class="btns rv">
+          <a class="btn btn--book btn--plain" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">
+            <span class="btn__txt">ホットペッパーで予約する</span>
+            <span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></span>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <!-- ====================================================
-         7. メニュー・料金
-         ==================================================== -->
-    <section class="menu" id="menu">
-        <div class="container">
-            <div class="section-header" data-animate="up">
-                <span class="section-label">Treatment Menu</span>
-                <h2 class="section-title">施術メニュー</h2>
-            </div>
-
-            <!-- Menu Category: まつ毛パーマ -->
-            <div class="menu-category" data-animate="up">
-                <h3 class="menu-category-title">
-                    <span class="menu-category-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                    </span>
-                    まつ毛パーマ
-                </h3>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <div class="menu-item-header">
-                            <h4 class="menu-item-title">パリジェンヌ／まつげパーマ</h4>
-                            <div class="menu-item-price">¥8,800<span class="tax">（税込）</span></div>
-                        </div>
-                        <p class="menu-item-description">
-                            パリジェンヌ／韓国風／ワンホン／まつげパーマ／まつげカール／まつぱ／まつ毛パーマ。
-                            お好みのデザインに合わせてお選びいただけます。
-                        </p>
-                        <span class="menu-item-badge">人気No.1</span>
-                        <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="menu-item-book" target="_blank" rel="noopener">空席確認・予約する →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Menu Category: セットメニュー -->
-            <div class="menu-category" data-animate="up">
-                <h3 class="menu-category-title">
-                    <span class="menu-category-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                    </span>
-                    セットメニュー
-                </h3>
-                <div class="menu-items">
-                    <div class="menu-item menu-item-featured">
-                        <div class="menu-item-header">
-                            <h4 class="menu-item-title">【SET】まつ毛パーマ＋眉毛＋間引き</h4>
-                            <div class="menu-item-price">¥14,800<span class="tax">（税込）</span></div>
-                        </div>
-                        <p class="menu-item-description">
-                            まつげパーマ＋眉毛＋間引き。<span class="menu-item-note">※眉毛は2週間以上放置した状態でお越しください。</span>
-                        </p>
-                        <span class="menu-item-badge menu-item-badge-gold">人気セット</span>
-                        <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="menu-item-book" target="_blank" rel="noopener">空席確認・予約する →</a>
-                    </div>
-                    <div class="menu-item menu-item-featured">
-                        <div class="menu-item-header">
-                            <h4 class="menu-item-title">【SET】まつ毛パーマ＋HBL</h4>
-                            <div class="menu-item-price">¥13,800<span class="tax">（税込）</span></div>
-                        </div>
-                        <p class="menu-item-description">
-                            間引きカット等は行わない施術です。まつ毛パーマはパリジェンヌとまつげパーマからお選びいただけます。<span class="menu-item-note">※眉毛は2週間程放置した状態でお越しください。</span>
-                        </p>
-                        <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="menu-item-book" target="_blank" rel="noopener">空席確認・予約する →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Menu Category: 美眉スタイリング -->
-            <div class="menu-category" data-animate="up">
-                <h3 class="menu-category-title">
-                    <span class="menu-category-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M3 10c3-6 15-6 18 0"/>
-                            <path d="M3 14c3 6 15 6 18 0"/>
-                        </svg>
-                    </span>
-                    美眉スタイリング
-                </h3>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <div class="menu-item-header">
-                            <h4 class="menu-item-title">眉毛WAX＋間引き</h4>
-                            <div class="menu-item-price">¥6,800<span class="tax">（税込）</span></div>
-                        </div>
-                        <p class="menu-item-description">
-                            眉毛＋間引き／アイブロウ／美眉／アイブロウスタイリング。
-                            骨格に合わせた似合わせデザインで即垢抜けを実現。
-                        </p>
-                        <span class="menu-item-badge">おすすめ</span>
-                        <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="menu-item-book" target="_blank" rel="noopener">空席確認・予約する →</a>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-header">
-                            <h4 class="menu-item-title">HBL（ハリウッドブロウリフト）※間引きカット無</h4>
-                            <div class="menu-item-price">¥9,900<span class="tax">（税込）</span></div>
-                        </div>
-                        <p class="menu-item-description">
-                            HBL／眉毛パーマ／美眉／ハリウッドブロウリフト／ナチュラル眉。
-                            毛流れを自由自在に整え、立体感のある垢抜けた印象に。
-                        </p>
-                        <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="menu-item-book" target="_blank" rel="noopener">空席確認・予約する →</a>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-header">
-                            <h4 class="menu-item-title">メンズ眉毛＋間引き</h4>
-                            <div class="menu-item-price">¥7,900<span class="tax">（税込）</span></div>
-                        </div>
-                        <p class="menu-item-description">
-                            メンズのお客様はこちらをお選びください。
-                            清潔感のある整った眉毛で、第一印象をアップ。
-                        </p>
-                        <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="menu-item-book" target="_blank" rel="noopener">空席確認・予約する →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Menu Category: オプション -->
-            <div class="menu-category" data-animate="up">
-                <h3 class="menu-category-title">
-                    <span class="menu-category-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 8v8M8 12h8"/>
-                        </svg>
-                    </span>
-                    オプションメニュー
-                </h3>
-                <p class="menu-category-note">※まつげメニューとセットでご予約ください</p>
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <div class="menu-item-header">
-                            <h4 class="menu-item-title">プレミアムまつ育セラム</h4>
-                            <div class="menu-item-price">¥3,300<span class="tax">（税込）</span></div>
-                        </div>
-                        <p class="menu-item-description">
-                            当店オリジナルの美容液。施術と同時に塗布し、自まつ毛を内側から育てます。
-                        </p>
-                        <span class="menu-item-badge menu-item-badge-gold">おすすめ</span>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-header">
-                            <h4 class="menu-item-title">間引き</h4>
-                            <div class="menu-item-price">¥1,100<span class="tax">（税込）</span></div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-header">
-                            <h4 class="menu-item-title">アイシャンプー</h4>
-                            <div class="menu-item-price">¥550<span class="tax">（税込）</span></div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-header">
-                            <h4 class="menu-item-title">マツエクオフ（LEDは対応不可）</h4>
-                            <div class="menu-item-price">¥1,100<span class="tax">（税込）</span></div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-header">
-                            <h4 class="menu-item-title">アイメイクオフ</h4>
-                            <div class="menu-item-price">¥550<span class="tax">（税込）</span></div>
-                        </div>
-                        <p class="menu-item-description">
-                            マスカラオフを行うとまつげパーマが大変上がりにくくなるため、お直しは対象外とさせていただきます。
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- HPB CTA -->
-            <div class="menu-cta" data-animate="up">
-                <div class="menu-cta-content">
-                    <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="btn btn-primary btn-3d btn-lg" target="_blank" rel="noopener">
-                        <span class="btn-inner">
-                            ホットペッパーで予約する
-                        </span>
-                        <span class="btn-shine"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
+    <!-- ===== FLOW ===== -->
+    <section class="sec steps tx-d" id="flow">
+      <div class="wrap">
+        <p class="eyebrow rv">Flow</p>
+        <h2 class="h2 rv">施術の流れ</h2>
+        <figure class="frame steps__img rv"><img src="images/concept-2.webp" alt="鏡を見ながら行うカウンセリングの様子" width="2048" height="1482" loading="lazy"></figure>
+        <ol class="steps__list" data-io>
+          <li><span class="steps__no" aria-hidden="true">01</span><h3>受付</h3><p>カルテのご記入から。</p></li>
+          <li><span class="steps__no" aria-hidden="true">02</span><h3>カウンセリング</h3><p>骨格を分析し、なりたい姿をヒアリング。</p></li>
+          <li><span class="steps__no" aria-hidden="true">03</span><h3>クレンジング</h3><p>目元のメイクと油分を、丁寧にオフ。</p></li>
+          <li><span class="steps__no" aria-hidden="true">04</span><h3>施術</h3><p>状態に合わせて、薬剤配合を調整。</p></li>
+          <li><span class="steps__no" aria-hidden="true">05</span><h3>セラム塗布</h3><p>施術と同時に、まつ育ケア。</p></li>
+          <li><span class="steps__no" aria-hidden="true">06</span><h3>仕上げ・ご説明</h3><p>仕上がりの確認と、おうちケアのご案内。</p></li>
+        </ol>
+      </div>
     </section>
 
-    <!-- ====================================================
-         8. よくあるご質問（FAQ）
-         ==================================================== -->
-    <section class="faq" id="faq">
-        <div class="container">
-            <div class="section-header" data-animate="up">
-                <span class="section-label">FAQ</span>
-                <h2 class="section-title">よくあるご質問</h2>
-            </div>
-            <div class="faq-list" data-animate="up">
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>眉毛とまつ毛を同時に施術できますか？</span>
-                        <span class="faq-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                        </span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>はい、同時施術が可能です。むしろ当店では眉毛とまつ毛の同時施術をおすすめしております。目元全体のバランスが整い、セット価格でお得にご利用いただけます。施術時間は約90分が目安です。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>眉毛WAXは痛いですか？</span>
-                        <span class="faq-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                        </span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>当店では国産の低刺激WAXを使用しており、痛みを最小限に抑えています。毛抜きで抜くよりも一瞬で終わるため、むしろラクだったとおっしゃる方がほとんどです。敏感肌の方もご安心ください。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>眉毛は何日前から伸ばしておけばいいですか？</span>
-                        <span class="faq-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                        </span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>理想は2週間以上、最低でも1週間は自己処理をせずにお越しください。ある程度毛が伸びている状態の方が、理想の眉ラインを作りやすく、WAXの効果も長持ちします。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>まつ毛パーマが初めてでも大丈夫ですか？</span>
-                        <span class="faq-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                        </span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>はい、もちろん大丈夫です。当店のお客様の多くが初めての方です。カウンセリングでまつ毛の状態を丁寧に診断し、お一人おひとりに最適な施術をご提案します。不安な点は何でもお気軽にご相談ください。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>パーマの持ちはどのくらいですか？</span>
-                        <span class="faq-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                        </span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>個人差はありますが、まつ毛パーマは約37日間、眉毛WAXは約2〜3週間持続される方が多いです。当店では国産の高品質薬剤を使用しているため、一般的なサロンよりも長持ちしやすいのが特徴です。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>どのくらいの頻度で通えばいいですか？</span>
-                        <span class="faq-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                        </span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>まつ毛の成長周期（約40日）に合わせて、40日前後の来店をおすすめしています。このサイクルで通うことで、まつ毛のコンディションを常に良い状態に保ち、セラムとの相乗効果でまつ育の効果も最大化できます。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>プレミアムまつ育セラムは必要ですか？</span>
-                        <span class="faq-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                        </span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>施術のみでも十分美しい仕上がりになりますが、セラムを併用することで自まつ毛が太く・長く育ち、回を重ねるごとに仕上がりが良くなっていきます。特に初回からの使用がおすすめです。「通うほどに美しくなる」を実感していただくために、ぜひお試しください。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>施術時間はどのくらいですか？</span>
-                        <span class="faq-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                        </span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>まつ毛パーマは約60分、眉毛メニューは約30分、セットメニューは約90分が目安です。初回はカウンセリングのお時間をいただくため、プラス15〜20分ほどお見込みください。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>まつエクをしていても施術できますか？</span>
-                        <span class="faq-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                        </span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>まつげエクステがついた状態ではまつ毛パーマの施術はできません。当店でマツエクオフ（¥1,100）も承っておりますので、同日に施術が可能です。※LEDエクステには対応しておりません。</p>
-                    </div>
-                </div>
-            </div>
+    <!-- ===== FAQ ===== -->
+    <section class="sec faq" id="faq">
+      <div class="wrap">
+        <p class="eyebrow rv">FAQ</p>
+        <h2 class="h2 rv">よくあるご質問</h2>
+        <div class="faq__list">
+          <div class="qa rv">
+            <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa1"><span class="qa__m" aria-hidden="true">Q</span><span>眉毛とまつ毛を同時に施術できますか？</span><span class="qa__i" aria-hidden="true"></span></button></h3>
+            <div class="qa__a" id="qa1"><div><p class="js-phrase">はい、同時施術が可能です。むしろ当店では眉毛とまつ毛の同時施術をおすすめしております。目元全体のバランスが整い、セット価格でお得にご利用いただけます。施術時間は約90分が目安です。</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa2"><span class="qa__m" aria-hidden="true">Q</span><span>眉毛WAXは痛いですか？</span><span class="qa__i" aria-hidden="true"></span></button></h3>
+            <div class="qa__a" id="qa2"><div><p class="js-phrase">当店では国産の低刺激WAXを使用しており、痛みを最小限に抑えています。毛抜きで抜くよりも一瞬で終わるため、むしろラクだったとおっしゃる方がほとんどです。敏感肌の方もご安心ください。</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa3"><span class="qa__m" aria-hidden="true">Q</span><span>眉毛は何日前から伸ばしておけばいいですか？</span><span class="qa__i" aria-hidden="true"></span></button></h3>
+            <div class="qa__a" id="qa3"><div><p class="js-phrase">理想は2週間以上、最低でも1週間は自己処理をせずにお越しください。ある程度毛が伸びている状態の方が、理想の眉ラインを作りやすく、WAXの効果も長持ちします。</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa4"><span class="qa__m" aria-hidden="true">Q</span><span>まつ毛パーマが初めてでも大丈夫ですか？</span><span class="qa__i" aria-hidden="true"></span></button></h3>
+            <div class="qa__a" id="qa4"><div><p class="js-phrase">はい、もちろん大丈夫です。当店のお客様の多くが初めての方です。カウンセリングでまつ毛の状態を丁寧に診断し、お一人おひとりに最適な施術をご提案します。不安な点は何でもお気軽にご相談ください。</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa5"><span class="qa__m" aria-hidden="true">Q</span><span>パーマの持ちはどのくらいですか？</span><span class="qa__i" aria-hidden="true"></span></button></h3>
+            <div class="qa__a" id="qa5"><div><p class="js-phrase">個人差はありますが、まつ毛パーマは約37日間、眉毛WAXは約2〜3週間持続される方が多いです。当店では国産の高品質薬剤を使用しているため、一般的なサロンよりも長持ちしやすいのが特徴です。</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa6"><span class="qa__m" aria-hidden="true">Q</span><span>どのくらいの頻度で通えばいいですか？</span><span class="qa__i" aria-hidden="true"></span></button></h3>
+            <div class="qa__a" id="qa6"><div><p class="js-phrase">まつ毛の成長周期（約40日）に合わせて、40日前後の来店をおすすめしています。このサイクルで通うことで、まつ毛のコンディションを常に良い状態に保ち、セラムとの相乗効果でまつ育の効果も最大化できます。</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa7"><span class="qa__m" aria-hidden="true">Q</span><span>プレミアムまつ育セラムは必要ですか？</span><span class="qa__i" aria-hidden="true"></span></button></h3>
+            <div class="qa__a" id="qa7"><div><p class="js-phrase">施術のみでも十分美しい仕上がりになりますが、セラムを併用することで自まつ毛が太く・長く育ち、回を重ねるごとに仕上がりが良くなっていきます。特に初回からの使用がおすすめです。「通うほどに美しくなる」を実感していただくために、ぜひお試しください。</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa8"><span class="qa__m" aria-hidden="true">Q</span><span>施術時間はどのくらいですか？</span><span class="qa__i" aria-hidden="true"></span></button></h3>
+            <div class="qa__a" id="qa8"><div><p class="js-phrase">まつ毛パーマは約60分、眉毛メニューは約30分、セットメニューは約90分が目安です。初回はカウンセリングのお時間をいただくため、プラス15〜20分ほどお見込みください。</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button class="qa__q" type="button" aria-expanded="false" aria-controls="qa9"><span class="qa__m" aria-hidden="true">Q</span><span>まつエクをしていても施術できますか？</span><span class="qa__i" aria-hidden="true"></span></button></h3>
+            <div class="qa__a" id="qa9"><div><p class="js-phrase">まつげエクステがついた状態ではまつ毛パーマの施術はできません。当店でマツエクオフ（¥1,100）も承っておりますので、同日に施術が可能です。※LEDエクステには対応しておりません。</p></div></div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- ====================================================
-         9. 店舗詳細（Access）
-         ==================================================== -->
-    <section class="access" id="access">
-        <div class="container">
-            <div class="access-grid">
-                <div class="access-info" data-animate="up">
-                    <span class="section-label">Access</span>
-                    <h2 class="section-title">サロン情報</h2>
-                    <div class="access-details">
-                        <div class="access-item">
-                            <h4 class="access-item-title">店舗名</h4>
-                            <p>KATE stage LASH 蒲田西口店</p>
-                        </div>
-                        <div class="access-item">
-                            <h4 class="access-item-title">住所</h4>
-                            <p>〒144-0051<br>東京都大田区西蒲田7丁目48-10<br>三晃電気ビル501号</p>
-                        </div>
-                        <div class="access-item">
-                            <h4 class="access-item-title">アクセス</h4>
-                            <p>JR京浜東北線・東急池上線・東急多摩川線<br>蒲田駅西口から徒歩2分</p>
-                        </div>
-                        <div class="access-item">
-                            <h4 class="access-item-title">営業時間</h4>
-                            <p>9:00 - 20:00（最終受付 19:00）<br>不定休</p>
-                        </div>
-                        <div class="access-item">
-                            <h4 class="access-item-title">ご予約</h4>
-                            <p>
-                            <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="access-line-link" target="_blank" rel="noopener">
-                                ホットペッパーで予約 →
-                            </a><br>
-                            <a href="https://lin.ee/lqKClP4" class="access-line-link" target="_blank" rel="noopener">
-                                LINE予約はこちら →
-                            </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="access-map" data-animate="up">
-                    <iframe title="KATE stage LASH 蒲田西口店の地図" src="https://maps.google.com/maps?q=ケイトステージラッシュ蒲田西口店&output=embed" width="100%" height="400" style="border:0; border-radius: 12px;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-            </div>
+    <!-- ===== ACCESS ===== -->
+    <section class="sec access tx-i" id="access">
+      <div class="wrap">
+        <p class="eyebrow rv">Access</p>
+        <h2 class="h2 rv">サロン情報</h2>
+        <figure class="frame access__img rv"><img src="images/concept-1.webp" alt="KATE stage LASH 蒲田西口店の店内" width="2048" height="1529" loading="lazy"></figure>
+        <dl class="info rv">
+          <div><dt>店舗名</dt><dd>KATE stage LASH 蒲田西口店</dd></div>
+          <div><dt>住所</dt><dd>〒144-0051<br>東京都大田区西蒲田7丁目48-10<br>三晃電気ビル501号</dd></div>
+          <div><dt>アクセス</dt><dd>JR京浜東北線・東急池上線・東急多摩川線<br>蒲田駅西口から徒歩2分</dd></div>
+          <div><dt>営業時間</dt><dd>9:00 - 20:00（最終受付 19:00）<br>不定休</dd></div>
+          <div><dt>ご予約</dt><dd>
+            <a class="tlink" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">ホットペッパーで予約<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><br>
+            <a class="tlink" href="https://lin.ee/lqKClP4" target="_blank" rel="noopener">LINE予約はこちら<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+          </dd></div>
+        </dl>
+        <div class="frame access__map rv">
+          <iframe title="KATE stage LASH 蒲田西口店の地図" src="https://maps.google.com/maps?q=ケイトステージラッシュ蒲田西口店&output=embed" width="100%" height="320" style="border:0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
+      </div>
     </section>
 
-    <!-- ====================================================
-         10. 予約・問い合わせ（Final CTA）
-         ==================================================== -->
-    <section class="final-cta">
-        <div class="final-cta-bg">
-            <img src="images/cta-bg.webp" alt="" aria-hidden="true" loading="lazy">
+    <!-- ===== CLOSING ===== -->
+    <section class="close" id="reserve">
+      <div class="close__card">
+        <div class="close__head" data-io="0.4">
+        <div class="lash close__lash" aria-hidden="true">
+          <svg viewBox="0 0 360 60" fill="none">
+            <path class="lash__arc" d="M16 48 C 110 18, 250 18, 344 48"/>
+            <path class="lash__hair" d="M76 30.5 Q 70 19 63 14"/>
+            <path class="lash__hair" d="M128 24.5 Q 124 13 118 7"/>
+            <path class="lash__hair" d="M180 22.5 Q 180 11 177 5"/>
+            <path class="lash__hair" d="M232 24.5 Q 236 13 242 7"/>
+            <path class="lash__hair" d="M284 30.5 Q 290 19 297 14"/>
+          </svg>
         </div>
-        <div class="container">
-            <div class="final-cta-content">
-                <div class="lash-line lash-line-light" data-lash aria-hidden="true">
-                <svg viewBox="0 0 360 56" fill="none" preserveAspectRatio="xMidYMid meet">
-                    <path class="lash-arc" d="M16 44 C 110 14, 250 14, 344 44" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M76 26.5 Q 70 15 63 10" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M128 20.5 Q 124 9 118 3" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M180 18.5 Q 180 7 177 1" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M232 20.5 Q 236 9 242 3" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                    <path class="lash-hair" d="M284 26.5 Q 290 15 297 10" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-                </svg>
-            </div>
-                <h2 class="final-cta-title">
-                    3ヶ月後、自まつ毛が変わる。
-                </h2>
-                <ul class="final-cta-list">
-                    <li>3回目には「これ、自分のまつ毛？」という驚きを。</li>
-                    <li>朝のメイクが15分短くなる自由を。</li>
-                    <li>そして、すっぴんでも揺るがない自信を。</li>
-                </ul>
-                <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="btn btn-primary btn-3d btn-xl" target="_blank" rel="noopener">
-                    <span class="btn-inner">
-                        無料カウンセリングを予約する
-                    </span>
-                    <span class="btn-shine"></span>
-                </a>
-                <p class="final-cta-note">カウンセリング無料・当日予約OK・蒲田駅西口から徒歩2分</p>
-            </div>
+        <h2 class="close__h">3ヶ月後の鏡が、<br><span class="gold">楽しみ</span>になる。</h2>
+        <div class="close__stage">
+          <span class="ring close__ring" aria-hidden="true"></span>
+          <figure class="close__img"><img src="images/closing-mirror.webp" alt="手鏡に映る、上向きまつ毛の目元" width="1200" height="800" decoding="async"><span class="glint" aria-hidden="true"></span></figure>
         </div>
+        </div>
+        <ul class="close__list" data-io="0.5">
+          <li>3回目には「これ、自分のまつ毛？」という驚きを。</li>
+          <li>朝のメイクが15分短くなる自由を。</li>
+          <li>そして、すっぴんでも揺るがない自信を。</li>
+        </ul>
+        <div class="band">
+          <span class="logo logo--w" aria-hidden="true"><span>KATE</span><i>stage</i><span>LASH</span></span>
+          <small>EYELASH &amp; EYEBROW<br>DESIGN SALON<br>KAMATA, TOKYO</small>
+        </div>
+        <div class="close__cta">
+          <div class="btns">
+            <a class="btn btn--book" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">
+              <span class="btn__txt"><small>当日予約OK・無理な勧誘なし</small>無料カウンセリングを予約する</span>
+              <span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></span>
+            </a>
+            <a class="btn btn--line" href="https://lin.ee/lqKClP4" target="_blank" rel="noopener">
+              <span class="btn__txt"><small>限定特典あり</small>LINEで相談する</span>
+              <span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></span>
+            </a>
+          </div>
+          <p class="close__note">カウンセリング無料・当日予約OK・蒲田駅西口から徒歩2分</p>
+          <small class="img-note img-note--s">※画像はイメージです。効果には個人差があります。</small>
+        </div>
+      </div>
     </section>
 
-    <!-- ====================================================
-         11. Footer
-         ==================================================== -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-main">
-                <div class="footer-brand">
-                    <a href="#" class="footer-logo">
-                        <span class="logo-main">KATE stage LASH</span>
-                        <span class="logo-sub">蒲田西口店</span>
-                    </a>
-                    <p class="footer-tagline">通うほど自まつ毛が変わる、蒲田の眉毛サロン・まつ毛パーマ専門店</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-links-group">
-                        <h4>Menu</h4>
-                        <ul>
-                            <li><a href="#introduction">はじめての方へ</a></li>
-                            <li><a href="#commitment">こだわり</a></li>
-                            <li><a href="#menu">メニュー</a></li>
-                            <li><a href="#gallery">施術事例</a></li>
-                            <li><a href="#faq">よくある質問</a></li>
-                            <li><a href="#access">アクセス</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-links-group">
-                        <h4>Reservation</h4>
-                        <ul>
-                            <li>
-                                <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">
-                                    ホットペッパーで予約
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://lin.ee/lqKClP4" target="_blank" rel="noopener">
-                                    LINE予約
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p class="copyright">&copy; 2024 KATE stage LASH 蒲田西口店. All rights reserved.</p>
-            </div>
-        </div>
+    <!-- ===== FOOTER ===== -->
+    <footer class="foot">
+      <a class="logo logo--w" href="#top" aria-label="KATE stage LASH ページの先頭へ"><span>KATE</span><i>stage</i><span>LASH</span></a>
+      <p class="foot__sub">蒲田西口店</p>
+      <p class="foot__tag">通うほど自まつ毛が変わる、<br>蒲田の眉毛サロン・まつ毛パーマ専門店</p>
+      <nav class="foot__links" aria-label="フッターナビゲーション">
+        <a href="#commitment">こだわり</a>
+        <a href="#menu">メニュー</a>
+        <a href="#gallery">施術事例</a>
+        <a href="#faq">よくある質問</a>
+        <a href="#access">アクセス</a>
+        <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">ホットペッパーで予約</a>
+        <a href="https://lin.ee/lqKClP4" target="_blank" rel="noopener">LINE予約</a>
+      </nav>
+      <small class="copyright">&copy; 2024 KATE stage LASH 蒲田西口店. All rights reserved.</small>
     </footer>
+  </main>
 
-    <!-- Fixed CTA Dock -->
-    <div class="cta-dock" id="ctaDock">
-        <a href="https://lin.ee/lqKClP4" class="cta-dock-btn cta-dock-line" target="_blank" rel="noopener">
-            <svg class="cta-dock-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.105.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
-            </svg>
-            <span class="cta-dock-label">LINEで相談<span class="cta-dock-sub">限定特典あり</span></span>
-        </a>
-        <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" class="cta-dock-btn cta-dock-book" target="_blank" rel="noopener">
-            <svg class="cta-dock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <rect x="3" y="4" width="18" height="18" rx="2"/>
-                <path d="M16 2v4M8 2v4M3 10h18"/>
-            </svg>
-            <span class="cta-dock-label">空席確認・予約<span class="cta-dock-sub">当日予約OK</span></span>
-        </a>
+  <!-- PC 右パネル：目次 -->
+  <nav class="side side--r" aria-label="ページ内目次">
+    <span class="index__ttl">Index</span>
+    <ol class="index" id="index">
+      <li><a href="#top">トップ</a></li>
+      <li><a href="#about">サロンについて</a></li>
+      <li><a href="#gallery">施術事例</a></li>
+      <li><a href="#commitment">5つのこだわり</a></li>
+      <li><a href="#voice">お客様の声</a></li>
+      <li><a href="#continuity">まつ育</a></li>
+      <li><a href="#eyebrow">眉毛スタイリング</a></li>
+      <li><a href="#set-recommend">セットメニュー</a></li>
+      <li><a href="#menu">メニュー・料金</a></li>
+      <li><a href="#flow">施術の流れ</a></li>
+      <li><a href="#faq">よくあるご質問</a></li>
+      <li><a href="#access">サロン情報</a></li>
+      <li><a href="#reserve">ご予約</a></li>
+    </ol>
+  </nav>
+</div>
+
+<!-- 追従CTA（スマホ・タブレット） -->
+<div class="dock" id="dock">
+  <button class="dock__idx" type="button" data-index-open aria-controls="indexSheet" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h9"/></svg>
+    <span>目次</span>
+  </button>
+  <a class="dock__btn dock__btn--line" href="https://lin.ee/lqKClP4" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.105.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+    </svg>
+    <span>LINEで相談<small>限定特典あり</small></span>
+  </a>
+  <a class="dock__btn dock__btn--book" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    <span>空席確認・予約<small>当日予約OK</small></span>
+  </a>
+</div>
+
+<!-- 目次シート（スマホ・タブレット） -->
+<div class="isheet" id="indexSheet" hidden>
+  <div class="isheet__panel" role="dialog" aria-modal="true" aria-label="目次">
+    <div class="isheet__hd">
+      <span class="index__ttl">Index</span>
+      <button class="isheet__close" type="button" data-index-close aria-label="目次を閉じる"><span></span><span></span></button>
     </div>
+    <ol class="index index--sheet"></ol>
+    <div class="btns">
+      <a class="btn btn--book btn--plain" href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">
+        <span class="btn__txt">空席確認・予約する</span>
+        <span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></span>
+      </a>
+    </div>
+  </div>
+</div>
 
-    <!-- JavaScript -->
-    <script defer src="js/vendor/budoux-ja.min.js"></script>
-    <script defer src="js/vendor/gsap.min.js"></script>
-    <script defer src="js/vendor/ScrollTrigger.min.js"></script>
-    <script defer src="js/typeset.js"></script>
-    <script defer src="js/motion.js"></script>
-    <script defer src="js/main.js"></script>
+<!-- JavaScript -->
+<script defer src="js/vendor/budoux-ja.min.js"></script>
+<script defer src="js/typeset.js"></script>
+<script defer src="js/lp.js"></script>
 </body>
 </html>
