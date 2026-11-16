@@ -29,6 +29,8 @@
         '.close__note',
         '.assure',
         '.note-s',
+        '.ba__pts span',
+        '.coupon__go',
         '.foot__tag'
     ].join(', ');
 

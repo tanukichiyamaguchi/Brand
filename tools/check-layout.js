@@ -4,7 +4,7 @@
  *   - 横スクロールの発生／LPカラムからはみ出した要素
  *   - 現れる演出（.rv / [data-io]）が発火しないまま残った要素、見えないまま残った文字
  *   - 1行のはずのラベルの折り返し、重なってはいけない部品同士の重なり
- *   - 読み込めなかった画像、JavaScriptのエラー
+ *   - 読み込めなかった画像（ビフォーアフターの2枚は「読み込まれないまま」も含む）、JavaScriptのエラー
  * 問題が1件でもあれば終了コード1で終わる。
  *
  * 必要なもの: Node.js と Playwright（Chromium）。クラウド環境には導入済み。
@@ -38,7 +38,9 @@ function inspect() {
     const out = { overflowX: document.documentElement.scrollWidth - window.innerWidth, wide: [], hidden: [], notIn: [], layout: [], images: [] };
     const lp = document.querySelector('.lp').getBoundingClientRect();
     const SCROLLERS = '.tags, .ticker, .feed, .gcar__track, .vcar__track, .isheet, .dock, .side';
-    const DECOR = '.ring, .glint, .sr, .skip, .must__glow, .lash, svg, svg *';
+    /* .fv__kb / .fv__img はズーム演出で枠より大きくなるが .fv__zoom（overflow:hidden）で切り取られる。
+       測る瞬間の拡大率で結果が変わるため、はみ出しの判定からは外す（横スクロールの有無は別に見ている） */
+    const DECOR = '.ring, .glint, .sr, .skip, .must__glow, .lash, .fv__kb, .fv__img, svg, svg *';
     const name = el => el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/).join('.') : '');
 
     document.querySelectorAll('.lp *').forEach(el => {
@@ -82,7 +84,8 @@ function inspect() {
     const box = sel => { const el = document.querySelector(sel); return el && getComputedStyle(el).display !== 'none' ? el.getBoundingClientRect() : null; };
 
     [['.k3__gauge', '.k3__rows'], ['.k5__dial', '.k5__chips'], ['.k1__keep', '.seal'], ['.k1__bars', '.k1__keep'], ['.k4__grid', '.k4__num'],
-        ['.serum__img', '.serum__txt'], ['.hd__bar .logo', '.hd__act'], ['.band .logo', '.band small'], ['.note', '.fv__label']].forEach(([x, y]) => {
+        ['.serum__img', '.serum__txt'], ['.hd__bar .logo', '.hd__act'], ['.band .logo', '.band small'], ['.note', '.fv__label'],
+        ['.k0__num', '.k0 .seal'], ['.ba__lbl--a', '.ba__lbl--b'], ['.fv__stamp', '.note']].forEach(([x, y]) => {
         const A = box(x); const B = box(y);
         if (A && B && hit(A, B)) { out.layout.push('重なり ' + x + ' × ' + y); }
     });
@@ -90,7 +93,15 @@ function inspect() {
     if (disc) {
         ['.duo__a', '.duo__b'].forEach(sel => { const el = document.querySelector(sel); if (el && hit(textRect(el), disc)) { out.layout.push('重なり .duo__c × ' + sel + ' の文字'); } });
     }
-    document.querySelectorAll('.dock__btn > span, .hd__cta, .gain__so, .mitem__badge, .feed__badge, .koma__cap, .step__when, .index__ttl, .btn__txt, .bar, .k5__chips span, .k3__row, .serum__name, .gcard__tag').forEach(el => {
+    const stamp = box('.fv__stamp');   /* クーポンの印が見出しの文字にかからないこと */
+    if (stamp) {
+        document.querySelectorAll('.fv__h1 .ln > span').forEach(el => { if (hit(textRect(el), stamp)) { out.layout.push('重なり .fv__stamp × 見出し "' + el.textContent.trim().slice(0, 6) + '"'); } });
+    }
+    document.querySelectorAll('.coupon').forEach(el => {
+        const body = el.querySelector('.coupon__body'); const arrow = el.querySelector('.coupon__arrow');
+        if (body && arrow && textRect(body).right > arrow.getBoundingClientRect().left - 2) { out.layout.push('重なり クーポン券の文字 × 矢印'); }
+    });
+    document.querySelectorAll('.dock__btn > span, .hd__cta, .coupon__body small, .coupon__body b, .stamp small, .stamp b, .offer__ttl, .offer__list span, .offer__list b, .ba__lbl, .ba__hint, .usp__lead, .k0__num b, .k0__row > span:first-child, .gain__so, .mitem__badge, .feed__badge, .koma__cap, .step__when, .index__ttl, .btn__txt, .bar, .k5__chips span, .k3__row, .serum__name, .gcard__tag').forEach(el => {
         if (!el.offsetParent) { return; }
         const allowed = el.matches('.dock__btn > span, .btn__txt, .serum__name') ? 2 : 1;
         const n = lineCount(el);
@@ -108,6 +119,7 @@ function inspect() {
         if (tb.left < b.left + 8 || tb.right > limit) { out.layout.push('ボタンの文字がはみ出し "' + t.textContent.trim().slice(0, 10) + '"'); }
     });
     document.querySelectorAll('img').forEach(i => { if (i.complete && i.naturalWidth === 0) { out.images.push(i.getAttribute('src')); } });
+    document.querySelectorAll('.ba__img').forEach(i => { if (!i.complete) { out.images.push(i.getAttribute('src') + '（読み込まれていない）'); } });
     return out;
 }
 
