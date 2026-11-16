@@ -38,7 +38,9 @@ function inspect() {
     const out = { overflowX: document.documentElement.scrollWidth - window.innerWidth, wide: [], hidden: [], notIn: [], layout: [], images: [] };
     const lp = document.querySelector('.lp').getBoundingClientRect();
     const SCROLLERS = '.tags, .ticker, .feed, .gcar__track, .vcar__track, .isheet, .dock, .side';
-    const DECOR = '.ring, .glint, .sr, .skip, .must__glow, .lash, svg, svg *';
+    /* .fv__kb / .fv__img はズーム演出で枠より大きくなるが .fv__zoom（overflow:hidden）で切り取られる。
+       測る瞬間の拡大率で結果が変わるため、はみ出しの判定からは外す（横スクロールの有無は別に見ている） */
+    const DECOR = '.ring, .glint, .sr, .skip, .must__glow, .lash, .fv__kb, .fv__img, svg, svg *';
     const name = el => el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/).join('.') : '');
 
     document.querySelectorAll('.lp *').forEach(el => {
@@ -99,7 +101,7 @@ function inspect() {
         const body = el.querySelector('.coupon__body'); const arrow = el.querySelector('.coupon__arrow');
         if (body && arrow && textRect(body).right > arrow.getBoundingClientRect().left - 2) { out.layout.push('重なり クーポン券の文字 × 矢印'); }
     });
-    document.querySelectorAll('.dock__btn > span, .hd__cta, .coupon__body small, .coupon__body b, .stamp small, .stamp b, .ba__lbl, .ba__hint, .usp__lead, .k0__num b, .k0__row > span:first-child, .gain__so, .mitem__badge, .feed__badge, .koma__cap, .step__when, .index__ttl, .btn__txt, .bar, .k5__chips span, .k3__row, .serum__name, .gcard__tag').forEach(el => {
+    document.querySelectorAll('.dock__btn > span, .hd__cta, .coupon__body small, .coupon__body b, .stamp small, .stamp b, .offer__ttl, .offer__list span, .offer__list b, .ba__lbl, .ba__hint, .usp__lead, .k0__num b, .k0__row > span:first-child, .gain__so, .mitem__badge, .feed__badge, .koma__cap, .step__when, .index__ttl, .btn__txt, .bar, .k5__chips span, .k3__row, .serum__name, .gcard__tag').forEach(el => {
         if (!el.offsetParent) { return; }
         const allowed = el.matches('.dock__btn > span, .btn__txt, .serum__name') ? 2 : 1;
         const n = lineCount(el);

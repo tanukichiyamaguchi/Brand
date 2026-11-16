@@ -478,6 +478,21 @@ button { font: inherit; color: inherit; }
 .fv .btns { margin-top: 22px; padding-inline: 4px; }
 .assure { margin-top: 12px; text-align: center; font-size: 13.5px; letter-spacing: .04em; color: var(--mute); }
 
+/* 初めての方限定クーポンの価格（予約ボタンの下）。広告に出している初回価格を、開いてすぐ確認できるようにする */
+.offer { margin: 14px 4px 0; padding: 11px 10px 10px; border: 1px solid var(--hair-2); border-radius: 12px; background: rgba(255, 255, 255, .72); text-align: center; }
+.offer__ttl { font-size: 12.5px; font-weight: 700; letter-spacing: .14em; line-height: 1.5; color: var(--rose-d); white-space: nowrap; }
+.offer__list { display: grid; grid-template-columns: 1fr 1fr; margin-top: 5px; }
+.offer__list li { display: grid; gap: 1px; min-width: 0; padding-inline: 4px; }
+.offer__list li + li { border-left: 1px dashed var(--hair-2); }
+.offer__list span { font-size: 13px; line-height: 1.5; color: var(--mute); white-space: nowrap; }
+.offer__list b { font-family: var(--f-en); font-weight: 700; font-size: 25px; line-height: 1.25; letter-spacing: .01em; color: var(--ink); white-space: nowrap; }
+.offer__list b small { font-family: var(--f-sans); font-weight: 500; font-size: 13px; margin-left: 1px; }
+.offer__note { margin-top: 6px; font-size: 12px; line-height: 1.6; color: var(--mute); }
+@media (max-width: 359px) {
+    .offer__list span { font-size: 12px; letter-spacing: -.01em; }
+    .offer__list b { font-size: 23px; }
+}
+
 /* ---------- ティッカー ---------- */
 .ticker {
     background: var(--ink) var(--mb) center / 520px;
