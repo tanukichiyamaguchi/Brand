@@ -642,8 +642,9 @@ button { font: inherit; color: inherit; }
     -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;
 }
 .ba__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; -webkit-user-drag: none; }
-/* 上に重ねた「施術前」を、つまみの右側だけ見せる（全部は隠さない: 遅延読み込みが働かなくなるため） */
-.ba__clip { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--pos)); }
+/* 左が Before、右が After。上に重ねた「施術前」を、つまみの左側だけ見せる
+   （全部は隠さない: 遅延読み込みが働かなくなるため） */
+.ba__clip { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
 .ba__lbl {
     position: absolute; top: 12px; z-index: 2; pointer-events: none;
     background: var(--ink) var(--mb) center / 420px; color: var(--gold-l);
@@ -651,8 +652,8 @@ button { font: inherit; color: inherit; }
     font-size: 14px; letter-spacing: .12em; line-height: 1.5; white-space: nowrap;
     padding: 3px 12px 4px; transition: opacity .3s;
 }
-.ba__lbl--a { left: 12px; }
-.ba__lbl--b { right: 12px; }
+.ba__lbl--b { left: 12px; }
+.ba__lbl--a { right: 12px; }
 .ba__imgnote { position: absolute; left: 12px; bottom: 9px; z-index: 2; pointer-events: none; color: #fff; text-shadow: 0 1px 4px rgba(0, 0, 0, .6); }
 .ba__strip { position: absolute; top: 0; bottom: 0; left: var(--pos); z-index: 3; width: 48px; margin-left: -24px; cursor: ew-resize; touch-action: none; }
 .ba__strip::before {
