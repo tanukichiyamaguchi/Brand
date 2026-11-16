@@ -444,8 +444,8 @@
     }
 
     /* ---------- ビフォーアフター: つまみを左右に動かして見くらべる ----------
-       つまみの左が「施術後」、右が「施術前」。縦のスクロールは止めず、横に動かした時だけ追従する。
-       はじめて見えた時に一度だけ、左から「施術後」が広がって半分で止まる */
+       つまみの左が「施術前」、右が「施術後」。縦のスクロールは止めず、横に動かした時だけ追従する。
+       はじめて見えた時に一度だけ、右から「施術後」が広がって半分で止まる */
     function initBeforeAfter() {
         var rootEl = $('#ba');
         if (!rootEl) { return; }
@@ -464,14 +464,14 @@
             rootEl.classList.toggle('is-snap', mode === 'snap');
             view.style.setProperty('--pos', pos + '%');
             strip.setAttribute('aria-valuenow', String(Math.round(pos)));
-            strip.setAttribute('aria-valuetext', '施術後を左から' + Math.round(pos) + '%表示');
-            labelAfter.style.opacity = pos < 22 ? '0' : '1';
-            labelBefore.style.opacity = pos > 78 ? '0' : '1';
+            strip.setAttribute('aria-valuetext', '施術前を左から' + Math.round(pos) + '%表示');
+            labelBefore.style.opacity = pos < 22 ? '0' : '1';
+            labelAfter.style.opacity = pos > 78 ? '0' : '1';
         }
         function stopDemo() { timers.forEach(clearTimeout); timers = []; }
         function touched() { stopDemo(); rootEl.classList.add('is-touched'); }
         function runDemo() {
-            timers.push(setTimeout(function () { set(90, 'demo'); }, 500));
+            timers.push(setTimeout(function () { set(10, 'demo'); }, 500));
             timers.push(setTimeout(function () { set(REST, 'demo'); }, 2500));
             timers.push(setTimeout(function () { rootEl.classList.remove('is-anim'); }, 4200));
         }
@@ -517,7 +517,7 @@
             set(REST);
             return;
         }
-        set(10);
+        set(90);
         var seen = new IntersectionObserver(function (entries) {
             if (!entries[0].isIntersecting) { return; }
             seen.disconnect();

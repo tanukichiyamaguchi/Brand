@@ -19,7 +19,7 @@ LP（`index.html`）で使っている画像と、差し替える時の注意点
 | `gallery-1.webp`〜`gallery-5.webp` | 施術事例のカルーセル | **実写**（Before/After） | 1200×900 ほか | 4:3 の枠に収まるように表示。実際の施術写真だけを入れる |
 | `concept-1.webp` | サロン情報（店内） | **実写** | 2048×1529 | — |
 | `concept-2.webp` | 施術の流れ（カウンセリング風景） | **実写** | 2048×1482 | — |
-| `eyebrow-wax.webp` | 眉毛セクション（WAXの施術風景） | **実写** | 2048×1529 | — |
+| `brow-wax.webp` | 眉毛セクション（WAXの施術風景） | ご提供の画像（イメージとして掲載） | 1440×1075 | 横4:縦3。ページ上に「※画像はイメージです」を添えている。サロンで撮った実写に差し替えた時は、この注記を外してよい |
 | `serum.webp` | まつ育セラムの商品写真 | **実写** | 981×1299 | 楕円の内側だけが見えるよう拡大表示している |
 
 AI生成の写真には、ページ上で「※画像はイメージです」と添えています。
@@ -39,7 +39,7 @@ AI生成の写真には、ページ上で「※画像はイメージです」と
 
 以前のデザインで使っていたものです。ページからは参照していないので、不要なら削除できます。
 
-- `images/hero-poster.webp`、`images/visual-break.webp`、`images/cta-bg.webp`、`images/golden-ratio.webp`
+- `images/hero-poster.webp`、`images/visual-break.webp`、`images/cta-bg.webp`、`images/golden-ratio.webp`、`images/eyebrow-wax.webp`（以前のWAXの写真）
 - `assets/hero-video.mp4`、`assets/hero-bg.mp4`、`assets/gallery-video.mp4`
 
 ---
