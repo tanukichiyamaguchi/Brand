@@ -443,6 +443,89 @@
         });
     }
 
+    /* ---------- ビフォーアフター: つまみを左右に動かして見くらべる ----------
+       つまみの左が「施術後」、右が「施術前」。縦のスクロールは止めず、横に動かした時だけ追従する。
+       はじめて見えた時に一度だけ、左から「施術後」が広がって半分で止まる */
+    function initBeforeAfter() {
+        var rootEl = $('#ba');
+        if (!rootEl) { return; }
+        var view = $('.ba__view', rootEl);
+        var strip = $('.ba__strip', rootEl);
+        var labelAfter = $('.ba__lbl--a', rootEl);
+        var labelBefore = $('.ba__lbl--b', rootEl);
+        var REST = 50;
+        var pos = REST;
+        var timers = [];
+        var drag = null;
+
+        function set(value, mode) {
+            pos = clamp(value, 3, 97);
+            rootEl.classList.toggle('is-anim', mode === 'demo');
+            rootEl.classList.toggle('is-snap', mode === 'snap');
+            view.style.setProperty('--pos', pos + '%');
+            strip.setAttribute('aria-valuenow', String(Math.round(pos)));
+            strip.setAttribute('aria-valuetext', '施術後を左から' + Math.round(pos) + '%表示');
+            labelAfter.style.opacity = pos < 22 ? '0' : '1';
+            labelBefore.style.opacity = pos > 78 ? '0' : '1';
+        }
+        function stopDemo() { timers.forEach(clearTimeout); timers = []; }
+        function touched() { stopDemo(); rootEl.classList.add('is-touched'); }
+        function runDemo() {
+            timers.push(setTimeout(function () { set(90, 'demo'); }, 500));
+            timers.push(setTimeout(function () { set(REST, 'demo'); }, 2500));
+            timers.push(setTimeout(function () { rootEl.classList.remove('is-anim'); }, 4200));
+        }
+        function at(event) {
+            var box = view.getBoundingClientRect();
+            return (event.clientX - box.left) / box.width * 100;
+        }
+
+        view.addEventListener('pointerdown', function (event) {
+            if (event.pointerType === 'mouse' && event.button !== 0) { return; }
+            touched();
+            drag = { id: event.pointerId, x: event.clientX, moved: false };
+            try { view.setPointerCapture(event.pointerId); } catch (err) { /* 古いブラウザでは追従だけ行う */ }
+            rootEl.classList.add('is-drag');
+        });
+        view.addEventListener('pointermove', function (event) {
+            if (!drag || event.pointerId !== drag.id) { return; }
+            if (!drag.moved && Math.abs(event.clientX - drag.x) < 4) { return; }
+            drag.moved = true;
+            set(at(event));
+        });
+        ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(function (type) {
+            view.addEventListener(type, function (event) {
+                if (!drag) { return; }
+                /* 動かさずに離した時（タップ・クリック）は、その位置まで滑らせる */
+                if (type === 'pointerup' && !drag.moved) {
+                    set(at(event), 'snap');
+                    setTimeout(function () { rootEl.classList.remove('is-snap'); }, 400);
+                }
+                drag = null;
+                rootEl.classList.remove('is-drag');
+            });
+        });
+        strip.addEventListener('keydown', function (event) {
+            var step = { ArrowLeft: -4, ArrowDown: -4, ArrowRight: 4, ArrowUp: 4, PageDown: -20, PageUp: 20, Home: -100, End: 100 }[event.key];
+            if (!step) { return; }
+            event.preventDefault();
+            touched();
+            set(pos + step);
+        });
+
+        if (reduce || !('IntersectionObserver' in window)) {
+            set(REST);
+            return;
+        }
+        set(10);
+        var seen = new IntersectionObserver(function (entries) {
+            if (!entries[0].isIntersecting) { return; }
+            seen.disconnect();
+            runDemo();
+        }, { threshold: 0.55 });
+        seen.observe(view);
+    }
+
     /* ---------- コピーライトの年 ---------- */
     function initCopyright() {
         var el = $('.copyright');
@@ -465,6 +548,7 @@
         safely('tap', initTapPulse);
         safely('gallery', function () { initCarousel($('[data-carousel="gallery"]'), { auto: 3600, pick: true }); });
         safely('voice', function () { initCarousel($('[data-carousel="voice"]'), { auto: 0, nudge: true }); });
+        safely('before-after', initBeforeAfter);
         safely('scroll', initScrollLinked);
         safely('faq', initFaq);
         safely('index', initIndexSheet);

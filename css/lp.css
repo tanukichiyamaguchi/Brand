@@ -136,6 +136,17 @@ button { font: inherit; color: inherit; }
     background: var(--gg); -webkit-background-clip: text; background-clip: text;
     color: transparent; -webkit-text-fill-color: transparent;
 }
+.side__usp {
+    display: grid; gap: 4px; justify-items: end;
+    font-family: var(--f-jp); font-weight: 800;
+    font-size: clamp(18px, 1.6vw, 22px); letter-spacing: .06em; line-height: 1.5;
+}
+.side__usp small { font-family: var(--f-sans); font-weight: 700; font-size: 12.5px; letter-spacing: .16em; color: var(--gold-t); }
+.side__usp b {
+    font-weight: 800; font-size: 1.2em; margin-left: .2em;
+    background: var(--gg); -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+}
 .side__lash { width: min(230px, 100%); color: var(--gold-d); }
 .side .btns { width: min(340px, 100%); text-align: left; }
 .side__note { font-size: 13.5px; line-height: 1.8; color: var(--mute); }
@@ -558,6 +569,179 @@ button { font: inherit; color: inherit; }
 }
 .dots button::after { content: ""; position: absolute; inset: -12px -5px; }
 .dots button[aria-current="true"] { width: 28px; background: var(--ink); }
+
+/* ---------- 独自技術（特許出願中）: 2本の線が同じ速さで伸び、当店だけが倍まで進む ---------- */
+.usp { margin-top: 58px; }
+.usp__lead { display: flex; align-items: center; justify-content: center; gap: 12px; font-weight: 700; font-size: 14.5px; letter-spacing: .16em; line-height: 1.6; color: var(--gold-t); }
+.usp__lead::before, .usp__lead::after { content: ""; flex: none; width: 22px; height: 1px; background: currentColor; opacity: .7; }
+.usp__gain { margin-top: 14px; }
+.usp__gain .bar { font-size: clamp(24px, 7.2vw, 31px); }
+.koma.k0 { height: auto; padding: 46px 16px 36px; text-align: left; }
+.k0__ttl { position: relative; font-size: 12px; font-weight: 700; letter-spacing: .16em; line-height: 1.4; color: var(--gold-t); }
+.k0__row { position: relative; display: grid; grid-template-columns: 2.6em 1fr; align-items: center; gap: 10px; margin-top: 13px; font-size: 13px; font-weight: 700; line-height: 1.3; }
+.k0__row--ours { color: var(--rose-d); }
+.k0__rail { position: relative; height: 18px; margin-right: 9px; }
+.k0__rail::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px;
+    background: linear-gradient(to right, rgba(143, 111, 46, .5) 50%, transparent 0) 0 0 / 6px 1px;
+}
+.k0__rail i { position: absolute; left: 0; top: 50%; width: var(--v); height: 4px; margin-top: -2px; border-radius: 99px; background: #BDB5A6; }
+.k0__rail i::after {
+    content: ""; position: absolute; right: -6px; top: 50%; width: 12px; height: 12px; margin-top: -6px;
+    box-sizing: border-box; border-radius: 50%; background: #fff; border: 2px solid #A0978A;
+}
+.k0__row--ours .k0__rail i { height: 6px; margin-top: -3px; background: var(--g-gold); }
+.k0__row--ours .k0__rail i::after {
+    right: -7px; width: 14px; height: 14px; margin-top: -7px; border: 0; border-radius: 0;
+    background: var(--rose-d); transform: rotate(45deg); box-shadow: 0 0 0 3px rgba(184, 69, 95, .18);
+}
+.k0__foot { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; margin-top: 20px; }
+.k0__num { display: grid; gap: 5px; }
+.k0__num small { font-size: 12px; font-weight: 700; letter-spacing: .14em; line-height: 1.3; color: var(--gold-t); }
+.k0__num b { font-family: var(--f-jp); font-weight: 800; font-size: 22px; letter-spacing: .04em; line-height: 1; color: var(--ink); white-space: nowrap; }
+.k0__num b span {
+    font-family: var(--f-en); font-style: italic; font-weight: 800; font-size: 58px; line-height: 1;
+    margin-inline: 5px 6px; padding-right: .06em;
+    background: var(--gg); -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+}
+.k0 .seal { position: relative; right: auto; bottom: auto; flex: none; margin-bottom: 2px; }
+.seal--jp b { font-size: 22px; }
+.seal--jp small { font-family: var(--f-jp); font-weight: 800; font-size: 12px; letter-spacing: .14em; padding-left: .14em; line-height: 1.4; }
+.k0 .koma__note { left: 12px; right: auto; }
+.js .koma:not(.is-in) .k0__rail i { width: 0; }
+.js .koma:not(.is-in) .k0__num b { opacity: 0; transform: translateY(12px); }
+.koma.is-in .k0__rail i { transition: width 1s linear .35s; }
+.koma.is-in .k0__row--ours .k0__rail i { transition-duration: 2s; }
+.koma.is-in .k0__num b { transition: opacity .5s 2.45s, transform .7s var(--e-out) 2.45s; }
+.koma.k0.is-in .seal { transition-delay: 3s; }
+
+/* ---------- ビフォーアフター: つまみを左右に動かして見くらべる（枠は動かない） ---------- */
+.ba { margin-top: 62px; }
+.ba__view {
+    --pos: 50%;
+    position: relative; margin-top: 18px; aspect-ratio: 4 / 5;
+    border-radius: 16px; overflow: hidden; background: #E9E2D6;
+    box-shadow: 0 0 0 1px var(--hair-2), 0 14px 30px rgba(60, 45, 15, .12);
+    touch-action: pan-y; cursor: ew-resize;
+    -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;
+}
+.ba__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; -webkit-user-drag: none; }
+/* 上に重ねた「施術前」を、つまみの右側だけ見せる（全部は隠さない: 遅延読み込みが働かなくなるため） */
+.ba__clip { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--pos)); }
+.ba__lbl {
+    position: absolute; top: 12px; z-index: 2; pointer-events: none;
+    background: var(--ink) var(--mb) center / 420px; color: var(--gold-l);
+    font-family: var(--f-en); font-style: italic; font-weight: 600;
+    font-size: 14px; letter-spacing: .12em; line-height: 1.5; white-space: nowrap;
+    padding: 3px 12px 4px; transition: opacity .3s;
+}
+.ba__lbl--a { left: 12px; }
+.ba__lbl--b { right: 12px; }
+.ba__imgnote { position: absolute; left: 12px; bottom: 9px; z-index: 2; pointer-events: none; color: #fff; text-shadow: 0 1px 4px rgba(0, 0, 0, .6); }
+.ba__strip { position: absolute; top: 0; bottom: 0; left: var(--pos); z-index: 3; width: 48px; margin-left: -24px; cursor: ew-resize; touch-action: none; }
+.ba__strip::before {
+    content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px;
+    background: linear-gradient(to bottom, var(--gold-l), #fff 50%, var(--gold-l));
+    box-shadow: 0 0 0 1px rgba(143, 111, 46, .55), 0 0 12px rgba(0, 0, 0, .28);
+}
+.ba__knob {
+    position: absolute; left: 50%; top: 80%; width: 48px; height: 48px; margin: -24px 0 0 -24px;
+    display: grid; place-items: center; border-radius: 50%;
+    background: var(--paper) var(--mw) center / 220px; color: var(--gold-d);
+    border: 1.5px solid var(--gold);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .3), inset 0 0 0 3px rgba(255, 255, 255, .75);
+    transition: transform .25s var(--e-out);
+}
+.ba__knob svg { width: 22px; height: 22px; }
+.ba__strip:focus-visible { outline: none; }
+.ba__strip:focus-visible .ba__knob { box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--rose); }
+.ba.is-drag .ba__knob { transform: scale(1.12); }
+.ba.is-anim .ba__strip { transition: left 1.5s cubic-bezier(.5, 0, .2, 1); }
+.ba.is-anim .ba__clip { transition: clip-path 1.5s cubic-bezier(.5, 0, .2, 1); }
+.ba.is-snap .ba__strip { transition: left .35s var(--e-out); }
+.ba.is-snap .ba__clip { transition: clip-path .35s var(--e-out); }
+.ba:not(.is-touched) .ba__knob svg { animation: nudge 2.6s ease-in-out 4.8s infinite; }
+.ba__hint { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 14px; font-size: 13.5px; font-weight: 500; letter-spacing: .1em; line-height: 1.6; color: var(--gold-t); }
+.ba__hint i { flex: none; width: 18px; height: 1px; background: currentColor; opacity: .7; }
+.ba__pts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; text-align: left; }
+.ba__pts li { display: grid; align-content: start; gap: 4px; border: 1px solid var(--hair-2); border-radius: 12px; background: rgba(255, 255, 255, .7); padding: 12px 12px 13px; }
+.ba__pts b { display: flex; align-items: center; gap: 8px; font-family: var(--f-jp); font-weight: 800; font-size: 18px; letter-spacing: .1em; line-height: 1.4; }
+.ba__pts b::before { content: ""; flex: none; width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); }
+.ba__pts span { font-size: 14px; line-height: 1.7; }
+.ba .note-s { text-align: left; }
+
+/* ---------- 印（初めての方限定クーポン）: 入場の最後に、ひとつ押される ---------- */
+.stamp {
+    position: relative; display: grid; place-content: center; justify-items: center; gap: 2px;
+    width: 96px; height: 96px; border-radius: 50%;
+    border: 1.5px solid var(--rose-d); color: var(--rose-d);
+    background: rgba(255, 255, 255, .88);
+    text-decoration: none; text-align: center; transform: rotate(-10deg);
+    box-shadow: 0 8px 18px rgba(156, 53, 73, .16);
+    -webkit-tap-highlight-color: transparent;
+}
+.stamp::before { content: ""; position: absolute; inset: 4px; border: 1px solid currentColor; border-radius: 50%; opacity: .55; }
+.stamp small { font-size: 9.5px; font-weight: 700; letter-spacing: .04em; line-height: 1.3; white-space: nowrap; }
+.stamp b { font-family: var(--f-jp); font-weight: 800; font-size: 19px; letter-spacing: .04em; line-height: 1.25; white-space: nowrap; }
+.stamp i {
+    font-style: normal; font-weight: 700; font-size: 10.5px; letter-spacing: .3em; line-height: 1.3;
+    color: #fff; background: var(--rose-d); border-radius: 99px; padding: 1px 7px 2px 10px;
+}
+.fv__top { position: relative; z-index: 3; }
+.fv__stamp { position: absolute; right: 16px; bottom: -12px; animation: stamp .45s cubic-bezier(.5, 0, .3, 1.4) 3s both; }
+@media (max-width: 350px) {
+    .stamp { width: 82px; height: 82px; }
+    .stamp small { font-size: 8.5px; }
+    .stamp b { font-size: 16.5px; }
+    .fv__stamp { right: 10px; }
+}
+
+/* ---------- クーポン券 ---------- */
+.coupon {
+    display: block; margin-top: 30px; text-decoration: none; color: var(--ink); text-align: left;
+    filter: drop-shadow(0 10px 18px rgba(60, 45, 15, .16));
+    -webkit-tap-highlight-color: transparent;
+}
+.coupon__in {
+    --stub: 56px;
+    position: relative; display: grid; grid-template-columns: var(--stub) 1fr auto; align-items: stretch;
+    overflow: hidden; border-radius: 14px;
+    background: var(--paper) var(--mw) center / 420px;
+    /* 半券との境目に、上下の切り欠き */
+    -webkit-mask: radial-gradient(circle at var(--stub) 0, transparent 8px, #000 8.6px) top / 100% 51% no-repeat, radial-gradient(circle at var(--stub) 100%, transparent 8px, #000 8.6px) bottom / 100% 51% no-repeat;
+    mask: radial-gradient(circle at var(--stub) 0, transparent 8px, #000 8.6px) top / 100% 51% no-repeat, radial-gradient(circle at var(--stub) 100%, transparent 8px, #000 8.6px) bottom / 100% 51% no-repeat;
+    transition: transform .25s var(--e-out);
+}
+.coupon:hover .coupon__in { transform: translateY(-2px); }
+.coupon__in::after {
+    content: ""; position: absolute; inset: -20% auto -20% -60%; width: 30%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .7), transparent);
+    transform: skewX(-20deg); pointer-events: none; opacity: 0;
+}
+.coupon.rv.is-in .coupon__in::after { animation: glint 1.3s .6s ease-in-out both; }
+.coupon__stub {
+    display: grid; place-items: center; background: var(--g-rose); color: #fff;
+    font-family: var(--f-en); font-style: italic; font-weight: 600;
+    font-size: 15px; letter-spacing: .18em; writing-mode: vertical-rl;
+}
+.coupon__body { display: grid; align-content: center; gap: 1px; min-width: 0; padding: 14px 8px 15px 16px; border-left: 1.5px dashed rgba(143, 111, 46, .55); }
+.coupon__body small { font-size: 12.5px; font-weight: 700; letter-spacing: .14em; line-height: 1.5; color: var(--rose-d); white-space: nowrap; }
+.coupon__body b { font-family: var(--f-jp); font-weight: 800; font-size: clamp(22px, 6.6vw, 27px); letter-spacing: .08em; line-height: 1.35; white-space: nowrap; }
+.coupon__go { margin-top: 3px; font-size: 12.5px; line-height: 1.6; color: var(--mute); }
+.coupon__arrow {
+    align-self: center; margin-right: 14px; width: 30px; height: 30px; border-radius: 50%;
+    display: grid; place-items: center; background: var(--ink); color: var(--gold-l);
+}
+.coupon__arrow svg { width: 11px; height: 11px; }
+.close__cta .coupon { margin: 0 0 18px; }
+@media (max-width: 350px) {
+    .coupon__in { --stub: 44px; }
+    .coupon__stub { font-size: 13.5px; }
+    .coupon__body { padding: 13px 4px 14px 13px; }
+    .coupon__go { font-size: 12px; letter-spacing: 0; }
+    .coupon__arrow { width: 26px; height: 26px; margin-right: 10px; }
+}
 
 /* ---------- WHY（黒大理石） ---------- */
 .whyhead { text-align: center; padding-block: 72px 62px; }
@@ -1439,6 +1623,8 @@ html:not(.js) .qa__a { grid-template-rows: 1fr; }
 }
 @keyframes glint { 0% { left: -60%; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { left: 130%; opacity: 0; } }
 @keyframes lift { 0%, 100% { transform: none; } 50% { transform: rotate(-7deg) scaleY(1.1); } }
+@keyframes stamp { from { opacity: 0; transform: rotate(-10deg) scale(2.3); } to { opacity: 1; transform: rotate(-10deg) scale(1); } }
+@keyframes nudge { 0%, 55%, 100% { transform: none; } 68% { transform: translateX(-3px); } 84% { transform: translateX(3px); } }
 
 /* ---------- 動きを減らす設定 ---------- */
 @media (prefers-reduced-motion: reduce) {
@@ -1447,6 +1633,6 @@ html:not(.js) .qa__a { grid-template-rows: 1fr; }
         transition-duration: .001ms !important; transition-delay: 0s !important;
     }
     html { scroll-behavior: auto; }
-    .ring, .tags__track, .ticker__track, .feed__row, .fv__kb, .btn::after, .must__img, .dock__btn--book svg, .fv__h1 .gold { animation: none !important; }
+    .ring, .tags__track, .ticker__track, .feed__row, .fv__kb, .btn::after, .must__img, .dock__btn--book svg, .fv__h1 .gold, .ba__knob svg { animation: none !important; }
     .fv__ring { opacity: 1; }
 }
