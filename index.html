@@ -23,6 +23,19 @@
       gtag('js', new Date());
 
       gtag('config', 'G-29VF3FWBLH');
+      gtag('config', 'AW-18561212683');
+
+      /* Google 広告のコンバージョン：ホットペッパー（予約）と LINE へのリンクが押された時に送る。
+         どちらのリンクも別タブで開くため、このページの移動は待たせない */
+      document.addEventListener('click', function (event) {
+        var link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+        if (!link) { return; }
+        if (link.hostname === 'beauty.hotpepper.jp') {
+          gtag('event', 'conversion', {'send_to': 'AW-18561212683/3yEOCLPtw7odEIvC1pJF'});
+        } else if (link.hostname === 'lin.ee') {
+          gtag('event', 'conversion', {'send_to': 'AW-18561212683/19mHCLbtw7odEIvC1pJF'});
+        }
+      });
     </script>
 
     <!-- 演出用の初期非表示は .js が付いた時だけ有効。lp.js が5秒以内に起動しなければ解除して全文を表示する -->
@@ -860,6 +873,7 @@
         <a href="#access">アクセス</a>
         <a href="https://beauty.hotpepper.jp/kr/slnH000797013/" target="_blank" rel="noopener">ホットペッパーで予約</a>
         <a href="https://lin.ee/lqKClP4" target="_blank" rel="noopener">LINE予約</a>
+        <a href="privacy.html">プライバシーポリシー</a>
       </nav>
       <small class="copyright">&copy; 2024 KATE stage LASH 蒲田西口店. All rights reserved.</small>
     </footer>
