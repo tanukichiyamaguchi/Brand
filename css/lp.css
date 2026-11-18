@@ -1537,6 +1537,8 @@ html:not(.js) .qa__a { grid-template-rows: 1fr; }
 .foot__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; margin: 20px 0 18px; }
 .foot__links a { color: var(--on-d); text-decoration: none; font-size: 14px; line-height: 1.6; padding-block: 5px; }
 .foot__links a:hover { color: var(--gold-l); }
+.foot__note { max-width: 32em; margin: 0 auto 14px; font-size: 11.5px; line-height: 1.7; text-align: left; }
+.foot__note a { color: var(--on-d); }
 .copyright { display: block; font-size: 11.5px; letter-spacing: .04em; line-height: 1.6; }
 @media (min-width: 1024px) { .foot { padding-bottom: 40px; } }
 
