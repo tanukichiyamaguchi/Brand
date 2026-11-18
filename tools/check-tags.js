@@ -2,8 +2,9 @@
 /**
  * 計測タグの検査。ページをローカルで開き、次を確かめる。
  *   - Google タグ（gtag.js）に GA4（G-29VF3FWBLH）と Google 広告（AW-18561212683）の config があること
- *   - ホットペッパーへのリンクを押すと「ホットペッパー予約ボタン（広告タグ）」、LINE へのリンク（エルメの流入経路 s.lmes.jp、
- *     または lin.ee）を押すと「LINEボタン（広告タグ）」のコンバージョンが、ちょうど1回ずつ dataLayer に積まれること
+ *   - ホットペッパーへのリンクを押すと「ホットペッパー予約ボタン（広告タグ）」、LINE へのリンク（エルメの流入経路 s.lmes.jp）を
+ *     押すと「LINEボタン（広告タグ）」のコンバージョンが、ちょうど1回ずつ dataLayer に積まれること
+ *   - LINE のリンクがすべてエルメの流入経路を通っていること（直接の友だち追加リンク lin.ee が残っていないこと）
  *     （リンクの中の文字やアイコンを押した場合と、画面に見えているボタンを実際に押した場合も見る）
  *   - それ以外のリンクでは、コンバージョンが積まれないこと
  *   - フッターからプライバシーポリシー（privacy.html）へリンクしていて、そのページが開け、横スクロールが出ないこと
@@ -30,8 +31,10 @@ const SEND_TO = {
 /* ボタンの種類ごとのリンク先。種類ごとに、ページに1つ以上あることを確かめる */
 const GROUPS = {
     'ホットペッパー': ['beauty.hotpepper.jp'],
-    'LINE': ['s.lmes.jp', 'lin.ee']
+    'LINE': ['s.lmes.jp']
 };
+/* LP の LINE ボタンはすべてエルメの流入経路（s.lmes.jp）を通す。直接の友だち追加リンクが残っていたら問題にする */
+const NOT_ALLOWED = { 'lin.ee': 'エルメを経由しない LINE リンク（lin.ee）' };
 
 function serve() {
     const server = http.createServer((req, res) => {
@@ -94,6 +97,9 @@ function pressEveryLink(sendTo) {
     const countOf = hosts => hosts.reduce((n, h) => n + (r.counted[h] || 0), 0);
     for (const [name, hosts] of Object.entries(GROUPS)) {
         if (!countOf(hosts)) { problems.push('リンクが見つからない: ' + name + '（' + hosts.join(' / ') + '）'); }
+    }
+    for (const [host, label] of Object.entries(NOT_ALLOWED)) {
+        if (r.counted[host]) { problems.push(label + 'が ' + r.counted[host] + ' 件ある'); }
     }
     r.bad.forEach(b => problems.push('コンバージョンの送り方が違う: ' + b));
     console.log('config: ' + r.configs.join(', '));
