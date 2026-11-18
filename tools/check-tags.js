@@ -2,8 +2,9 @@
 /**
  * 計測タグの検査。ページをローカルで開き、次を確かめる。
  *   - Google タグ（gtag.js）に GA4（G-29VF3FWBLH）と Google 広告（AW-18561212683）の config があること
- *   - ホットペッパーへのリンクを押すと「ホットペッパー予約ボタン（広告タグ）」、LINE へのリンクを押すと
- *     「LINEボタン（広告タグ）」のコンバージョンが、ちょうど1回ずつ dataLayer に積まれること
+ *   - ホットペッパーへのリンクを押すと「ホットペッパー予約ボタン（広告タグ）」、LINE へのリンク（エルメの流入経路 s.lmes.jp）を
+ *     押すと「LINEボタン（広告タグ）」のコンバージョンが、ちょうど1回ずつ dataLayer に積まれること
+ *   - LINE のリンクがすべてエルメの流入経路を通っていること（直接の友だち追加リンク lin.ee が残っていないこと）
  *     （リンクの中の文字やアイコンを押した場合と、画面に見えているボタンを実際に押した場合も見る）
  *   - それ以外のリンクでは、コンバージョンが積まれないこと
  *   - フッターからプライバシーポリシー（privacy.html）へリンクしていて、そのページが開け、横スクロールが出ないこと
@@ -24,8 +25,16 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 
 const CONFIGS = ['G-29VF3FWBLH', 'AW-18561212683'];
 const SEND_TO = {
     'beauty.hotpepper.jp': 'AW-18561212683/3yEOCLPtw7odEIvC1pJF',
+    's.lmes.jp': 'AW-18561212683/19mHCLbtw7odEIvC1pJF',
     'lin.ee': 'AW-18561212683/19mHCLbtw7odEIvC1pJF'
 };
+/* ボタンの種類ごとのリンク先。種類ごとに、ページに1つ以上あることを確かめる */
+const GROUPS = {
+    'ホットペッパー': ['beauty.hotpepper.jp'],
+    'LINE': ['s.lmes.jp']
+};
+/* LP の LINE ボタンはすべてエルメの流入経路（s.lmes.jp）を通す。直接の友だち追加リンクが残っていたら問題にする */
+const NOT_ALLOWED = { 'lin.ee': 'エルメを経由しない LINE リンク（lin.ee）' };
 
 function serve() {
     const server = http.createServer((req, res) => {
@@ -85,23 +94,27 @@ function pressEveryLink(sendTo) {
     for (const id of CONFIGS) {
         if (!r.configs.includes(id)) { problems.push('config がない: ' + id); }
     }
-    for (const host of Object.keys(SEND_TO)) {
-        if (!r.counted[host]) { problems.push('リンクが見つからない: ' + host); }
+    const countOf = hosts => hosts.reduce((n, h) => n + (r.counted[h] || 0), 0);
+    for (const [name, hosts] of Object.entries(GROUPS)) {
+        if (!countOf(hosts)) { problems.push('リンクが見つからない: ' + name + '（' + hosts.join(' / ') + '）'); }
+    }
+    for (const [host, label] of Object.entries(NOT_ALLOWED)) {
+        if (r.counted[host]) { problems.push(label + 'が ' + r.counted[host] + ' 件ある'); }
     }
     r.bad.forEach(b => problems.push('コンバージョンの送り方が違う: ' + b));
     console.log('config: ' + r.configs.join(', '));
-    console.log('押したリンク: ホットペッパー ' + (r.counted['beauty.hotpepper.jp'] || 0) + ' 件 / LINE ' + (r.counted['lin.ee'] || 0) + ' 件（それぞれリンク本体と中の要素）・その他のリンク（送らないこと）');
+    console.log('押したリンク: ' + Object.entries(GROUPS).map(([name, hosts]) => name + ' ' + countOf(hosts) + ' 件（' + hosts.map(h => h + ' ' + (r.counted[h] || 0)).join('、') + '）').join(' / ') + '（それぞれリンク本体と中の要素）・その他のリンク（送らないこと）');
 
-    /* 実際の操作に近い形で、画面に見えているボタンを1つずつ押す */
-    for (const host of Object.keys(SEND_TO)) {
-        const button = page.locator('a[href*="' + host + '"] >> visible=true').first();
-        if (!(await button.count())) { problems.push('見えているボタンがない: ' + host); continue; }
+    /* 実際の操作に近い形で、画面に見えているボタンを種類ごとに1つ押す */
+    for (const [name, hosts] of Object.entries(GROUPS)) {
+        const button = page.locator(hosts.map(h => 'a[href*="' + h + '"]').join(', ') + ' >> visible=true').first();
+        if (!(await button.count())) { problems.push('見えているボタンがない: ' + name); continue; }
         const from = await page.evaluate(() => window.dataLayer.length);
         await button.click();
         const got = await page.evaluate(f => window.__sentSince(f), from);
-        const label = await button.evaluate(a => (a.className || a.tagName) + '「' + a.textContent.trim().replace(/\s+/g, ' ').slice(0, 20) + '」');
-        console.log('実際に押したボタン: ' + label + ' → ' + (got.join(', ') || 'なし'));
-        if (got.length !== 1 || got[0] !== SEND_TO[host]) { problems.push('実際に押した時の送り方が違う: ' + host + ' → ' + (got.join(', ') || 'なし')); }
+        const info = await button.evaluate(a => ({ host: a.hostname, label: (a.className || a.tagName) + '「' + a.textContent.trim().replace(/\s+/g, ' ').slice(0, 20) + '」' }));
+        console.log('実際に押したボタン: ' + info.label + '（' + info.host + '）→ ' + (got.join(', ') || 'なし'));
+        if (got.length !== 1 || got[0] !== SEND_TO[info.host]) { problems.push('実際に押した時の送り方が違う: ' + name + ' → ' + (got.join(', ') || 'なし')); }
     }
 
     const footerLink = await page.evaluate(() => !!document.querySelector('.foot__links a[href="privacy.html"]'));
