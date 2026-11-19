@@ -31,7 +31,7 @@ const { chromium } = require('playwright');
 const ROOT = path.resolve(__dirname, '..');
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.webp': 'image/webp', '.woff2': 'font/woff2', '.mp4': 'video/mp4', '.xml': 'application/xml', '.txt': 'text/plain' };
 const CONFIGS = ['G-29VF3FWBLH', 'AW-18561212683'];
-const CLARITY_ID = 'CLARITY_PROJECT_ID';
+const CLARITY_ID = 'zfv01oyk04';
 const SEND_TO = {
     'beauty.hotpepper.jp': 'AW-18561212683/3yEOCLPtw7odEIvC1pJF',
     's.lmes.jp': 'AW-18561212683/19mHCLbtw7odEIvC1pJF',
