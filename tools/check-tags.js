@@ -11,7 +11,8 @@
  *   - js/measure.js の GA4 イベントが、決めたとおりに送られること
  *       scroll_depth（10/25/50/75/90/100% を一度ずつ）、section_view（1秒とどまったセクションだけ・一度ずつ。
  *       目次で一気に飛んだ時に通り過ぎたセクションは数えない）、cta_click（すべての予約ボタンで、種類と押された場所つき）、
- *       lp_nav（すべてのページ内リンクで、移動先と押された場所つき）、index_open、faq_open（開いた時だけ）
+ *       lp_nav（すべてのページ内リンクで、移動先と押された場所つき）、index_open、faq_open（開いた時だけ）。
+ *       どれも send_to で GA4（G-29VF3FWBLH）だけに送っていること（Google 広告へは送らない）
  *     と、Clarity へのカスタム タグ（押したボタンの種類、Google 広告から来た訪問）
  *   - フッターからプライバシーポリシー（privacy.html）へリンクしていて、そのページが開け、横スクロールが出ないこと
  *     （Microsoft Clarity の説明と Microsoft のプライバシーに関する声明へのリンクがあること）
@@ -58,6 +59,15 @@ const SECTIONS = [
 ];
 const LABELS = SECTIONS.map(s => s[1]);
 const PLACES = ['下部固定ボタン', '目次シート', 'PC左パネル', 'PC目次', 'ヘッダー', 'スキップリンク'];
+/* js/measure.js が送るイベント。すべて GA4 だけに送る */
+const MEASURE_EVENTS = ['scroll_depth', 'section_view', 'cta_click', 'lp_nav', 'index_open', 'faq_open'];
+const GA4_ID = 'G-29VF3FWBLH';
+
+/* ページの中で実行する：計測イベントのうち、送り先が GA4 だけになっていないもの */
+function wrongTargets(arg) {
+    const all = window.__entries().filter(x => x[0] === 'event' && arg.names.includes(x[1]));
+    return { total: all.length, bad: all.filter(x => !x[2] || x[2].send_to !== arg.id).map(x => x[1] + '（send_to: ' + ((x[2] && x[2].send_to) || 'なし') + '）') };
+}
 
 function serve() {
     const server = http.createServer((req, res) => {
@@ -280,6 +290,10 @@ async function openPage(browser, base, url, viewport, mobile) {
         const ctaCount = countBy(m.cta);
         console.log('cta_click（種類｜押された場所）: ' + Object.entries(ctaCount).map(([k, n]) => k + (n > 1 ? ' ×' + n : '')).join('、'));
         console.log('lp_nav（移動先｜押された場所）: ' + m.nav.length + ' 件');
+        const targets = await page.evaluate(wrongTargets, { names: MEASURE_EVENTS, id: GA4_ID });
+        console.log('計測イベントの送り先: ' + targets.total + ' 件中、GA4 だけでないもの ' + targets.bad.length + ' 件');
+        if (!targets.total) { problems.push('計測イベントが1件もない'); }
+        [...new Set(targets.bad)].forEach(b => problems.push('GA4 だけに送っていない: ' + b));
         errors.forEach(e => problems.push('JSエラー（計測・スマホ）: ' + e));
         await ctx.close();
     }
