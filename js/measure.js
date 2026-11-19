@@ -1,7 +1,7 @@
 /**
  * ケイトステージラッシュ蒲田西口店 LP — 計測（Google アナリティクス 4・Microsoft Clarity）
  *
- * GA4 に送るイベント（<head> の gtag() を使う）
+ * GA4 に送るイベント（<head> の gtag() を使い、send_to で GA4 だけに送る）
  *   scroll_depth … ページをどこまで下ろしたか。10・25・50・75・90・100% を初めて超えた時に一度ずつ
  *                  （percent_scrolled。GA4 に最初からある「スクロール率」のディメンションで見られる）
  *   section_view … 各セクションが「画面の中央にかかる」か「画面に全部おさまる」状態で 1 秒続いた時に一度ずつ
@@ -55,14 +55,20 @@
         ['.hd', 'ヘッダー'],
         ['.skip', 'スキップリンク']
     ];
+    var GA4_ID = 'G-29VF3FWBLH';
     var TOP_LABEL = '00 ページの先頭';
     var SCROLL_MARKS = [10, 25, 50, 75, 90, 100];
     var DWELL_MS = 1000;
     var CTA_TYPES = { 'beauty.hotpepper.jp': 'hotpepper', 's.lmes.jp': 'line', 'lin.ee': 'line' };
 
+    /* GA4 だけに送る。send_to を付けないと、head で config した Google 広告（AW-）にも
+       同じイベントが送られ、1回の操作ごとに広告側への通信が増えるため */
     function send(name, params) {
         try {
-            if (typeof window.gtag === 'function') { window.gtag('event', name, params); }
+            if (typeof window.gtag !== 'function') { return; }
+            var data = { send_to: GA4_ID };
+            Object.keys(params).forEach(function (key) { data[key] = params[key]; });
+            window.gtag('event', name, data);
         } catch (err) { /* 計測の失敗はページに影響させない */ }
     }
     function tag(key, value) {
