@@ -42,6 +42,41 @@
       });
     </script>
 
+    <!-- Meta ピクセル（Facebook・Instagram 広告の効果測定）。データセット「ケイト広告」（2010357583154509） -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '2010357583154509');
+      fbq('track', 'PageView');
+
+      /* Meta 広告の成果（Lead）：ホットペッパー（予約）か LINE へのリンクが押された時に送る。
+         Meta 広告は、このイベントが起きやすい人に配信を寄せる。
+         続けて何度押されても件数がふくらまないよう、1回のページ表示につき最初の1回だけ送る。
+         どちらのボタンだったかは content_name（hotpepper / line）、どのページかは content_category で区別する */
+      (function () {
+        var sent = false;
+        document.addEventListener('click', function (event) {
+          var link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+          if (!link || sent) { return; }
+          var name = null;
+          if (link.hostname === 'beauty.hotpepper.jp') {
+            name = 'hotpepper';
+          } else if (link.hostname === 's.lmes.jp' || link.hostname === 'lin.ee') {
+            name = 'line';
+          }
+          if (!name) { return; }
+          sent = true;
+          fbq('track', 'Lead', { content_name: name, content_category: 'womens_lp' });
+        });
+      })();
+    </script>
+
     <!-- Microsoft Clarity（ヒートマップ・操作の再生）。ページ内の細かい計測は js/measure.js -->
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
@@ -888,7 +923,7 @@
         <a href="https://s.lmes.jp/landing-qr/2008792677-wpt9W9sz?uLand=q3RPYg" target="_blank" rel="noopener">LINE予約</a>
         <a href="privacy.html">プライバシーポリシー</a>
       </nav>
-      <p class="foot__note js-phrase">当サイトでは、サイトの改善と広告の効果測定のため、Google アナリティクス・Google 広告・Microsoft Clarity でご利用状況を記録しています。くわしくは<a href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
+      <p class="foot__note js-phrase">当サイトでは、サイトの改善と広告の効果測定のため、Google アナリティクス・Google 広告・Meta 広告・Microsoft Clarity でご利用状況を記録しています。くわしくは<a href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
       <small class="copyright">&copy; 2024 KATE stage LASH 蒲田西口店. All rights reserved.</small>
     </footer>
   </main>
