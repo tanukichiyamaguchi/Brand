@@ -14,14 +14,18 @@
  *       lp_nav（すべてのページ内リンクで、移動先と押された場所つき）、index_open、faq_open（開いた時だけ）。
  *       どれも send_to で GA4（G-29VF3FWBLH）だけに送っていること（Google 広告へは送らない）
  *     と、Clarity へのカスタム タグ（押したボタンの種類、Google 広告から来た訪問）
+ *   - Meta ピクセル（データセット META_PIXEL_ID）のタグが入っていて、init と PageView が1回ずつ呼ばれること。
+ *     ホットペッパーか LINE へのリンクを押すと Lead が送られること（1回のページ表示につき最初の1回だけ。
+ *     content_name でボタンの種類、content_category でページを区別）。それ以外のリンクでは送らないこと
  *   - フッターからプライバシーポリシー（privacy.html）へリンクしていて、そのページが開け、横スクロールが出ないこと
- *     （Microsoft Clarity の説明と Microsoft のプライバシーに関する声明へのリンクがあること）
+ *     （Microsoft Clarity の説明と Microsoft のプライバシーに関する声明へのリンク、
+ *       Meta ピクセルの説明と Meta プライバシーポリシーへのリンクがあること）
  * 問題が1件でもあれば終了コード1で終わる。
  *
  * 必要なもの: Node.js と Playwright（Chromium）。クラウド環境には導入済み。
  * 使い方    : node tools/check-tags.js
- * 外部への通信はすべて止めている。タグ本体は読み込まれないが、gtag() と clarity() の呼び出しは
- * dataLayer と clarity.q に残るので、それを見る。
+ * 外部への通信はすべて止めている。タグ本体は読み込まれないが、gtag()・clarity()・fbq() の呼び出しは
+ * dataLayer・clarity.q・fbq.queue に残るので、それを見る。
  * リンク先へは移動しない（押した時の移動は検査用に止めている）。
  */
 const http = require('http');
@@ -62,6 +66,11 @@ const PLACES = ['下部固定ボタン', '目次シート', 'PC左パネル', 'P
 /* js/measure.js が送るイベント。すべて GA4 だけに送る */
 const MEASURE_EVENTS = ['scroll_depth', 'section_view', 'cta_click', 'lp_nav', 'index_open', 'faq_open'];
 const GA4_ID = 'G-29VF3FWBLH';
+/* Meta ピクセル：データセット「ケイト広告」と、Lead に付ける値 */
+const META_PIXEL_ID = '2010357583154509';
+const META_SRC = 'https://connect.facebook.net/en_US/fbevents.js';
+const META_CATEGORY = 'womens_lp';
+const META_NAME = { 'beauty.hotpepper.jp': 'hotpepper', 's.lmes.jp': 'line', 'lin.ee': 'line' };
 
 /* ページの中で実行する：計測イベントのうち、送り先が GA4 だけになっていないもの */
 function wrongTargets(arg) {
@@ -90,6 +99,47 @@ function setUp() {
     window.__events = (name, from) => window.__entries().slice(from || 0)
         .filter(x => x[0] === 'event' && x[1] === name).map(x => x[2] || {});
     window.__clarity = () => (window.clarity && window.clarity.q ? Array.prototype.map.call(window.clarity.q, a => Array.prototype.slice.call(a)) : []);
+    window.__fbq = () => (window.fbq && window.fbq.queue ? Array.prototype.map.call(window.fbq.queue, a => Array.prototype.slice.call(a)) : []);
+    window.__leads = () => window.__fbq().filter(x => x[0] === 'track' && x[1] === 'Lead').map(x => x[2] || {});
+}
+
+/* ページの中で実行する：Meta ピクセルのタグと、開いた直後に呼ばれたもの */
+function metaState(src) {
+    return {
+        fn: typeof window.fbq === 'function',
+        src: Array.prototype.some.call(document.scripts, s => s.src === src),
+        init: window.__fbq().filter(x => x[0] === 'init').map(x => x[1]),
+        pageView: window.__fbq().filter(x => x[0] === 'track' && x[1] === 'PageView').length,
+        leads: window.__leads().length
+    };
+}
+
+/* ページの中で実行する：予約でも LINE でもないリンクをすべて押す（リンク本体と中の要素）。Lead が送られないことを見る */
+function pressOtherLinks(names) {
+    let pressed = 0;
+    document.querySelectorAll('a[href]').forEach(a => {
+        if (names[a.hostname]) { return; }
+        const targets = [a];
+        const inner = a.querySelector('*');
+        if (inner) { targets.push(inner); }
+        targets.forEach(t => t.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true })));
+        pressed += 1;
+    });
+    return { pressed, leads: window.__leads().length };
+}
+
+/* ページの中で実行する：予約と LINE のリンクをすべて押す（リンク本体と中の要素）。押した数と、送られた Lead を返す */
+function pressCtaLinks(names) {
+    let pressed = 0;
+    document.querySelectorAll('a[href]').forEach(a => {
+        if (!names[a.hostname]) { return; }
+        const targets = [a];
+        const inner = a.querySelector('*');
+        if (inner) { targets.push(inner); }
+        targets.forEach(t => t.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true })));
+        pressed += 1;
+    });
+    return { pressed, leads: window.__leads() };
 }
 
 function pressEveryLink(sendTo) {
@@ -337,14 +387,72 @@ async function openPage(browser, base, url, viewport, mobile) {
             mail: !!document.querySelector('a[href="mailto:katestagelash2026@gmail.com"]'),
             back: !!document.querySelector('a[href="./"]'),
             clarity: /Microsoft Clarity/.test(document.body.textContent) && !!document.querySelector('a[href="https://www.microsoft.com/privacy/privacystatement"]'),
+            meta: /Meta ピクセル/.test(document.body.textContent) && !!document.querySelector('a[href="https://www.facebook.com/privacy/policy/"]'),
             scripts: document.scripts.length
         }));
-        console.log('privacy.html ' + W + 'x' + H + '  status=' + res.status() + '  横スクロール=' + info.overflowX + '  メール=' + info.mail + '  戻るリンク=' + info.back + '  Clarityの説明=' + info.clarity + '  script=' + info.scripts);
+        console.log('privacy.html ' + W + 'x' + H + '  status=' + res.status() + '  横スクロール=' + info.overflowX + '  メール=' + info.mail + '  戻るリンク=' + info.back + '  Clarityの説明=' + info.clarity + '  Metaの説明=' + info.meta + '  script=' + info.scripts);
         if (res.status() !== 200) { problems.push('privacy.html が開けない: ' + res.status()); }
         if (info.overflowX > 0) { problems.push('privacy.html に横スクロール（' + W + 'px）'); }
         if (!info.mail || !info.back) { problems.push('privacy.html のメールまたは戻るリンクがない'); }
         if (!info.clarity) { problems.push('privacy.html に Microsoft Clarity の説明かリンクがない'); }
+        if (!info.meta) { problems.push('privacy.html に Meta ピクセルの説明かリンクがない'); }
         await c.close();
+    }
+
+    /* 6. Meta ピクセル：タグ、init と PageView、予約・LINE のリンクでの Lead（1回のページ表示につき最初の1回だけ） */
+    {
+        const { ctx, page, errors } = await openPage(browser, base, base + 'index.html', { width: 390, height: 844 }, true);
+        const meta = await page.evaluate(metaState, META_SRC);
+        console.log('Meta ピクセル: 関数=' + meta.fn + '  タグ=' + meta.src + '  init=' + (meta.init.join(', ') || 'なし') + '  PageView=' + meta.pageView + ' 回  開いた直後の Lead=' + meta.leads + ' 件');
+        if (!meta.fn || !meta.src) { problems.push('Meta ピクセルのタグが入っていない'); }
+        if (meta.init.length !== 1 || meta.init[0] !== META_PIXEL_ID) { problems.push('Meta ピクセルの init が違う: ' + (meta.init.join(', ') || 'なし') + '（' + META_PIXEL_ID + ' が1回のはず）'); }
+        if (meta.pageView !== 1) { problems.push('Meta ピクセルの PageView が ' + meta.pageView + ' 回（1回のはず）'); }
+        if (meta.leads !== 0) { problems.push('ページを開いただけで Lead が送られた'); }
+
+        /* 予約でも LINE でもないリンクでは送らない */
+        const others = await page.evaluate(pressOtherLinks, META_NAME);
+        console.log('Meta Lead（その他のリンク ' + others.pressed + ' 件を押した後）: ' + others.leads + ' 件');
+        if (!others.pressed) { problems.push('Meta の検査で、その他のリンクが見つからない'); }
+        if (others.leads !== 0) { problems.push('予約でも LINE でもないリンクで Lead が送られた: ' + others.leads + ' 件'); }
+        errors.forEach(e => problems.push('JSエラー（Meta・その他のリンク）: ' + e));
+        await ctx.close();
+    }
+    /* ホットペッパーのボタンを押すと Lead が1件。同じページ表示で続けて押しても増えない */
+    {
+        const { ctx, page, errors } = await openPage(browser, base, base + 'index.html', { width: 390, height: 844 }, true);
+
+        /* 画面に見えているホットペッパーのボタンを実際に押す */
+        const button = page.locator('a[href*="beauty.hotpepper.jp"] >> visible=true').first();
+        if (!(await button.count())) {
+            problems.push('Meta の検査で、見えているホットペッパーのボタンがない');
+        } else {
+            await button.click();
+            const got = await page.evaluate(() => window.__leads());
+            console.log('Meta Lead（ホットペッパーのボタンを押した後）: ' + JSON.stringify(got));
+            if (got.length !== 1 || got[0].content_name !== 'hotpepper' || got[0].content_category !== META_CATEGORY) { problems.push('ホットペッパーのボタンでの Lead が違う: ' + JSON.stringify(got)); }
+        }
+
+        /* 続けて、予約と LINE のリンクをすべて押しても増えない */
+        const more = await page.evaluate(pressCtaLinks, META_NAME);
+        console.log('Meta Lead（続けて予約・LINE のリンク ' + more.pressed + ' 件を押した後）: ' + more.leads.length + ' 件');
+        if (more.leads.length !== 1) { problems.push('同じページ表示で Lead が ' + more.leads.length + ' 件送られた（1件のはず）'); }
+        errors.forEach(e => problems.push('JSエラー（Meta）: ' + e));
+        await ctx.close();
+    }
+    /* LINE のリンクを先に押した時は、content_name が line になる（リンクの中の要素を押す） */
+    {
+        const { ctx, page, errors } = await openPage(browser, base, base + 'index.html', { width: 390, height: 844 }, true);
+        const got = await page.evaluate(() => {
+            const a = document.querySelector('a[href*="s.lmes.jp"]');
+            if (!a) { return null; }
+            (a.querySelector('*') || a).dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+            return window.__leads();
+        });
+        console.log('Meta Lead（LINE のリンクを先に押した後）: ' + JSON.stringify(got));
+        if (!got) { problems.push('Meta の検査で、LINE のリンクが見つからない'); }
+        else if (got.length !== 1 || got[0].content_name !== 'line' || got[0].content_category !== META_CATEGORY) { problems.push('LINE のリンクでの Lead が違う: ' + JSON.stringify(got)); }
+        errors.forEach(e => problems.push('JSエラー（Meta・LINE）: ' + e));
+        await ctx.close();
     }
 
     await browser.close();
