@@ -10,7 +10,8 @@
  * 必要なもの: Node.js と Playwright（Chromium）。クラウド環境には導入済み。
  * 使い方    : node tools/check-layout.js            … 全画面幅
  *             node tools/check-layout.js 320,390    … 幅を指定
- * 外部への通信（計測タグ・地図・予約サイト）は検査中は止めている。
+ * 外への通信は、文字の見え方を本番と同じにするための Google Fonts だけ通し、ほかはすべて止めている
+ * （計測タグ・地図・予約サイトなど。Google タグ・Microsoft Clarity・Meta ピクセルに、検査で開いたページのデータを送らないため）。
  */
 const http = require('http');
 const fs = require('fs');
@@ -21,6 +22,8 @@ const ROOT = path.resolve(__dirname, '..');
 const VIEWPORTS = [[320, 568], [360, 740], [375, 667], [390, 844], [414, 896], [430, 932], [600, 900], [768, 1024], [1024, 768], [1366, 800], [1920, 1080]];
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.webp': 'image/webp', '.woff2': 'font/woff2', '.mp4': 'video/mp4', '.xml': 'application/xml', '.txt': 'text/plain' };
 const only = process.argv[2] ? process.argv[2].split(',').map(Number) : null;
+/* 外への通信のうち、検査中も通すもの（Google Fonts のフォント） */
+const FONTS = /^https:\/\/fonts\.(googleapis|gstatic)\.com\//;
 
 function serve() {
     const server = http.createServer((req, res) => {
@@ -125,17 +128,18 @@ function inspect() {
 
 (async () => {
     const server = await serve();
-    const url = 'http://127.0.0.1:' + server.address().port + '/index.html';
+    const base = 'http://127.0.0.1:' + server.address().port + '/';
+    const url = base + 'index.html';
     const args = process.env.HTTPS_PROXY ? ['--proxy-server=' + process.env.HTTPS_PROXY, '--proxy-bypass-list=127.0.0.1;localhost', '--ignore-certificate-errors'] : [];
     const browser = await chromium.launch({ args });
     let total = 0;
     for (const [W, H] of VIEWPORTS) {
         if (only && !only.includes(W)) { continue; }
         const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1, isMobile: W < 800, hasTouch: W < 800 });
+        await ctx.route(u => !u.href.startsWith(base) && !FONTS.test(u.href), r => r.abort());
         const page = await ctx.newPage();
         const errors = [];
         page.on('pageerror', e => errors.push(String(e).slice(0, 200)));
-        await page.route(/googletagmanager|google-analytics|maps\.google|hotpepper/, r => r.abort());
         await page.goto(url, { waitUntil: 'load' });
         await page.waitForTimeout(1200);
         const height = await page.evaluate(() => document.documentElement.scrollHeight);
