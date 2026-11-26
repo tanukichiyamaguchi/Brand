@@ -313,6 +313,7 @@
             track.scrollTo({ left: centerOf(0) });
             mark();
         });
+        return { go: go };
     }
 
     /* ---------- スクロール連動: 金のレール／5つの丸／追従CTA／目次の現在地 ---------- */
@@ -387,6 +388,170 @@
                 }
             });
         });
+    }
+
+    /* ---------- 施術事例の写真: タップで大きく表示 ----------
+       写真をタップ（Enter / Space）→ 全画面で表示。写真はタップした場所から広がる。
+       ×・写真の外側のタップ・Esc で閉じる。矢印ボタン・左右のスワイプ・←→キーで前後の写真へ。
+       閉じた時は、カルーセルを最後に見ていた写真に合わせる。ピンチ操作（ブラウザ標準の拡大）はそのまま使える。 */
+    function initPhotoZoom(carousel) {
+        var gallery = $('#gallery');
+        var box = $('#zoom');
+        if (!gallery || !box) { return; }
+        var cards = $$('.gcard', gallery);
+        if (!cards.length) { return; }
+        var panel = $('.zoom__panel', box);
+        var figure = $('.zoom__fig', box);
+        var tag = $('.zoom__tag', box);
+        var name = $('.zoom__jp', box);
+        var now = $('[data-zoom-now]', box);
+        var closeButton = $('[data-zoom-close]', box);
+        var img = null;   /* 初めて開く時に作る（開くまでは、src のない <img> を置かない） */
+        var index = 0;
+        var isOpen = false;
+        var hideTimer = null;
+        $('[data-zoom-total]', box).textContent = String(cards.length);
+
+        function photoOf(i) { return $('.gcard__img img', cards[(i + cards.length) % cards.length]); }
+        function show(i, dir) {
+            index = (i + cards.length) % cards.length;
+            var card = cards[index];
+            var pic = photoOf(index);
+            if (!img) {
+                img = doc.createElement('img');
+                img.className = 'zoom__img';
+                img.decoding = 'async';
+                figure.appendChild(img);
+            }
+            /* 幅・高さを先に伝えて、読み込み前から枠の大きさを確定させる */
+            img.setAttribute('width', pic.getAttribute('width'));
+            img.setAttribute('height', pic.getAttribute('height'));
+            img.alt = pic.getAttribute('alt') || '';
+            img.src = pic.getAttribute('src');
+            tag.textContent = $('.gcard__tag', card).textContent;
+            name.textContent = $('.gcard__jp', card).textContent;
+            now.textContent = String(index + 1);
+            img.classList.remove('is-next', 'is-prev');
+            if (dir && !reduce) {
+                void img.offsetWidth;
+                img.classList.add(dir > 0 ? 'is-next' : 'is-prev');
+            }
+            /* 前後の写真を先に読み込んでおく */
+            [1, -1].forEach(function (step) { new Image().src = photoOf(index + step).getAttribute('src'); });
+        }
+        /* タップした写真の位置から、拡大後の位置へ広がる */
+        function grow(from) {
+            if (reduce || !from || !img.animate) { return; }
+            var to = img.getBoundingClientRect();
+            if (!to.width || !from.width) { return; }
+            img.animate([
+                { transformOrigin: '0 0', transform: 'translate(' + (from.left - to.left) + 'px, ' + (from.top - to.top) + 'px) scale(' + (from.width / to.width) + ', ' + (from.height / to.height) + ')' },
+                { transformOrigin: '0 0', transform: 'none' }
+            ], { duration: 520, easing: 'cubic-bezier(.2, 1, .3, 1)', fill: 'backwards' });
+        }
+        function open(i, frame) {
+            clearTimeout(hideTimer);
+            var from = frame ? frame.getBoundingClientRect() : null;
+            box.hidden = false;
+            show(i, 0);
+            void box.offsetWidth;
+            box.classList.add('is-open');
+            doc.body.style.overflow = 'hidden';
+            isOpen = true;
+            grow(from);
+            closeButton.focus({ preventScroll: true });
+        }
+        function close() {
+            if (!isOpen) { return; }
+            isOpen = false;
+            box.classList.remove('is-open');
+            doc.body.style.overflow = '';
+            clearTimeout(hideTimer);
+            hideTimer = setTimeout(function () { box.hidden = true; }, reduce ? 0 : 380);
+            if (carousel) { carousel.go(index); }
+            var back = $('.gcard__img', cards[index]);
+            if (back) { back.focus({ preventScroll: true }); }
+        }
+
+        /* 写真をタップ → 拡大。虫めがねの合図を付け、キーボードでも開けるようにする */
+        cards.forEach(function (card, i) {
+            var frame = $('.gcard__img', card);
+            var pic = $('img', frame);
+            if (!frame || !pic) { return; }
+            frame.setAttribute('role', 'button');
+            frame.setAttribute('tabindex', '0');
+            frame.setAttribute('aria-haspopup', 'dialog');
+            frame.setAttribute('aria-label', (pic.getAttribute('alt') || '施術事例') + '（タップで拡大）');
+            var badge = doc.createElement('span');
+            badge.className = 'gcard__zoom';
+            badge.setAttribute('aria-hidden', 'true');
+            badge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M10.5 8v5M8 10.5h5"/></svg>';
+            frame.appendChild(badge);
+            frame.addEventListener('click', function () { open(i, frame); });
+            frame.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    open(i, frame);
+                }
+            });
+        });
+
+        box.addEventListener('click', function (event) {
+            var target = event.target;
+            if (target.closest('[data-zoom-close]')) { close(); return; }
+            var step = target.closest('[data-zoom-dir]');
+            if (step) {
+                var d = parseInt(step.getAttribute('data-zoom-dir'), 10);
+                show(index + d, d);
+                return;
+            }
+            if (!target.closest('.zoom__img, .zoom__cap, .zoom__note')) { close(); }   /* 写真・説明の外側をタップ */
+        });
+        doc.addEventListener('keydown', function (event) {
+            if (!isOpen) { return; }
+            if (event.key === 'Escape') {
+                close();
+            } else if (event.key === 'ArrowLeft') {
+                show(index - 1, -1);
+            } else if (event.key === 'ArrowRight') {
+                show(index + 1, 1);
+            } else if (event.key === 'Tab') {
+                /* フォーカスは、拡大表示の中のボタンだけを巡る */
+                var stops = $$('button', box);
+                var first = stops[0];
+                var last = stops[stops.length - 1];
+                if (event.shiftKey && doc.activeElement === first) { event.preventDefault(); last.focus(); }
+                else if (!event.shiftKey && doc.activeElement === last) { event.preventDefault(); first.focus(); }
+            }
+        });
+
+        /* 指で左右になぞると前後の写真へ。1本指のなぞりは後ろのページを動かさない。
+           ピンチで拡大している間は、なぞり（=画面の移動）をブラウザに任せる */
+        var startX = 0;
+        var startY = 0;
+        var swiping = false;
+        function pinched() { return !!(window.visualViewport && window.visualViewport.scale > 1.02); }
+        panel.addEventListener('touchstart', function (event) {
+            swiping = event.touches.length === 1 && !pinched();
+            if (swiping) {
+                startX = event.touches[0].clientX;
+                startY = event.touches[0].clientY;
+            }
+        }, { passive: true });
+        panel.addEventListener('touchmove', function (event) {
+            if (event.touches.length === 1 && !pinched()) { event.preventDefault(); }
+        }, { passive: false });
+        panel.addEventListener('touchend', function (event) {
+            if (!swiping) { return; }
+            swiping = false;
+            var touch = event.changedTouches[0];
+            var dx = touch.clientX - startX;
+            var dy = touch.clientY - startY;
+            if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+                var d = dx < 0 ? 1 : -1;
+                show(index + d, d);
+            }
+        }, { passive: true });
     }
 
     /* ---------- 目次シート（スマホ・タブレット） ---------- */
@@ -546,8 +711,10 @@
         }
         safely('typing', initTyping);
         safely('tap', initTapPulse);
-        safely('gallery', function () { initCarousel($('[data-carousel="gallery"]'), { auto: 3600, pick: true }); });
+        var gallery = null;
+        safely('gallery', function () { gallery = initCarousel($('[data-carousel="gallery"]'), { auto: 3600, pick: true }); });
         safely('voice', function () { initCarousel($('[data-carousel="voice"]'), { auto: 0, nudge: true }); });
+        safely('photo-zoom', function () { initPhotoZoom(gallery); });
         safely('before-after', initBeforeAfter);
         safely('scroll', initScrollLinked);
         safely('faq', initFaq);

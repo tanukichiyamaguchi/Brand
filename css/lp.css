@@ -488,6 +488,20 @@ button { font: inherit; color: inherit; }
 .offer__list b { font-family: var(--f-en); font-weight: 700; font-size: 25px; line-height: 1.25; letter-spacing: .01em; color: var(--ink); white-space: nowrap; }
 .offer__list b small { font-family: var(--f-sans); font-weight: 500; font-size: 13px; margin-left: 1px; }
 .offer__note { margin-top: 6px; font-size: 12px; line-height: 1.6; color: var(--mute); }
+/* 価格のかたまりは、予約ページへのリンク。タイトルの矢印と、触れた時の反応で「押せる」ことを伝える */
+a.offer {
+    display: block; color: inherit; text-decoration: none;
+    box-shadow: 0 6px 14px rgba(60, 45, 15, .07);
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .25s var(--e-out), box-shadow .25s, border-color .25s;
+}
+a.offer:hover { transform: translateY(-2px); border-color: var(--rose); box-shadow: 0 10px 20px rgba(156, 53, 73, .14); }
+a.offer:active { transform: translateY(1px); box-shadow: 0 3px 8px rgba(60, 45, 15, .08); }
+.offer__arrow {
+    display: inline-grid; place-items: center; width: 18px; height: 18px; margin-left: 8px;
+    border-radius: 50%; background: var(--g-rose); color: #fff; vertical-align: -4px;
+}
+.offer__arrow svg { width: 8px; height: 8px; }
 @media (max-width: 359px) {
     .offer__list span { font-size: 12px; letter-spacing: -.01em; }
     .offer__list b { font-size: 23px; }
@@ -559,7 +573,16 @@ button { font: inherit; color: inherit; }
     font-family: var(--f-sans); font-weight: 700; font-size: 15px; letter-spacing: .06em; line-height: 1.5;
 }
 .gcard { cursor: pointer; }
-.gcard__img { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #111; }
+.gcard__img { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #111; cursor: zoom-in; }
+/* 写真をタップすると大きく表示される。その合図の虫めがね（js/lp.js が付ける） */
+.gcard__zoom {
+    position: absolute; right: 8px; bottom: 8px; z-index: 1;
+    width: 30px; height: 30px; border-radius: 50%;
+    display: grid; place-items: center; pointer-events: none;
+    background: rgba(25, 21, 18, .66); color: var(--gold-l);
+    box-shadow: 0 0 0 1px rgba(233, 218, 176, .55);
+}
+.gcard__zoom svg { width: 17px; height: 17px; }
 .gcard__img::after {
     content: ""; position: absolute; inset: -20% auto -20% -60%; width: 34%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .6), transparent);
@@ -1608,6 +1631,75 @@ html:not(.js) .qa__a { grid-template-rows: 1fr; }
 .index--sheet { grid-template-columns: 1fr 1fr; gap: 0 18px; margin-bottom: 20px; }
 .index--sheet a { font-size: 15.5px; padding: 11px 0; border-bottom: 1px solid var(--hair); }
 
+/* ---------- 写真の拡大表示（施術事例の写真をタップ） ---------- */
+.zoom {
+    position: fixed; inset: 0; z-index: 90;
+    background: var(--ink) var(--mb) center / 560px;
+    opacity: 0; transition: opacity .35s;
+    overscroll-behavior: contain;
+}
+.zoom::before { content: ""; position: absolute; inset: 0; background: rgba(25, 21, 18, .7); pointer-events: none; }
+.zoom[hidden] { display: none; }
+.zoom.is-open { opacity: 1; }
+.zoom__panel {
+    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+    color: var(--on-d); cursor: zoom-out;
+}
+.zoom__bar { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 8px 12px 6px 20px; }
+.zoom__ttl {
+    font-family: var(--f-en); font-style: italic; font-weight: 600;
+    font-size: 14px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-l);
+}
+.zoom__close, .zoom__arrow {
+    position: relative; flex: none; width: 44px; height: 44px; padding: 0; border-radius: 50%;
+    border: 1px solid var(--gold); background: rgba(25, 21, 18, .5); color: var(--gold-l);
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+    transition: background .25s, color .25s, transform .25s var(--e-out);
+}
+.zoom__close span { position: absolute; left: 50%; top: 50%; width: 16px; height: 1.5px; margin: -.75px 0 0 -8px; background: currentColor; transform: rotate(45deg); }
+.zoom__close span:last-child { transform: rotate(-45deg); }
+.zoom__arrow { display: grid; place-items: center; }
+.zoom__arrow svg { width: 15px; height: 15px; }
+.zoom__close:hover, .zoom__arrow:hover { background: var(--gold); color: var(--ink); }
+.zoom__close:active, .zoom__arrow:active { transform: scale(.94); }
+.zoom :focus-visible { outline-color: var(--gold-l); }
+.zoom__body { flex: 1; min-height: 0; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.zoom__fig { flex: none; width: 100%; margin: 0; padding: 0 8px; display: grid; place-items: center; }
+/* 写真は、画面の幅と高さ（上の帯・説明・ボタンの分を引いた残り）に収まる大きさで最大に */
+.zoom__img {
+    display: block; width: auto; height: auto; max-width: 100%;
+    max-height: calc(100vh - 236px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    max-height: calc(100dvh - 236px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    border-radius: 10px; background: #111; cursor: default;
+    box-shadow: 0 0 0 1px var(--gold), 0 18px 40px rgba(0, 0, 0, .5);
+}
+.zoom__img.is-next { animation: zoomNext .4s var(--e-out) both; }
+.zoom__img.is-prev { animation: zoomPrev .4s var(--e-out) both; }
+.zoom__cap { margin-top: 14px; text-align: center; cursor: default; }
+.zoom__tag { font-weight: 700; font-size: 15px; letter-spacing: .06em; line-height: 1.5; color: var(--gold-l); }
+.zoom__jp { font-family: var(--f-jp); font-weight: 600; font-size: 20px; letter-spacing: .08em; line-height: 1.5; }
+.zoom__nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 10px; }
+.zoom__count {
+    min-width: 4.6em; text-align: center;
+    font-family: var(--f-en); font-style: italic; font-weight: 600;
+    font-size: 18px; letter-spacing: .14em; color: var(--gold-l);
+}
+.zoom__note { margin: 8px 0 12px; font-size: 12px; line-height: 1.6; text-align: center; color: var(--on-d-mute); cursor: default; }
+/* 開く時: 写真はタップした場所から広がる（js/lp.js）。そのほかの部品は少し遅れて現れ、閉じる時は先に消える */
+.zoom__bar, .zoom__cap, .zoom__nav, .zoom__note { opacity: 0; transition: opacity .3s; }
+.zoom.is-open .zoom__bar, .zoom.is-open .zoom__cap, .zoom.is-open .zoom__nav, .zoom.is-open .zoom__note { opacity: 1; transition: opacity .4s .2s; }
+/* 横向きのスマホ（高さが足りない）: 説明と数字を省き、矢印は写真の左右に重ねて、写真を最大に */
+@media (max-height: 520px) {
+    .zoom__img {
+        max-height: calc(100vh - 66px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+        max-height: calc(100dvh - 66px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    }
+    .zoom__cap, .zoom__note, .zoom__count { display: none; }
+    .zoom__nav { position: absolute; left: 0; right: 0; top: 50%; margin: 0; padding: 0 10px; justify-content: space-between; pointer-events: none; transform: translateY(-50%); }
+    .zoom__arrow { pointer-events: auto; }
+}
+
 /* ---------- keyframes ---------- */
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes rise { from { transform: translateY(112%); } to { transform: none; } }
@@ -1641,6 +1733,8 @@ html:not(.js) .qa__a { grid-template-rows: 1fr; }
 }
 @keyframes glint { 0% { left: -60%; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { left: 130%; opacity: 0; } }
 @keyframes lift { 0%, 100% { transform: none; } 50% { transform: rotate(-7deg) scaleY(1.1); } }
+@keyframes zoomNext { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+@keyframes zoomPrev { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
 @keyframes stamp { from { opacity: 0; transform: rotate(-10deg) scale(2.3); } to { opacity: 1; transform: rotate(-10deg) scale(1); } }
 @keyframes nudge { 0%, 55%, 100% { transform: none; } 68% { transform: translateX(-3px); } 84% { transform: translateX(3px); } }
 
